@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 4.0                                    */
-/* Created on:     1/22/2015 11:49:23 PM                        */
+/* Created on:     1/23/2015 9:33:24 AM                         */
 /*==============================================================*/
 
 
@@ -9,10 +9,10 @@
 /*==============================================================*/
 create table BDDVMOI
 (
-   DOTBD                          nvarchar(100)                           not null,
+   DOTBD                          national varchar(5)            not null,
    NGAYBD                         date,
    NGAYKT                         date,
-   GHICHU                         nvarchar(100),
+   GHICHU                         national varchar(100),
    primary key (DOTBD)
 );
 
@@ -21,8 +21,10 @@ create table BDDVMOI
 /*==============================================================*/
 create table CHIBO
 (
-   MACB                           nvarchar(100)                           not null,
-   TENCB                          nvarchar(100),
+   MACB                           national varchar(5)            not null,
+   TENCB                          national varchar(100),
+   TENTK                          national varchar(100),
+   MATKHAU                        national varchar(100),
    primary key (MACB)
 );
 
@@ -31,8 +33,8 @@ create table CHIBO
 /*==============================================================*/
 create table CHUCVU
 (
-   MACV                           nvarchar(100)                           not null,
-   TENCV                          nvarchar(100),
+   MACV                           national varchar(5)            not null,
+   TENCV                          national varchar(100),
    primary key (MACV)
 );
 
@@ -41,8 +43,8 @@ create table CHUCVU
 /*==============================================================*/
 create table CHUYENMON
 (
-   MACM                           nvarchar(100)                           not null,
-   TENCM                          nvarchar(100),
+   MACM                           national varchar(5)            not null,
+   TENCM                          national varchar(100),
    primary key (MACM)
 );
 
@@ -51,9 +53,37 @@ create table CHUYENMON
 /*==============================================================*/
 create table CO_TDNN
 (
-   MADANGVIEN                     nvarchar(100)                           not null,
-   MANGOAINGU                     nvarchar(100)                           not null,
+   MADANGVIEN                     national varchar(5)            not null,
+   MANGOAINGU                     national varchar(5)            not null,
    primary key (MADANGVIEN, MANGOAINGU)
+);
+
+/*==============================================================*/
+/* Table: CVDEN                                                 */
+/*==============================================================*/
+create table CVDEN
+(
+   STTCVDEN                       int                            not null,
+   NGAY                           date                           not null,
+   TENCVDEN                       national varchar(100),
+   NOIGOIDEN                      national varchar(100),
+   TAPHSLUU                       national varchar(20),
+   GHICHUCVDEN                    national varchar(100),
+   primary key (STTCVDEN)
+);
+
+/*==============================================================*/
+/* Table: CVDI                                                  */
+/*==============================================================*/
+create table CVDI
+(
+   SOCVDI                         int                            not null,
+   NGAY                           date                           not null,
+   TENCVDI                        national varchar(100),
+   NGAYGOI                        date,
+   NOIGOIDI                       national varchar(100),
+   GHICHUCVDI                     national varchar(100),
+   primary key (SOCVDI)
 );
 
 /*==============================================================*/
@@ -61,8 +91,8 @@ create table CO_TDNN
 /*==============================================================*/
 create table DANGPHI
 (
-   THANGNAM                       date                           not null,
-   MADANGVIEN                     nvarchar(100)                           not null,
+   THANGNAM                       national varchar(7)            not null,
+   MADANGVIEN                     national varchar(5)            not null,
    SOTIEN                         int,
    primary key (THANGNAM)
 );
@@ -72,38 +102,38 @@ create table DANGPHI
 /*==============================================================*/
 create table DANGVIEN
 (
-   MADANGVIEN                     nvarchar(100)                           not null,
-   MANV                           nvarchar(100),
-   MAPX                           nvarchar(100)                           not null,
-   PHU_MAPX                       nvarchar(100)                           not null,
-   PHU_MAPX2                      nvarchar(100)                           not null,
-   MADT                           nvarchar(100)                           not null,
-   MANN                           nvarchar(100)                           not null,
-   MAHOCVI                        nvarchar(100),
-   MACM                           nvarchar(100),
-   MATRINHDOVH                    nvarchar(100)                           not null,
-   MATONGIAO                      nvarchar(100)                           not null,
-   MAHOCHAM                       nvarchar(100),
-   PHU_MAPX3                      nvarchar(100)                           not null,
-   HOTENKHAISINH                  nvarchar(100),
-   HOTENSUDUNG                    nvarchar(100),
-   BIDANH                         nvarchar(100),
+   MADANGVIEN                     national varchar(5)            not null,
+   MANV                           national varchar(5),
+   MAPX                           national varchar(5)            not null,
+   PHU_MAPX                       national varchar(5)            not null,
+   PHU_MAPX2                      national varchar(5)            not null,
+   MADT                           national varchar(5)            not null,
+   MANN                           national varchar(5)            not null,
+   MAHOCVI                        national varchar(5),
+   MACM                           national varchar(5),
+   MATRINHDOVH                    national varchar(5)            not null,
+   MATONGIAO                      national varchar(5)            not null,
+   MAHOCHAM                       national varchar(5),
+   PHU_MAPX3                      national varchar(5)            not null,
+   HOTENKHAISINH                  national varchar(100),
+   HOTENSUDUNG                    national varchar(100),
+   BIDANH                         national varchar(100),
    GIOITINH                       bool,
    NGAYSINH                       date,
-   HOKHAU                         nvarchar(100),
+   HOKHAU                         national varchar(100),
    CMND                           int,
    THAMGIACM                      date,
-   SUCKHOE                        nvarchar(100),
-   THUONGBINH                     nvarchar(100),
+   SUCKHOE                        national varchar(10),
+   THUONGBINH                     national varchar(100),
    LIETSI                         bool,
    COCONGCM                       bool,
-   XOA                            bool,
    NHAPNGU                        date,
    XUATNGU                        date,
-   NGUOIGT1                       nvarchar(100),
-   NGUOIGT2                       nvarchar(100),
-   HINHANH                        nvarchar(100),
+   NGUOIGT1                       national varchar(100),
+   NGUOIGT2                       national varchar(100),
+   HINHANH                        national varchar(200),
    CHUNGNHANCTD                   date,
+   XOA                            bool,
    primary key (MADANGVIEN)
 );
 
@@ -112,9 +142,9 @@ create table DANGVIEN
 /*==============================================================*/
 create table DANHHIEU
 (
-   MADANHHIEU                     nvarchar(100)                           not null,
-   MADANGVIEN                     nvarchar(100)                           not null,
-   TENDANHHIEU                    nvarchar(100),
+   MADANHHIEU                     national varchar(5)            not null,
+   MADANGVIEN                     national varchar(5)            not null,
+   TENDANHHIEU                    national varchar(100),
    primary key (MADANHHIEU)
 );
 
@@ -123,8 +153,8 @@ create table DANHHIEU
 /*==============================================================*/
 create table DANTOC
 (
-   MADT                           nvarchar(100)                           not null,
-   TENDT                          nvarchar(100),
+   MADT                           national varchar(5)            not null,
+   TENDT                          national varchar(100),
    primary key (MADT)
 );
 
@@ -134,9 +164,9 @@ create table DANTOC
 create table DINUOCNGOAI
 (
    STT                            int                            not null,
-   MADANGVIEN                     nvarchar(100)                           not null,
-   QUOCGIA                        nvarchar(100),
-   LYDODI                         nvarchar(100),
+   MADANGVIEN                     national varchar(5)            not null,
+   QUOCGIA                        national varchar(20),
+   LYDODI                         national varchar(100),
    NGAYDI                         date,
    NGAYVE                         date,
    primary key (STT)
@@ -147,9 +177,9 @@ create table DINUOCNGOAI
 /*==============================================================*/
 create table GIUCV
 (
-   MANHIEMKY                      nvarchar(100)                           not null,
-   MACV                           nvarchar(100)                           not null,
-   MADANGVIEN                     nvarchar(100)                           not null,
+   MANHIEMKY                      national varchar(5)            not null,
+   MACV                           national varchar(5)            not null,
+   MADANGVIEN                     national varchar(5)            not null,
    NGAYGIUCV                      date,
    NGAYTHOICV                     date,
    primary key (MANHIEMKY, MACV, MADANGVIEN)
@@ -160,8 +190,8 @@ create table GIUCV
 /*==============================================================*/
 create table HINHTHUCKL
 (
-   MAHTKL                         nvarchar(100)                           not null,
-   TENHTKL                        nvarchar(100),
+   MAHTKL                         national varchar(5)            not null,
+   TENHTKL                        national varchar(100),
    primary key (MAHTKL)
 );
 
@@ -170,8 +200,8 @@ create table HINHTHUCKL
 /*==============================================================*/
 create table HINHTHUCKT
 (
-   MAHTKT                         nvarchar(100)                           not null,
-   TENHTKT                        nvarchar(100),
+   MAHTKT                         national varchar(5)            not null,
+   TENHTKT                        national varchar(100),
    primary key (MAHTKT)
 );
 
@@ -180,8 +210,8 @@ create table HINHTHUCKT
 /*==============================================================*/
 create table HOCHAM
 (
-   MAHOCHAM                       nvarchar(100)                           not null,
-   TENHOCHAM                      nvarchar(100),
+   MAHOCHAM                       national varchar(5)            not null,
+   TENHOCHAM                      national varchar(100),
    primary key (MAHOCHAM)
 );
 
@@ -190,8 +220,8 @@ create table HOCHAM
 /*==============================================================*/
 create table HOCVI
 (
-   MAHOCVI                        nvarchar(100)                           not null,
-   TENHOCVI                       nvarchar(100),
+   MAHOCVI                        national varchar(5)            not null,
+   TENHOCVI                       national varchar(100),
    primary key (MAHOCVI)
 );
 
@@ -200,9 +230,9 @@ create table HOCVI
 /*==============================================================*/
 create table HUYHIEUDANG
 (
-   MAHH                           nvarchar(100)                           not null,
-   MADANGVIEN                     nvarchar(100)                           not null,
-   TENHH                          nvarchar(100),
+   MAHH                           national varchar(5)            not null,
+   MADANGVIEN                     national varchar(5)            not null,
+   TENHH                          national varchar(100),
    NGAYCAPHH                      date,
    primary key (MAHH)
 );
@@ -212,11 +242,11 @@ create table HUYHIEUDANG
 /*==============================================================*/
 create table KHENTHUONGCB
 (
-   MAHTKT                         nvarchar(100)                           not null,
-   MACB                           nvarchar(100)                           not null,
+   MAHTKT                         national varchar(5)            not null,
+   MACB                           national varchar(5)            not null,
    NAM                            int                            not null,
    STTKTCB                        int,
-   LYDOKTCB                       nvarchar(100),
+   LYDOKTCB                       national varchar(100),
    primary key (MAHTKT, MACB, NAM)
 );
 
@@ -225,13 +255,13 @@ create table KHENTHUONGCB
 /*==============================================================*/
 create table KHENTHUONGDV
 (
-   MADANGVIEN                     nvarchar(100)                           not null,
-   MAHTKT                         nvarchar(100)                           not null,
+   MADANGVIEN                     national varchar(5)            not null,
+   MAHTKT                         national varchar(5)            not null,
    NAM                            int                            not null,
    STTKT                          int,
-   LYDOKTDV                       nvarchar(100),
+   LYDOKTDV                       national varchar(100),
    NGAYLAPKT                      date,
-   CAPQUYETDINH                   nvarchar(100),
+   CAPQUYETDINH                   national varchar(100),
    primary key (MADANGVIEN, MAHTKT, NAM)
 );
 
@@ -240,12 +270,23 @@ create table KHENTHUONGDV
 /*==============================================================*/
 create table KYLUAT
 (
-   MAHTKL                         nvarchar(100)                           not null,
-   MAKYLUAT                       nvarchar(100)                           not null,
-   MADANGVIEN                     nvarchar(100)                           not null,
-   LYDOKLDV                       nvarchar(100),
+   MAHTKL                         national varchar(5)            not null,
+   MAKYLUAT                       national varchar(10)           not null,
+   MADANGVIEN                     national varchar(5)            not null,
+   LYDOKLDV                       national varchar(100),
    NGAYKL                         date,
    primary key (MAHTKL, MAKYLUAT)
+);
+
+/*==============================================================*/
+/* Table: LUONGCB                                               */
+/*==============================================================*/
+create table LUONGCB
+(
+   STTLUONGCB                     int                            not null,
+   LUONGCB                        int,
+   DAXOA                          bool,
+   primary key (STTLUONGCB)
 );
 
 /*==============================================================*/
@@ -253,19 +294,20 @@ create table KYLUAT
 /*==============================================================*/
 create table LYLICH
 (
-   MADANGVIEN                     nvarchar(100)                           not null,
-   DOTBD                          nvarchar(100)                           not null,
-   MATRINHDOCT                    nvarchar(100)                           not null,
-   MACB                           nvarchar(100)                           not null,
-   SOLL                           nvarchar(100),
+   MADANGVIEN                     national varchar(5)            not null,
+   DOTBD                          national varchar(5)            not null,
+   MATRINHDOCT                    national varchar(5)            not null,
+   SOTHE                          int,
+   MACB                           national varchar(5)            not null,
+   SOLL                           national varchar(5),
    MIENCT_SHD                     date,
    NGAYVAODANG                    date,
    NGAYRAKHOIDANG                 date,
-   HINHTHUCRAKHOIDANG             nvarchar(100),
+   HINHTHUCRAKHOIDANG             national varchar(100),
    NGAYTUTRAN                     date,
-   LYDOTUTRAN                     nvarchar(100),
+   LYDOTUTRAN                     national varchar(100),
    NGAYVAODANGCHINTHUC            date,
-   NGHENGHIEPTRUOCKHIVAODANG      nvarchar(100),
+   NGHENGHIEPTRUOCKHIVAODANG      national varchar(100),
    HSLUONG                        float,
    HSCHUCVU                       float,
    HSTHAMNIEN                     float,
@@ -279,8 +321,17 @@ create table LYLICH
 create table NAM
 (
    NAM                            int                            not null,
-   MADANHHIEU                     nvarchar(100)                           not null,
+   MADANHHIEU                     national varchar(5)            not null,
    primary key (NAM)
+);
+
+/*==============================================================*/
+/* Table: NGAY                                                  */
+/*==============================================================*/
+create table NGAY
+(
+   NGAY                           date                           not null,
+   primary key (NGAY)
 );
 
 /*==============================================================*/
@@ -288,8 +339,8 @@ create table NAM
 /*==============================================================*/
 create table NGHENGHIEP
 (
-   MANN                           nvarchar(100)                           not null,
-   TENNN                          nvarchar(100),
+   MANN                           national varchar(5)            not null,
+   TENNN                          national varchar(100),
    primary key (MANN)
 );
 
@@ -298,8 +349,8 @@ create table NGHENGHIEP
 /*==============================================================*/
 create table NGHIEPVU
 (
-   MANV                           nvarchar(100)                           not null,
-   TENNV                          nvarchar(100),
+   MANV                           national varchar(5)            not null,
+   TENNV                          national varchar(100),
    primary key (MANV)
 );
 
@@ -309,19 +360,19 @@ create table NGHIEPVU
 create table NGHIQUYET
 (
    SONQ                           int                            not null,
-   MACB                           nvarchar(100),
-   NGAYLAP                        date,
+   NGAY                           date                           not null,
+   MACB                           national varchar(5),
    TONGSOUVBCH                    int,
    SLCOMAT                        int,
    SLVANGMAT                      int,
-   LYDOVANG                       nvarchar(100),
-   CHUTRI                         nvarchar(100),
-   THUKY                          nvarchar(100),
-   UUDIEM                         nvarchar(100),
-   KHUYETDIEM                     nvarchar(100),
+   LYDOVANG                       national varchar(100),
+   CHUTRI                         national varchar(100),
+   THUKY                          national varchar(100),
+   UUDIEM                         national varchar(100),
+   KHUYETDIEM                     national varchar(100),
    SLTANTHANH                     int,
    SLKTANTHANH                    int,
-   LYDOKTANTHANH                  nvarchar(100),
+   LYDOKTANTHANH                  national varchar(100),
    NQDU                           bool,
    NQCB                           bool,
    primary key (SONQ)
@@ -332,8 +383,8 @@ create table NGHIQUYET
 /*==============================================================*/
 create table NGOAINGU
 (
-   MANGOAINGU                     nvarchar(100)                           not null,
-   TENNGOAINGU                    nvarchar(100),
+   MANGOAINGU                     national varchar(5)            not null,
+   TENNGOAINGU                    national varchar(20),
    primary key (MANGOAINGU)
 );
 
@@ -342,13 +393,13 @@ create table NGOAINGU
 /*==============================================================*/
 create table NGUOITHANNT
 (
-   MADANGVIEN                     nvarchar(100)                           not null,
+   MADANGVIEN                     national varchar(5)            not null,
    STTNT                          int                            not null,
-   TENNT                          nvarchar(100),
-   NOICUTRU                       nvarchar(100),
-   QUANHE                         nvarchar(100),
-   NGHENGHIEP                     nvarchar(100),
-   DACDIEMCT                      nvarchar(100),
+   TENNT                          national varchar(100),
+   NOICUTRU                       national varchar(100),
+   QUANHE                         national varchar(100),
+   NGHENGHIEP                     national varchar(100),
+   DACDIEMCT                      national varchar(1000),
    NGAYSINHNT                     date,
    primary key (MADANGVIEN, STTNT)
 );
@@ -358,9 +409,9 @@ create table NGUOITHANNT
 /*==============================================================*/
 create table NHIEMKY
 (
-   MANHIEMKY                      nvarchar(100)                           not null,
-   TUNAM                          nvarchar(100),
-   DENNAM                         nvarchar(100),
+   MANHIEMKY                      national varchar(5)            not null,
+   TUNAM                          national varchar(4),
+   DENNAM                         national varchar(4),
    primary key (MANHIEMKY)
 );
 
@@ -370,8 +421,8 @@ create table NHIEMKY
 create table PHANLOAICB
 (
    NAM                            int                            not null,
-   MACB                           nvarchar(100)                           not null,
-   MUCPLCB                        nvarchar(100),
+   MACB                           national varchar(5)            not null,
+   MUCPLCB                        national varchar(10),
    primary key (NAM, MACB)
 );
 
@@ -380,9 +431,9 @@ create table PHANLOAICB
 /*==============================================================*/
 create table PHANLOAIDV
 (
-   MADANGVIEN                     nvarchar(100)                           not null,
+   MADANGVIEN                     national varchar(5)            not null,
    NAM                            int                            not null,
-   MUCPLDV                        nvarchar(100),
+   MUCPLDV                        national varchar(10),
    primary key (MADANGVIEN, NAM)
 );
 
@@ -391,9 +442,9 @@ create table PHANLOAIDV
 /*==============================================================*/
 create table PHUONGXA
 (
-   MAPX                           nvarchar(100)                           not null,
-   MAQH                           nvarchar(100)                           not null,
-   TENPX                          nvarchar(100),
+   MAPX                           national varchar(5)            not null,
+   MAQH                           national varchar(5)            not null,
+   TENPX                          national varchar(100),
    primary key (MAPX)
 );
 
@@ -402,9 +453,9 @@ create table PHUONGXA
 /*==============================================================*/
 create table QUANHUYEN
 (
-   MAQH                           nvarchar(100)                           not null,
-   MATT                           nvarchar(100)                           not null,
-   TENQH                          nvarchar(100),
+   MAQH                           national varchar(5)            not null,
+   MATT                           national varchar(5)            not null,
+   TENQH                          national varchar(100),
    primary key (MAQH)
 );
 
@@ -414,9 +465,9 @@ create table QUANHUYEN
 create table QUATRINHCT
 (
    STTQT                          int                            not null,
-   MADANGVIEN                     nvarchar(100)                           not null,
-   CHUCVU                         nvarchar(100),
-   DONVI                          nvarchar(100),
+   MADANGVIEN                     national varchar(5)            not null,
+   LAMCV                          national varchar(100),
+   DONVI                          national varchar(200),
    NGAYNHANCV                     date,
    NGAYHETCV                      date,
    primary key (STTQT)
@@ -428,14 +479,29 @@ create table QUATRINHCT
 create table QUATRINHDT
 (
    STTDT                          int                            not null,
-   MADANGVIEN                     nvarchar(100)                           not null,
-   TENTRUONG                      nvarchar(100),
-   NGANHHOC                       nvarchar(100),
-   NAMDB                          nvarchar(100),
-   NAMKT                          nvarchar(100),
-   HINHTHUCHOC                    nvarchar(100),
-   VB_CC                          nvarchar(100),
+   MADANGVIEN                     national varchar(5)            not null,
+   TENTRUONG                      national varchar(100),
+   NGANHHOC                       national varchar(100),
+   NAMDB                          national varchar(4),
+   NAMKT                          national varchar(4),
+   HINHTHUCHOC                    national varchar(100),
+   VB_CC                          national varchar(100),
    primary key (STTDT)
+);
+
+/*==============================================================*/
+/* Table: QUYETDINH                                             */
+/*==============================================================*/
+create table QUYETDINH
+(
+   SOQD                           int                            not null,
+   NGAY                           date                           not null,
+   TENQD                          national varchar(100),
+   CACQD                          national varchar(1000),
+   NOINHAN                        national varchar(100),
+   NGUOIKY                        national varchar(100),
+   CVNGUOIKY                      national varchar(100),
+   primary key (SOQD)
 );
 
 /*==============================================================*/
@@ -443,7 +509,8 @@ create table QUATRINHDT
 /*==============================================================*/
 create table THANGNAM
 (
-   THANGNAM                       date                           not null,
+   THANGNAM                       national varchar(7)            not null,
+   STTLUONGCB                     int                            not null,
    primary key (THANGNAM)
 );
 
@@ -453,9 +520,21 @@ create table THANGNAM
 create table THEDV
 (
    SOTHE                          int                            not null,
-   MADANGVIEN                     nvarchar(100)                           not null,
+   MADANGVIEN                     national varchar(5)            not null,
    NGAYCAPTHE                     date,
    primary key (SOTHE)
+);
+
+/*==============================================================*/
+/* Table: THONGBAO                                              */
+/*==============================================================*/
+create table THONGBAO
+(
+   STTTB                          int                            not null,
+   NGAY                           date                           not null,
+   TENTB                          national varchar(100),
+   NOIDUNG                        national varchar(1000),
+   primary key (STTTB)
 );
 
 /*==============================================================*/
@@ -463,8 +542,8 @@ create table THEDV
 /*==============================================================*/
 create table TINHTHANH
 (
-   MATT                           nvarchar(100)                           not null,
-   TENTT                          nvarchar(100),
+   MATT                           national varchar(5)            not null,
+   TENTT                          national varchar(100),
    primary key (MATT)
 );
 
@@ -473,8 +552,8 @@ create table TINHTHANH
 /*==============================================================*/
 create table TONGIAO
 (
-   MATONGIAO                      nvarchar(100)                           not null,
-   TENTONGIAO                     nvarchar(100),
+   MATONGIAO                      national varchar(5)            not null,
+   TENTONGIAO                     national varchar(100),
    primary key (MATONGIAO)
 );
 
@@ -483,8 +562,8 @@ create table TONGIAO
 /*==============================================================*/
 create table TRINHDOCT
 (
-   MATRINHDOCT                    nvarchar(100)                           not null,
-   TENTRINHDOCT                   nvarchar(100),
+   MATRINHDOCT                    national varchar(5)            not null,
+   TENTRINHDOCT                   national varchar(100),
    primary key (MATRINHDOCT)
 );
 
@@ -493,8 +572,8 @@ create table TRINHDOCT
 /*==============================================================*/
 create table TRINHDOVH
 (
-   MATRINHDOVH                    nvarchar(100)                           not null,
-   TENTRINHDOVH                   nvarchar(100),
+   MATRINHDOVH                    national varchar(5)            not null,
+   TENTRINHDOVH                   national varchar(100),
    primary key (MATRINHDOVH)
 );
 
@@ -503,6 +582,12 @@ alter table CO_TDNN add constraint FK_CO_TDNN foreign key (MADANGVIEN)
 
 alter table CO_TDNN add constraint FK_CO_TDNN2 foreign key (MANGOAINGU)
       references NGOAINGU (MANGOAINGU) on delete restrict on update restrict;
+
+alter table CVDEN add constraint FK_NGAY_CVDEN foreign key (NGAY)
+      references NGAY (NGAY) on delete restrict on update restrict;
+
+alter table CVDI add constraint FK_NGAY_CVDI foreign key (NGAY)
+      references NGAY (NGAY) on delete restrict on update restrict;
 
 alter table DANGPHI add constraint FK_CUA_THANGNAM foreign key (THANGNAM)
       references THANGNAM (THANGNAM) on delete restrict on update restrict;
@@ -597,6 +682,9 @@ alter table LYLICH add constraint FK_CO_LL foreign key (MADANGVIEN)
 alter table LYLICH add constraint FK_CO_TDCT foreign key (MATRINHDOCT)
       references TRINHDOCT (MATRINHDOCT) on delete restrict on update restrict;
 
+alter table LYLICH add constraint FK_CUA_DV2 foreign key (SOTHE)
+      references THEDV (SOTHE) on delete restrict on update restrict;
+
 alter table LYLICH add constraint FK_THUOC_CB foreign key (MACB)
       references CHIBO (MACB) on delete restrict on update restrict;
 
@@ -605,6 +693,9 @@ alter table NAM add constraint FK_DH_NAM foreign key (MADANHHIEU)
 
 alter table NGHIQUYET add constraint FK_CO_NQ foreign key (MACB)
       references CHIBO (MACB) on delete restrict on update restrict;
+
+alter table NGHIQUYET add constraint FK_NGAY_LAP_NQ foreign key (NGAY)
+      references NGAY (NGAY) on delete restrict on update restrict;
 
 alter table NGUOITHANNT add constraint FK_CO_NT foreign key (MADANGVIEN)
       references DANGVIEN (MADANGVIEN) on delete restrict on update restrict;
@@ -633,6 +724,15 @@ alter table QUATRINHCT add constraint FK_CONGTAC foreign key (MADANGVIEN)
 alter table QUATRINHDT add constraint FK_DAOTAO foreign key (MADANGVIEN)
       references LYLICH (MADANGVIEN) on delete restrict on update restrict;
 
+alter table QUYETDINH add constraint FK_NGAY_LAP_QD foreign key (NGAY)
+      references NGAY (NGAY) on delete restrict on update restrict;
+
+alter table THANGNAM add constraint FK_LUONG_THANG foreign key (STTLUONGCB)
+      references LUONGCB (STTLUONGCB) on delete restrict on update restrict;
+
 alter table THEDV add constraint FK_CUA_DV foreign key (MADANGVIEN)
       references LYLICH (MADANGVIEN) on delete restrict on update restrict;
+
+alter table THONGBAO add constraint FK_NGAY_TB foreign key (NGAY)
+      references NGAY (NGAY) on delete restrict on update restrict;
 
