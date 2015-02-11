@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 4.0                                    */
-/* Created on:     1/23/2015 9:33:24 AM                         */
+/* Created on:     2/5/2015 1:27:35 PM                          */
 /*==============================================================*/
 
 
@@ -14,6 +14,42 @@ create table BDDVMOI
    NGAYKT                         date,
    GHICHU                         national varchar(100),
    primary key (DOTBD)
+);
+
+/*==============================================================*/
+/* Table: CAMTINHDANG                                           */
+/*==============================================================*/
+create table CAMTINHDANG
+(
+   STTCTD                         int                            not null,
+   MACB                           national varchar(5)            not null,
+   THANGNAM                       national varchar(7)            not null,
+   HOVATEN                        national varchar(100),
+   DOANVIEN                       bool,
+   NGAYCONGNHANCTD                date,
+   CHUNGNHANCT_                   date,
+   LLNHAP                         bool,
+   CBTHONGQUA                     bool,
+   LLCHINH                        bool,
+   XACMINH                        bool,
+   YKIENCUTRU                     bool,
+   YKIENDOANTHE                   bool,
+   GIAYGTDANGVIEN                 bool,
+   GIAYGTDOANTHE                  bool,
+   XETKETNAP                      national varchar(10),
+   CHUYENDANGUY                   bool,
+   NGUOIHD                        national varchar(100),
+   primary key (STTCTD)
+);
+
+/*==============================================================*/
+/* Table: CAPTHEDANG                                            */
+/*==============================================================*/
+create table CAPTHEDANG
+(
+   MADANGVIEN                     national varchar(5)            not null,
+   STTCAPTHE                      int                            not null,
+   primary key (MADANGVIEN, STTCAPTHE)
 );
 
 /*==============================================================*/
@@ -103,36 +139,37 @@ create table DANGPHI
 create table DANGVIEN
 (
    MADANGVIEN                     national varchar(5)            not null,
+   STTTBINH                       int,
+   SOGIAYGT                       int                            not null,
    MANV                           national varchar(5),
+   STTXNN                         int,
    MAPX                           national varchar(5)            not null,
    PHU_MAPX                       national varchar(5)            not null,
-   PHU_MAPX2                      national varchar(5)            not null,
+   PHU_MAPX3                      national varchar(5)            not null,
    MADT                           national varchar(5)            not null,
    MANN                           national varchar(5)            not null,
    MAHOCVI                        national varchar(5),
    MACM                           national varchar(5),
    MATRINHDOVH                    national varchar(5)            not null,
-   MATONGIAO                      national varchar(5)            not null,
+   MATONGIAO                      national varchar(5),
    MAHOCHAM                       national varchar(5),
-   PHU_MAPX3                      national varchar(5)            not null,
+   PHU_MAPX2                      national varchar(5),
    HOTENKHAISINH                  national varchar(100),
    HOTENSUDUNG                    national varchar(100),
    BIDANH                         national varchar(100),
    GIOITINH                       bool,
    NGAYSINH                       date,
-   HOKHAU                         national varchar(100),
    CMND                           int,
    THAMGIACM                      date,
    SUCKHOE                        national varchar(10),
-   THUONGBINH                     national varchar(100),
-   LIETSI                         bool,
+   GDLIETSI                       bool,
    COCONGCM                       bool,
-   NHAPNGU                        date,
-   XUATNGU                        date,
    NGUOIGT1                       national varchar(100),
    NGUOIGT2                       national varchar(100),
    HINHANH                        national varchar(200),
    CHUNGNHANCTD                   date,
+   EMAIL                          national varchar(100),
+   SDT                            national varchar(11),
    XOA                            bool,
    primary key (MADANGVIEN)
 );
@@ -170,6 +207,42 @@ create table DINUOCNGOAI
    NGAYDI                         date,
    NGAYVE                         date,
    primary key (STT)
+);
+
+/*==============================================================*/
+/* Table: DSCAPHHD                                              */
+/*==============================================================*/
+create table DSCAPHHD
+(
+   STTCAPHHD                      int                            not null,
+   LOAICAPHHD                     int,
+   DOTCAPHHD                      date,
+   primary key (STTCAPHHD)
+);
+
+/*==============================================================*/
+/* Table: DSCAPTHEDANG                                          */
+/*==============================================================*/
+create table DSCAPTHEDANG
+(
+   STTCAPTHE                      int                            not null,
+   LOAICAPTHE                     int,
+   DOTCAPTHE                      date,
+   primary key (STTCAPTHE)
+);
+
+/*==============================================================*/
+/* Table: GIAYCHUYENSHD                                         */
+/*==============================================================*/
+create table GIAYCHUYENSHD
+(
+   SOGIAYGT                       int                            not null,
+   NGAY                           date                           not null,
+   GUIDEN                         national varchar(100),
+   NOICHUYENDEN                   national varchar(100),
+   NGUOIKY                        national varchar(100),
+   CVNGUOIKY                      national varchar(100),
+   primary key (SOGIAYGT)
 );
 
 /*==============================================================*/
@@ -295,10 +368,12 @@ create table LUONGCB
 create table LYLICH
 (
    MADANGVIEN                     national varchar(5)            not null,
+   STTCAPHHD                      int,
    DOTBD                          national varchar(5)            not null,
-   MATRINHDOCT                    national varchar(5)            not null,
-   SOTHE                          int,
+   STTLUONGCB                     int                            not null,
    MACB                           national varchar(5)            not null,
+   SOTHE                          int,
+   MATRINHDOCT                    national varchar(5)            not null,
    SOLL                           national varchar(5),
    MIENCT_SHD                     date,
    NGAYVAODANG                    date,
@@ -499,8 +574,8 @@ create table QUYETDINH
    TENQD                          national varchar(100),
    CACQD                          national varchar(1000),
    NOINHAN                        national varchar(100),
-   NGUOIKY                        national varchar(100),
-   CVNGUOIKY                      national varchar(100),
+   NGUOIKYQD                      national varchar(100),
+   CVNGUOIKYQD                    national varchar(100),
    primary key (SOQD)
 );
 
@@ -510,7 +585,6 @@ create table QUYETDINH
 create table THANGNAM
 (
    THANGNAM                       national varchar(7)            not null,
-   STTLUONGCB                     int                            not null,
    primary key (THANGNAM)
 );
 
@@ -535,6 +609,17 @@ create table THONGBAO
    TENTB                          national varchar(100),
    NOIDUNG                        national varchar(1000),
    primary key (STTTB)
+);
+
+/*==============================================================*/
+/* Table: THUONGBINH                                            */
+/*==============================================================*/
+create table THUONGBINH
+(
+   STTTBINH                       int                            not null,
+   MADANGVIEN                     national varchar(5)            not null,
+   LOAITB                         national varchar(10),
+   primary key (STTTBINH)
 );
 
 /*==============================================================*/
@@ -576,6 +661,30 @@ create table TRINHDOVH
    TENTRINHDOVH                   national varchar(100),
    primary key (MATRINHDOVH)
 );
+
+/*==============================================================*/
+/* Table: XUATNHAPNGU                                           */
+/*==============================================================*/
+create table XUATNHAPNGU
+(
+   STTXNN                         int                            not null,
+   MADANGVIEN                     national varchar(5)            not null,
+   NGAYNHAPNGU                    date,
+   NGAYXUATNGU                    date,
+   primary key (STTXNN)
+);
+
+alter table CAMTINHDANG add constraint FK_CTD_CHIBO foreign key (MACB)
+      references CHIBO (MACB) on delete restrict on update restrict;
+
+alter table CAMTINHDANG add constraint FK_CTD_THANGNAM foreign key (THANGNAM)
+      references THANGNAM (THANGNAM) on delete restrict on update restrict;
+
+alter table CAPTHEDANG add constraint FK_CAPTHEDANG foreign key (STTCAPTHE)
+      references DSCAPTHEDANG (STTCAPTHE) on delete restrict on update restrict;
+
+alter table CAPTHEDANG add constraint FK_CAPTHEDANG2 foreign key (MADANGVIEN)
+      references LYLICH (MADANGVIEN) on delete restrict on update restrict;
 
 alter table CO_TDNN add constraint FK_CO_TDNN foreign key (MADANGVIEN)
       references DANGVIEN (MADANGVIEN) on delete restrict on update restrict;
@@ -622,10 +731,19 @@ alter table DANGVIEN add constraint FK_CO_TDVH foreign key (MATRINHDOVH)
 alter table DANGVIEN add constraint FK_CO_TG foreign key (MATONGIAO)
       references TONGIAO (MATONGIAO) on delete restrict on update restrict;
 
-alter table DANGVIEN add constraint FK_NOI_TAMTRU foreign key (PHU_MAPX3)
+alter table DANGVIEN add constraint FK_DV_TB2 foreign key (STTTBINH)
+      references THUONGBINH (STTTBINH) on delete restrict on update restrict;
+
+alter table DANGVIEN add constraint FK_DV_XNN2 foreign key (STTXNN)
+      references XUATNHAPNGU (STTXNN) on delete restrict on update restrict;
+
+alter table DANGVIEN add constraint FK_GT_CHUYENSHD foreign key (SOGIAYGT)
+      references GIAYCHUYENSHD (SOGIAYGT) on delete restrict on update restrict;
+
+alter table DANGVIEN add constraint FK_NOI_TAMTRU foreign key (PHU_MAPX2)
       references PHUONGXA (MAPX) on delete restrict on update restrict;
 
-alter table DANGVIEN add constraint FK_NOI_THUONGTRU foreign key (PHU_MAPX2)
+alter table DANGVIEN add constraint FK_NOI_THUONGTRU foreign key (PHU_MAPX3)
       references PHUONGXA (MAPX) on delete restrict on update restrict;
 
 alter table DANGVIEN add constraint FK_THUOC_DT foreign key (MADT)
@@ -636,6 +754,9 @@ alter table DANHHIEU add constraint FK_CO_DH foreign key (MADANGVIEN)
 
 alter table DINUOCNGOAI add constraint FK_DI_NN foreign key (MADANGVIEN)
       references DANGVIEN (MADANGVIEN) on delete restrict on update restrict;
+
+alter table GIAYCHUYENSHD add constraint FK_NGAY_LAP_GIAY foreign key (NGAY)
+      references NGAY (NGAY) on delete restrict on update restrict;
 
 alter table GIUCV add constraint FK_CV_GCVD foreign key (MACV)
       references CHUCVU (MACV) on delete restrict on update restrict;
@@ -676,6 +797,9 @@ alter table KYLUAT add constraint FK_DV_HTKL foreign key (MAHTKL)
 alter table LYLICH add constraint FK_BD_CHO foreign key (DOTBD)
       references BDDVMOI (DOTBD) on delete restrict on update restrict;
 
+alter table LYLICH add constraint FK_CAPHHD foreign key (STTCAPHHD)
+      references DSCAPHHD (STTCAPHHD) on delete restrict on update restrict;
+
 alter table LYLICH add constraint FK_CO_LL foreign key (MADANGVIEN)
       references DANGVIEN (MADANGVIEN) on delete restrict on update restrict;
 
@@ -684,6 +808,9 @@ alter table LYLICH add constraint FK_CO_TDCT foreign key (MATRINHDOCT)
 
 alter table LYLICH add constraint FK_CUA_DV2 foreign key (SOTHE)
       references THEDV (SOTHE) on delete restrict on update restrict;
+
+alter table LYLICH add constraint FK_LUONG_THANG foreign key (STTLUONGCB)
+      references LUONGCB (STTLUONGCB) on delete restrict on update restrict;
 
 alter table LYLICH add constraint FK_THUOC_CB foreign key (MACB)
       references CHIBO (MACB) on delete restrict on update restrict;
@@ -727,12 +854,15 @@ alter table QUATRINHDT add constraint FK_DAOTAO foreign key (MADANGVIEN)
 alter table QUYETDINH add constraint FK_NGAY_LAP_QD foreign key (NGAY)
       references NGAY (NGAY) on delete restrict on update restrict;
 
-alter table THANGNAM add constraint FK_LUONG_THANG foreign key (STTLUONGCB)
-      references LUONGCB (STTLUONGCB) on delete restrict on update restrict;
-
 alter table THEDV add constraint FK_CUA_DV foreign key (MADANGVIEN)
       references LYLICH (MADANGVIEN) on delete restrict on update restrict;
 
 alter table THONGBAO add constraint FK_NGAY_TB foreign key (NGAY)
       references NGAY (NGAY) on delete restrict on update restrict;
+
+alter table THUONGBINH add constraint FK_DV_TB foreign key (MADANGVIEN)
+      references DANGVIEN (MADANGVIEN) on delete restrict on update restrict;
+
+alter table XUATNHAPNGU add constraint FK_DV_XNN foreign key (MADANGVIEN)
+      references DANGVIEN (MADANGVIEN) on delete restrict on update restrict;
 
