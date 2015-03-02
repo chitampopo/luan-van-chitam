@@ -1,0 +1,28 @@
+body{
+    width: 1200px;
+    margin: auto;
+}
+.form-horizontal{
+    margin-top: 200px;
+    margin-left:50px;
+}
+#dang-nhap{
+    background-color: #2ecc71;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index:-1;
+}
+.nguoithan
+{
+    overflow-x:scroll;
+    width:100%;
+    padding: 0 15px;
+}
+.nguoithan table
+{
+    width:1500px;
+}
+
