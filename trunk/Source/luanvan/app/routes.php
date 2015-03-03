@@ -80,9 +80,9 @@ Route::get('cap-nhat-ngay', 'NgayController@TrangNgay');
 
 Route::post('ngay-action', 'NgayController@ThemNgay');
 
-
 Route::get('cap-nhat-dang-vien', 'DangVienController@TrangCapNhatDangVien');
 
 Route::post('dang-vien-action', 'DangVienController@CapNhatDangVien');
 
-Route::get('autocomplete', 'DangvienController@autocomplete');
+Route::get('trang-chinh-sua-dang-vien/{maDangVien}', 'DangVienController@TrangCapNhatThongTinDangVien')->where('maDangVien', '[0-9]+');
+
