@@ -10,12 +10,11 @@ and open the template in the editor.
         <title>Cập nhật danh mục địa chỉ</title>
         <link rel="stylesheet" href="{{asset('public/css/bootstrap.min.css')}}">
         <link rel="stylesheet" href="{{asset('public/css/style.css')}}">
+        <script src="{{asset('public/js/jquery.validate.min')}}" type="text/javascript"></script>
         <script src="{{asset('public/js/jquery-latest.min.js')}}" type="text/javascript"></script>
     </head>
     <body>
-        <div class="col-md-12">
-            @include('header')
-        </div>
+        @include('header')
         <div class="col-md-4"> 
             @include('menu')
         </div>
@@ -23,11 +22,11 @@ and open the template in the editor.
         <div class="form-group col-md-5 container">
             {{ Form::open(array('url' => 'dia-chi-action')) }}
             {{ Form::label('Tỉnh thành', 'Nhập tên tỉnh thành'); }}<br>
-            {{ Form::text('tinhthanh', null, array('class' => 'form-control')); }}<br>
+            <input class="form-control" name="tinhthanh" type="text" required minlength="4"><br>
             {{ Form::label('Quận huyện', 'Nhập tên quận huyện'); }}<br>
-            {{ Form::text('quanhuyen', null, array('class' => 'form-control')); }}<br>
+            <input class="form-control" name="quanhuyen" type="text" required minlength="4"><br>
             {{ Form::label(' Phường xã', 'Nhập tên phường xã'); }}<br>
-            {{ Form::text('phuongxa', null, array('class' => 'form-control')); }}<br>
+            <input class="form-control" name="phuongxa" type="text" required minlength="4"><br>
             {{ Form::submit('Lưu lại', array('class' => 'btn btn-default')); }}
             {{ Form::close() }}
         </div>

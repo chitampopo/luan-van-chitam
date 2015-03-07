@@ -10,20 +10,21 @@ and open the template in the editor.
         <title>Cập nhật danh mục chức vụ</title>
         <link rel="stylesheet" href="{{asset('public/css/bootstrap.min.css')}}">
         <link rel="stylesheet" href="{{asset('public/css/style.css')}}">
+        <script src="{{asset('public/js/jquery.validate.min')}}" type="text/javascript"></script>
         <script src="{{asset('public/js/jquery-latest.min.js')}}" type="text/javascript"></script>
     </head>
     <body>
-        <div class="col-md-12">
-            @include('header')
-        </div>
+        @include('header')
         <div class="col-md-4"> 
             @include('menu')
         </div>
-
+        <div class="col-md-8">
+            <h2>Trang cập nhật danh mục chức vụ</h2><br>
+        </div>
         <div class="form-group col-md-5 container">
             {{ Form::open(array('url' => 'chuc-vu-action')) }}
-            {{ Form::label('Tên chức vụ', 'Nhập tên chức vụ'); }}<br>
-            {{ Form::text('tenchucvu', null, array('class' => 'form-control')); }}<br>
+            {{ Form::label('', 'Tên chức vụ'); }}<br>
+            <input class="form-control" name="tenchucvu" type="text" required minlength="6"><br>
             {{ Form::submit('Lưu lại', array('class' => 'btn btn-default')); }}
             {{ Form::close() }}
         </div>
@@ -31,7 +32,7 @@ and open the template in the editor.
             <table class="table col-md-8" data-toggle="table" data-url="data1.json" data-cache="false" data-height="299">
                 <thead>
                     <tr>
-                        <th data-field="id">Mã chức vụ</th> 
+                        <th data-field="id" class="col-lg-2">Mã chức vụ</th> 
                         <th data-field="id">Tên chức vụ</th> 
                     </tr>
                 </thead>

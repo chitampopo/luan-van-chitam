@@ -10,20 +10,21 @@ and open the template in the editor.
         <title>Cập nhật danh mục hình thức khen thưởng</title>
         <link rel="stylesheet" href="{{asset('public/css/bootstrap.min.css')}}">
         <link rel="stylesheet" href="{{asset('public/css/style.css')}}">
+        <script src="{{asset('public/js/jquery.validate.min')}}" type="text/javascript"></script>
         <script src="{{asset('public/js/jquery-latest.min.js')}}" type="text/javascript"></script>
     </head>
     <body>
-        <div class="col-md-12">
-            @include('header')
-        </div>
+        @include('header')
         <div class="col-md-4"> 
             @include('menu')
         </div>
-
+        <div class="col-md-8">
+            <h2>Trang cập nhật danh mục hình thức khen thưởng</h2><br>
+        </div>
         <div class="form-group col-md-5 container">
             {{ Form::open(array('url' => 'hinh-thuc-kt-action')) }}
             {{ Form::label('Tên hình thức khen thưởng', 'Nhập tên hình thức khen thưởng'); }}<br>
-            {{ Form::text('ten', null, array('class' => 'form-control')); }}<br>
+            <input class="form-control" name="ten" type="text" required minlength="4"><br>
             {{ Form::submit('Lưu lại', array('class' => 'btn btn-default')); }}
             {{ Form::close() }}
         </div>
@@ -31,7 +32,7 @@ and open the template in the editor.
             <table class="table col-md-8" data-toggle="table" data-url="data1.json" data-cache="false" data-height="299">
                 <thead>
                     <tr>
-                        <th data-field="id">Mã hình thức khen thưởng</th> 
+                        <th data-field="id" class="col-md-4">Mã hình thức khen thưởng</th> 
                         <th data-field="id">Tên hình thức khen thưởng</th> 
                     </tr>
                 </thead>
@@ -43,5 +44,6 @@ and open the template in the editor.
                 @endforeach
             </table>
         </div>
+            
     </body>
 </html>

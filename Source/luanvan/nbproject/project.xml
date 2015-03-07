@@ -13,8 +13,10 @@
             <word>chỉ</word>
             <word>cấp</word>
             <word>endforeach</word>
+            <word>endif</word>
             <word>foreach</word>
             <word>giáo</word>
+            <word>Hiện</word>
             <word>huyHieuDang</word>
             <word>huyện</word>
             <word>hàm</word>
@@ -30,6 +32,7 @@
             <word>kỳ</word>
             <word>listChiBo</word>
             <word>listChuyenMon</word>
+            <word>listDangVien</word>
             <word>listHuyen</word>
             <word>loại</word>
             <word>luật</word>
@@ -49,6 +52,7 @@
             <word>phí</word>
             <word>quy</word>
             <word>quí</word>
+            <word>số</word>
             <word>sửa</word>
             <word>thuởng</word>
             <word>thành</word>
@@ -60,6 +64,7 @@
             <word>trị</word>
             <word>tác</word>
             <word>tên</word>
+            <word>tịch</word>
             <word>Tốt</word>
             <word>tộc</word>
             <word>tự</word>

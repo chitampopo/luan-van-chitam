@@ -86,3 +86,21 @@ Route::post('dang-vien-action', 'DangVienController@CapNhatDangVien');
 
 Route::get('trang-chinh-sua-dang-vien/{maDangVien}', 'DangVienController@TrangCapNhatThongTinDangVien')->where('maDangVien', '[0-9]+');
 
+Route::post('cap-nhat-dang-vien-action', 'DangVienController@CapNhatThongTinDangVien');
+
+Route::get('xoa-dang-vien/{maDangVien}', 'DangVienController@XoaDangVien')->where("maDangVien", '[0-9]+');
+
+Route::get('trang-bao-loi', function(){
+    return View::make("trang-bao-loi");
+});
+
+Route::get('danh-sach-dang-vien', 'DangVienController@TrangDanhSachDangVien');
+
+Route::post('danh-sach-dang-vien-action', 'DangVienController@LietKeDangVien');
+
+Route::get('in-so-dang-tich', 'DangVienController@InSoDangTich');
+
+Route::get('trang-in-so-dang-tich', function(){
+    return View::make("in-so-dang-tich");
+});
+

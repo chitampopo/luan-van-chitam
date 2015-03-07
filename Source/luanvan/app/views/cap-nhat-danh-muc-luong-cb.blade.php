@@ -11,19 +11,20 @@ and open the template in the editor.
         <link rel="stylesheet" href="{{asset('public/css/bootstrap.min.css')}}">
         <link rel="stylesheet" href="{{asset('public/css/style.css')}}">
         <script src="{{asset('public/js/jquery-latest.min.js')}}" type="text/javascript"></script>
+        <script src="{{asset('public/js/jquery.validate.min.js')}}" type="text/javascript"></script>
     </head>
     <body>
-        <div class="col-md-12">
-            @include('header')
-        </div>
+        @include('header')
         <div class="col-md-4"> 
             @include('menu')
         </div>
-
+        <div class="col-md-8">
+            <h2>Trang cập nhật lương cơ bản</h2><br>
+        </div>
         <div class="form-group col-md-5 container">
             {{ Form::open(array('url' => 'them-luong-cb-action')) }}
             {{ Form::label(' Lương cơ bản', ' Nhập số tiền lương cơ bản'); }}<br>
-            {{ Form::text('luong', null, array('class' => 'form-control')); }}<br>
+            <input class="form-control" name="luong" type="text" required minlength="4"><br>
             {{ Form::submit('Lưu lại', array('class' => 'btn btn-default')); }}
             {{ Form::close() }}
         </div>
