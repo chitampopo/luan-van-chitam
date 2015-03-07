@@ -14,16 +14,24 @@ and open the template in the editor.
     </head>
     <body>
         <div class="col-md-12">
+            <br><br>
+        </div>
+        <div class="col-md-12">
             @include('header')
+        </div>
+        <div class="col-md-12">
+            <br><br>
         </div>
         <div class="col-md-4"> 
             @include('menu')
         </div>
-
+        <div class="col-md-8">
+            <h2>Trang cập nhật danh mục trình độ văn hóa</h2><br>
+        </div>
         <div class="form-group col-md-5 container">
             {{ Form::open(array('url' => 'trinh-do-vh-action')) }}
             {{ Form::label('', 'Trình độ văn hóa'); }}<br>
-            {{ Form::text('ten', null, array('class' => 'form-control')); }}<br>
+            <input class="form-control" name="ten" type="text" required minlength="4"><br>
             {{ Form::submit('Lưu lại', array('class' => 'btn btn-default')); }}
             {{ Form::close() }}
         </div>

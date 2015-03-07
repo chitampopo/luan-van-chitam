@@ -10,11 +10,18 @@ and open the template in the editor.
         <title>Cập nhật danh mục địa chỉ</title>
         <link rel="stylesheet" href="<?php echo asset('public/css/bootstrap.min.css'); ?>">
         <link rel="stylesheet" href="<?php echo asset('public/css/style.css'); ?>">
+        <script src="<?php echo asset('public/js/jquery.validate.min'); ?>" type="text/javascript"></script>
         <script src="<?php echo asset('public/js/jquery-latest.min.js'); ?>" type="text/javascript"></script>
     </head>
     <body>
         <div class="col-md-12">
+            <br><br>
+        </div>
+        <div class="col-md-12">
             <?php echo $__env->make('header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+        </div>
+        <div class="col-md-12">
+            <br><br>
         </div>
         <div class="col-md-4"> 
             <?php echo $__env->make('menu', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
@@ -24,11 +31,11 @@ and open the template in the editor.
             <?php echo Form::open(array('url' => 'dia-chi-action')); ?>
 
             <?php echo Form::label('Tỉnh thành', 'Nhập tên tỉnh thành');; ?><br>
-            <?php echo Form::text('tinhthanh', null, array('class' => 'form-control'));; ?><br>
+            <input class="form-control" name="tinhthanh" type="text" required minlength="4"><br>
             <?php echo Form::label('Quận huyện', 'Nhập tên quận huyện');; ?><br>
-            <?php echo Form::text('quanhuyen', null, array('class' => 'form-control'));; ?><br>
+            <input class="form-control" name="quanhuyen" type="text" required minlength="4"><br>
             <?php echo Form::label(' Phường xã', 'Nhập tên phường xã');; ?><br>
-            <?php echo Form::text('phuongxa', null, array('class' => 'form-control'));; ?><br>
+            <input class="form-control" name="phuongxa" type="text" required minlength="4"><br>
             <?php echo Form::submit('Lưu lại', array('class' => 'btn btn-default'));; ?>
 
             <?php echo Form::close(); ?>

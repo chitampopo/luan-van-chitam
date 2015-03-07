@@ -11,20 +11,30 @@ and open the template in the editor.
         <link rel="stylesheet" href="<?php echo asset('public/css/bootstrap.min.css'); ?>">
         <link rel="stylesheet" href="<?php echo asset('public/css/style.css'); ?>">
         <script src="<?php echo asset('public/js/jquery-latest.min.js'); ?>" type="text/javascript"></script>
+        <script src="<?php echo asset('public/js/jquery.validate.min'); ?>" type="text/javascript"></script>
     </head>
     <body>
         <div class="col-md-12">
+            <br><br>
+        </div>
+        <div class="col-md-12">
             <?php echo $__env->make('header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+        </div>
+        <div class="col-md-12">
+            <br><br>
         </div>
         <div class="col-md-4"> 
             <?php echo $__env->make('menu', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
         </div>
 
+        <div class="col-md-8">
+            <h2>Trang cập nhật danh mục trình độ chính trị</h2><br>
+        </div>
         <div class="form-group col-md-5 container">
             <?php echo Form::open(array('url' => 'trinh-do-ct-action')); ?>
 
             <?php echo Form::label('', 'Trình độ chính trị');; ?><br>
-            <?php echo Form::text('ten', null, array('class' => 'form-control'));; ?><br>
+            <input class="form-control" name="ten" type="text" required minlength="4"><br>
             <?php echo Form::submit('Lưu lại', array('class' => 'btn btn-default'));; ?>
 
             <?php echo Form::close(); ?>
@@ -34,7 +44,7 @@ and open the template in the editor.
             <table class="table col-md-8" data-height="299">
                 <thead>
                     <tr>
-                        <th data-field="id">Mã trình độ chính trị</th> 
+                        <th data-field="id" class="col-md-3"> Mã trình độ chính trị</th> 
                         <th data-field="id"> Trình độ chính trị</th> 
                     </tr>
                 </thead>

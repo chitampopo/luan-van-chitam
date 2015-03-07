@@ -20,7 +20,7 @@
                 <li class='active has-sub'><a href=''>Hồ sơ Đảng viên</a>
                     <ul>
                         <li>
-                            <a href='#'>Quản lý danh sách Đảng viên và Sổ Đảng tịch</a>
+                            <a href='{{URL::to('/')}}/danh-sach-dang-vien'>Quản lý danh sách Đảng viên và Sổ Đảng tịch</a>
                         </li>
                         <li>
                             <a href='{{URL::to('/')}}/cap-nhat-dang-vien'>Cập nhật Đảng viên</a>
@@ -214,15 +214,6 @@
                                 <li>
                                     <a href='{{URL::to('/')}}/cap-nhat-danh-muc-trinh-do-ct'>Cập nhật danh mục trình độ chính trị</a>
                                 </li> 
-                                <li>
-                                    <a href='{{URL::to('/')}}/cap-nhat-ngay'>Cập nhật ngày</a>
-                                </li>
-                                <li>
-                                    <a href='{{URL::to('/')}}/cap-nhat-thang-nam'>Cập nhật tháng, năm</a>
-                                </li>
-                                <li>
-                                    <a href='{{URL::to('/')}}/cap-nhat-nam'>Cập nhật năm</a>
-                                </li>
                             </ul>
                         </li>
                         <li>
