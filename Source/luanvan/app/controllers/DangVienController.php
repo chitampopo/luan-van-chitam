@@ -444,25 +444,31 @@ class DangVienController extends Controller {
             $vaoDoan->NOIVAODOAN = null;
         }
         $theDang = TheDang::where("MADANGVIEN", "=", $maDangVien)->first();
-        $theDang->NGAYCAPTHE = date("d-m-Y", strtotime($theDang->NGAYCAPTHE));
         if ($theDang == null) {
             $theDang = new TheDang();
             $theDang->SOTHE = null;
+            $theDang->NGAYCAPTHE = date("d-m-Y", strtotime($theDang->NGAYCAPTHE));
+        } else{
+            $theDang->NGAYCAPTHE = date("d-m-Y", strtotime($theDang->NGAYCAPTHE));
         }
         $xuatNhapNgu = XuatNhapNgu::where("MADANGVIEN", "=", $maDangVien)->first();
-        $xuatNhapNgu->NGAYNHAPNGU = date("d-m-Y", strtotime($xuatNhapNgu->NGAYNHAPNGU));
-        $xuatNhapNgu->NGAYXUATNGU = date("d-m-Y", strtotime($xuatNhapNgu->NGAYXUATNGU));
+        
         if ($xuatNhapNgu == null) {
             $xuatNhapNgu = new XuatNhapNgu;
             $xuatNhapNgu->NGAYNHAPNGU = null;
             $xuatNhapNgu->NGAYXUATNGU = null;
+        } else{
+            $xuatNhapNgu->NGAYNHAPNGU = date("d-m-Y", strtotime($xuatNhapNgu->NGAYNHAPNGU));
+            $xuatNhapNgu->NGAYXUATNGU = date("d-m-Y", strtotime($xuatNhapNgu->NGAYXUATNGU));
         }
         $tuTran = TuTran::where("MADANGVIEN", "=", $maDangVien)->first();
-        $tuTran->NGAYTUTRAN = date("d-m-Y", strtotime($tuTran->NGAYTUTRAN));
+        
         if ($tuTran == null) {
             $tuTran = new TuTran();
             $tuTran->NGAYTUTRAN = null;
             $tuTran->LYDOTUTRAN = null;
+        } else{
+            $tuTran->NGAYTUTRAN = date("d-m-Y", strtotime($tuTran->NGAYTUTRAN));
         }
         $thuongBinh = ThuongBinh::where("MADANGVIEN", "=", $maDangVien)->first();
         if ($thuongBinh == null) {
@@ -633,7 +639,7 @@ class DangVienController extends Controller {
         //Chuyên môn
         $chuyenMon = Input::get("chuyenmon");
         if ($chuyenMon == "0") {
-            $chuyenMon = nulll;
+            $chuyenMon = null;
         }
         //Nghiệp vụ
         $nghiepVu = Input::get("nghiepvu");
@@ -964,16 +970,19 @@ class DangVienController extends Controller {
 
     public function XoaDangVien($maDangVien) {
         DangVien::where("MADANGVIEN", "=", $maDangVien)->update(array('XOA' => 1));
+        echo "Đảng viên này đã được xóa";
     }
 
     public function TrangDanhSachDangVien() {
         $listChiBo = ChiBo::all();
-        $listDangVien = DangVien::paginate(10);
+        $listDangVien = DangVien::paginate(15);
         $listLyLich = LyLich::all();
+        $maChiBoChon = "0";
         return View::make("danh-sach-dang-vien")
                         ->with("listChiBo", $listChiBo)
                         ->with("listDangVien", $listDangVien)
-                        ->with("listLyLich", $listLyLich);
+                        ->with("listLyLich", $listLyLich)
+                        ->with("maChiBoChon", $maChiBoChon);
     }
 
     public function LietKeDangVien() {
@@ -981,26 +990,210 @@ class DangVienController extends Controller {
         $maCB = Input::get("maChiBo");
         $listLyLich = LyLich::all();
         if ($maCB == "0") {
-            $listDangVien = DangVien::where("XOA", "=", "0")->paginate(10);
+            $listDangVien = DangVien::where("XOA", "=", "0")->paginate(15);
         } else {
             $list = array();
             $listMaDangVien = LyLich::where("MACB", "=", $maCB)->get();
             foreach ($listMaDangVien as $maDangVien) {
                 array_push($list, $maDangVien->MADANGVIEN);
             }
-            $listDangVien = DangVien::whereIn("MADANGVIEN", $list)->paginate(10);
+            $listDangVien = DangVien::whereIn("MADANGVIEN", $list)->paginate(15);
         }
         return View::make("danh-sach-dang-vien")
                         ->with("listChiBo", $listChiBo)
                         ->with("listDangVien", $listDangVien)
-                        ->with("listLyLich", $listLyLich);
+                        ->with("listLyLich", $listLyLich)
+                        ->with("maChiBoChon", $maCB);
     }
 
-    public function InSoDangTich() {
-            $pdf = App::make('dompdf');
-            $pdf->loadHTML(View::make("in-so-dang-tich"));
-            return $pdf->setPaper('a4')->setOrientation('landscape')->stream();
-            //return PDF::load(View::make("in-so-dang-tich")->render(), 'A4', 'landscape')->show();
+    public function InSoDangTich($maChiBo) {
+        $listChiBo = ChiBo::all();
+        $maCB = $maChiBo;
+        $listLyLich = LyLich::all();
+        if ($maCB == "0") {
+            $listDangVien = DangVien::where("XOA", "=", "0")->get();
+        } else {
+            $listDangVien = DB::table('dangvien')
+                    ->leftJoin('lylich', 'dangvien.MADANGVIEN', '=', 'lylich.MADANGVIEN')
+                    ->where('lylich.MACB', "=", $maChiBo)
+                    ->where("dangvien.XOA", "=", "0")
+                    ->get();
+        }
+        $pdf = App::make('dompdf');
+        $pdf->loadHTML(View::make("in-so-dang-tich")
+                        ->with("listChiBo", $listChiBo)
+                        ->with("listDangVien", $listDangVien)
+                        ->with("listLyLich", $listLyLich)
+                        ->with("maChiBoChon", $maCB)
+        );
+        return $pdf->setPaper('a4')->setOrientation('landscape')->stream();
+        //return PDF::load(View::make("in-so-dang-tich")->render(), 'A4', 'landscape')->show();
+    }
+
+    public function xuatFileWord($maChiBo) {
+        if ($maChiBo == "0") {
+            $listDangVien = DB::table('dangvien')
+                    ->leftJoin('lylich', 'dangvien.MADANGVIEN', '=', 'lylich.MADANGVIEN')
+                    ->where("dangvien.XOA", "=", "0")
+                    ->where("lylich.NGAYVAODANGCHINHTHUC", "!=", "")
+                    ->get();
+            $listDangVienDuBi = DB::table('dangvien')
+                    ->leftJoin('lylich', 'dangvien.MADANGVIEN', '=', 'lylich.MADANGVIEN')
+                    ->where("dangvien.XOA", "=", "0")
+                    ->where("lylich.NGAYVAODANGCHINHTHUC", "=", null)
+                    ->get();
+        } else {
+            $listDangVien = DB::table('dangvien')
+                    ->leftJoin('lylich', 'dangvien.MADANGVIEN', '=', 'lylich.MADANGVIEN')
+                    ->where("dangvien.XOA", "=", "0")
+                    ->where("lylich.NGAYVAODANGCHINHTHUC", "!=", "")
+                    ->where('lylich.MACB', "=", $maChiBo)
+                    ->get();
+            $listDangVienDuBi = DB::table('dangvien')
+                    ->leftJoin('lylich', 'dangvien.MADANGVIEN', '=', 'lylich.MADANGVIEN')
+                    ->where("dangvien.XOA", "=", "0")
+                    ->where("lylich.NGAYVAODANGCHINHTHUC", "=", null)
+                    ->where('lylich.MACB', "=", $maChiBo)
+                    ->get();
+        }
+        $listChiBo = ChiBo::all();
+        $listTinh = TinhThanh::all();
+        $listHuyen = QuanHuyen::all();
+        $listXa = PhuongXa::all();
+        $listTheDang = TheDang::all();
+        $phpWord = new \PhpOffice\PhpWord\PhpWord();
+        $section = $phpWord->createSection(array('orientation' => 'landscape'));
+        $header = array('size' => 16, 'bold' => true);
+        $phpWord->addFontStyle('rStyle', array('bold' => true, 'size' => 16));
+        $phpWord->addParagraphStyle('pStyle', array('align' => 'center', 'spaceAfter' => 100));
+        $tenChiBo = null;
+        if( $maChiBo == "0"){
+            $section->addText(htmlspecialchars('DANH SÁCH ĐẢNG VIÊN CỦA ĐẢNG BỘ KHOA CNTT&TT'), 'rStyle', 'pStyle');
+        } else{
+            $section->addText(htmlspecialchars("ĐẢNG BỘ KHOA CNTT&TT                   ĐẢNG CỘNG SẢN VIỆT NAM"), 'rStyle');
+            foreach($listChiBo as $chiBo){
+                if ( $maChiBo == $chiBo->MACB){
+                    $section->addText(htmlspecialchars($chiBo->TENCB), 'rStyle');
+                    $tenChiBo = $chiBo->TENCB;
+                }
+            }
+            $section->addText(htmlspecialchars(""));
+            $section->addText(htmlspecialchars('Danh sách Đảng viên của '.$tenChiBo), 'rStyle', 'pStyle');
+        }
+        $section->addText(htmlspecialchars('Tính đến ngày ' . date("d-m-Y")), 'rStyle', 'pStyle');
+
+        $styleTable = array('borderSize' => 6, 'borderColor' => '006699', 'cellMargin' => 80);
+        $styleFirstRow = array('borderBottomSize' => 18, 'borderBottomColor' => '0000FF', 'bgColor' => '66BBFF');
+        $styleCell = array('valign' => 'center');
+        $styleCellBTLR = array('valign' => 'center', 'textDirection' => \PhpOffice\PhpWord\Style\Cell::TEXT_DIR_BTLR);
+        $styleCellColSpan = array('gridSpan' => 9);
+        $cellColSpan = array('gridSpan' => 9, 'valign' => 'center');
+        $cellHCentered = array('align' => 'left');
+        $fontStyle = array('bold' => true, 'align' => 'center');
+        $phpWord->addTableStyle('Fancy Table', $styleTable, $styleFirstRow);
+        $table = $section->addTable('Fancy Table');
+        $table->addRow(900);
+        $table->addCell(500, $styleCell)->addText(htmlspecialchars('STT'), $fontStyle);
+        $table->addCell(2000, $styleCell)->addText(htmlspecialchars('Họ và tên'), $fontStyle);
+        $table->addCell(1500, $styleCell)->addText(htmlspecialchars('Ngày sinh'), $fontStyle);
+        $table->addCell(3000, $styleCell)->addText(htmlspecialchars('Quê quán'), $fontStyle);
+        $table->addCell(2000, $styleCell)->addText(htmlspecialchars('Ngày vào Đảng'), $fontStyle);
+        $table->addCell(2000, $styleCell)->addText(htmlspecialchars('Ngày chính thức'), $fontStyle);
+        $table->addCell(2000, $styleCell)->addText(htmlspecialchars('Số lý lịch'), $fontStyle);
+        $table->addCell(2000, $styleCell)->addText(htmlspecialchars('Số thẻ Đảng'), $fontStyle);
+        $table->addCell(2000, $styleCell)->addText(htmlspecialchars('Ghi chú'), $fontStyle);
+        //$table->addCell(500, $styleCellBTLR)->addText(htmlspecialchars('Ngày vào Đảng'), $fontStyle);
+        $count = 1;
+        $table->addRow();
+        $cell2 = $table->addCell(10000, $cellColSpan);
+        $textrun2 = $cell2->addTextRun($cellHCentered);
+        $textrun2->addText(htmlspecialchars("Chính thức (".count($listDangVien).")"));
+        foreach ($listDangVien as $dangVien) {
+            $table->addRow();
+            $table->addCell(500)->addText(htmlspecialchars($count++));
+            $table->addCell(2000)->addText(htmlspecialchars($dangVien->HOTENSUDUNG));
+            $table->addCell(1500)->addText(htmlspecialchars(date("d-m-Y", strtotime($dangVien->NGAYSINH))));
+            foreach ($listTinh as $tinh) {
+                foreach ($listHuyen as $huyen) {
+                    foreach ($listXa as $xa) {
+                        if ($xa->MAQH == $huyen->MAQH && $huyen->MATT == $tinh->MATT && $dangVien->PHU_MAPX == $xa->MAPX) {
+                            $table->addCell(3000)->addText(htmlspecialchars($xa->TENPX . ", " . $huyen->TENQH . ", " . $tinh->TENTT));
+                        }
+                    }
+                }
+            }
+            $table->addCell(1500)->addText(htmlspecialchars(date("d-m-Y", strtotime($dangVien->NGAYVAODANG))));
+            $table->addCell(2000)->addText(htmlspecialchars(date("d-m-Y", strtotime($dangVien->NGAYVAODANGCHINHTHUC))));
+            $table->addCell(2000)->addText(htmlspecialchars($dangVien->SOLL));
+            $checkTheDang = false;
+            foreach ($listTheDang as $theDang) {
+                if ($theDang->MADANGVIEN == $dangVien->MADANGVIEN) {
+                    $table->addCell(2000)->addText(htmlspecialchars($theDang->SOTHE));
+                    $checkTheDang = true;
+                }
+            }
+            if ($checkTheDang == false) {
+                $table->addCell(2000)->addText(htmlspecialchars(null));
+            }
+            $table->addCell(2000)->addText(htmlspecialchars(null));
+        }
+        $table->addRow();
+        $cell3 = $table->addCell(10000, $cellColSpan);
+        $textrun3 = $cell3->addTextRun($cellHCentered);
+        $textrun3->addText(htmlspecialchars("Dự bị (".count($listDangVienDuBi).")"));
+        foreach ($listDangVienDuBi as $dangVien) {
+            $table->addRow();
+            $table->addCell(500)->addText(htmlspecialchars($count++));
+            $table->addCell(2000)->addText(htmlspecialchars($dangVien->HOTENSUDUNG));
+            $table->addCell(1500)->addText(htmlspecialchars(date("d-m-Y", strtotime($dangVien->NGAYSINH))));
+            foreach ($listTinh as $tinh) {
+                foreach ($listHuyen as $huyen) {
+                    foreach ($listXa as $xa) {
+                        if ($xa->MAQH == $huyen->MAQH && $huyen->MATT == $tinh->MATT && $dangVien->PHU_MAPX == $xa->MAPX) {
+                            $table->addCell(3000)->addText(htmlspecialchars($xa->TENPX . ", " . $huyen->TENQH . ", " . $tinh->TENTT));
+                        }
+                    }
+                }
+            }
+            $table->addCell(1500)->addText(htmlspecialchars(date("d-m-Y", strtotime($dangVien->NGAYVAODANG))));
+            $table->addCell(2000)->addText(htmlspecialchars(null));
+            $table->addCell(2000)->addText(htmlspecialchars($dangVien->SOLL));
+            $table->addCell(2000)->addText(htmlspecialchars(null));
+            $table->addCell(2000)->addText(htmlspecialchars(null));
+        }
+        $soChinhThuc = count($listDangVien);
+        $soDuBi = count($listDangVienDuBi);
+        $soDangVien = $soChinhThuc + $soDuBi;
+        $section->addText(htmlspecialchars('Tổng số: '.$soDangVien. " Đảng viên - Chính thức: ".$soChinhThuc." Dự bị: ".$soDuBi));
+        
+        
+        //$objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
+        //$objWriter->save('C:\QuanLyDangVien\');
+        // Save File
+	$objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
+	$filename = "DanhSachDangVien.docx";
+	$objWriter->save($filename);
+ 
+
+        // The following offers file to user on client side: deletes temp version of file
+	header('Content-Description: File Transfer');
+	header('Content-Type: application/octet-stream');
+	header('Content-Disposition: attachment; filename='.$filename);
+	header('Content-Transfer-Encoding: binary');
+	header('Expires: 0');
+	header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+	header('Pragma: public');
+	header('Content-Length: ' . filesize($filename));
+	flush();
+	readfile($filename);
+	unlink($filename); // deletes the temporary file
+        //echo "Danh sách đảng viên đã được lưu tại 'C:\QuanLyDangVien\DanhSachDangVien.docx'";
+//        header('Content-Description: File Transfer');
+//        header('Content-type: application/force-download');
+//        header('Content-Disposition: attachment; filename='.basename('DanhSachDangVien.docx'));
+//        header('Content-Transfer-Encoding: binary');
+//        header('Content-Length: '.filesize('DanhSachDangVien.docx'));
+//        readfile('DanhSachDangVien.docx');
     }
 
 }

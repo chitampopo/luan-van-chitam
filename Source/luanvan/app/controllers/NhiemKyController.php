@@ -8,7 +8,7 @@ class NhiemKyController extends Controller{
     
     public function ThemNhiemKy(){
         $tunam = Input::get("tunam");
-        $dennam = Input::get("dennan");
+        $dennam = Input::get("dennam");
         $nhiemky = new NhiemKy();
         $nhiemky -> TUNAM = $tunam;
         $nhiemky -> DENNAM = $dennam;

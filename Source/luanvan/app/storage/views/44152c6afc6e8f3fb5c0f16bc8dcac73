@@ -19,19 +19,24 @@
         </div>
         <div >
             <div class="col-md-9 container">
-                <form action="danh-sach-dang-vien-action" method="post" class="form-group">
+                <form action="danh-sach-dang-vien" method="post" class="form-group">
                     <div class="col-md-3">
-                        <select name="maChiBo" class="form-control">
+                        <select name="maChiBo" class="form-control" id="maChiBo">
                             <option value="0">Toàn Đảng bộ</option>
                             <?php foreach( $listChiBo as $chiBo ): ?>
-                            <option value="<?php echo $chiBo->MACB; ?>" class="form-control"><?php echo $chiBo->TENCB; ?></option>
+                            <option value="<?php echo $chiBo->MACB; ?>" class="form-control"
+                                    <?php
+                                        if( $maChiBoChon == $chiBo->MACB )
+                                            echo "selected";
+                                    ?>
+                                    ><?php echo $chiBo->TENCB; ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>
                     <div class="col-md-9">
                         <input class="btn btn-default"  type="submit" value="Liệt kê">
                         <input class="btn btn-default"  type="button" id="button1" value="Tạo sổ Đảng tịch">
-                        <input class="btn btn-default"  type="button" value="Tạo danh sách Đảng viên">
+                        <input class="btn btn-default"  type="button" id="button2" value="Tạo danh sách Đảng viên">
                         <input class="btn btn-default"  type="button" id="button3" value="Thêm Đảng viên">
                     </div>
                 </form>
@@ -50,9 +55,9 @@
                 </thead>
                 <?php foreach($listDangVien as $item): ?>
                 <tr>
-                    <th data-field="id"><?php echo $item->HOTENSUDUNG; ?></th> 
+                    <th data-field="id"><a href="<?php echo URL()."/trang-chinh-sua-dang-vien/".$item->MADANGVIEN; ?>" target="_blank"> <?php echo $item->HOTENSUDUNG; ?> </a></th> 
                     <th data-field="id"><?php if($item->GIOITINH == "1"): ?> <?php echo "Nam"; ?> <?php else: ?> <?php echo "Nữ"; ?> <?php endif; ?></th> 
-                    <th data-field="id"><?php echo date("d-m-Y", strtotime($item->HOTENSUDUNG)); ?></th> 
+                    <th data-field="id"><?php echo date("d-m-Y", strtotime($item->NGAYSINH)); ?></th> 
                     <th data-field="id">
                         <?php foreach( $listChiBo as $chiBo ): ?>
                             <?php foreach( $listLyLich as $lyLich ): ?>
@@ -71,11 +76,17 @@
         </div>
         </div>
         <script>
+            var value = $('#maChiBo').val()
             $('#button3').click(function() {
                 window.location = "http://localhost/luanvan/index.php/cap-nhat-dang-vien";
             });
             $('#button1').click(function() {
-                window.location = "http://localhost/luanvan/index.php/in-so-dang-tich";
+                window.open("http://localhost/luanvan/index.php/in-so-dang-tich/" + value, '_blank')
+            });
+            $('#button2').click(function() {
+                window.open("http://localhost/luanvan/index.php/in-danh-sach-dang-vien/" + value, '_blank');
+                //$(this).attr("http://localhost/luanvan/index.php/in-danh-sach-dang-vien/" + value, '_blank');
+                //window.open(link.attr('href'));
             });
         </script>
     </body>

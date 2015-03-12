@@ -22,19 +22,16 @@
                         <li>
                             <a href='<?php echo URL::to('/'); ?>/danh-sach-dang-vien'>Quản lý danh sách Đảng viên và Sổ Đảng tịch</a>
                         </li>
-                        <li>
-                            <a href='<?php echo URL::to('/'); ?>/cap-nhat-dang-vien'>Cập nhật Đảng viên</a>
-                        </li>
-                        <li><a href='#'>Cập nhật chức vụ và Lí lịch trích ngang</a>
+                        <li><a href='<?php echo URL::to('/'); ?>/cap-nhat-chuc-vu'>Cập nhật chức vụ và Lí lịch trích ngang</a>
                         </li>
                     </ul>
                 </li>
                 <li class='active has-sub'><a href='#'>Công văn</a>
                     <ul>
                         <li>
-                            <a href='#'>Công văn đến</a>
+                            <a href='<?php echo URL::to('/'); ?>/trang-so-cong-van-den'>Công văn đến</a>
                         </li>
-                        <li><a href='#'>Công văn đi</a>
+                        <li><a href='<?php echo URL::to('/'); ?>/trang-so-cong-van-di''>Công văn đi</a>
                         </li>
                     </ul>
                 </li>

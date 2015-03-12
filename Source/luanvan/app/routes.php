@@ -11,7 +11,7 @@ Route::post('dang-nhap-action', 'TaiKhoanController@DangNhap');
 Route::get('cap-nhat-danh-muc-chi-bo', 'ChiBoController@TrangChiBo');
 
 Route::post('chi-bo-action', 'ChiBoController@ThemChiBo');
-                                        
+
 Route::get('cap-nhat-danh-muc-chuc-vu', 'ChucVuController@TrangChucVu');
 
 Route::post('chuc-vu-action', 'ChucVuController@ThemChucVu');
@@ -90,17 +90,42 @@ Route::post('cap-nhat-dang-vien-action', 'DangVienController@CapNhatThongTinDang
 
 Route::get('xoa-dang-vien/{maDangVien}', 'DangVienController@XoaDangVien')->where("maDangVien", '[0-9]+');
 
-Route::get('trang-bao-loi', function(){
+Route::get('trang-bao-loi', function() {
     return View::make("trang-bao-loi");
 });
 
 Route::get('danh-sach-dang-vien', 'DangVienController@TrangDanhSachDangVien');
 
-Route::post('danh-sach-dang-vien-action', 'DangVienController@LietKeDangVien');
+Route::post('danh-sach-dang-vien', 'DangVienController@LietKeDangVien');
 
-Route::get('in-so-dang-tich', 'DangVienController@InSoDangTich');
+Route::get('in-so-dang-tich/{maChiBo}', 'DangVienController@InSoDangTich')->where("maChiBo", '[0-9]+');
 
-Route::get('trang-in-so-dang-tich', function(){
+Route::get('trang-in-so-dang-tich', function() {
     return View::make("in-so-dang-tich");
 });
 
+Route::get('in-danh-sach-dang-vien/{maChiBo}', 'DangVienController@xuatFileWord')->where("maChiBo", '[0-9]+');
+
+Route::get('cap-nhat-chuc-vu', 'ChucVuController@TrangCapNhatChucVu');
+
+Route::get('cap-nhat-chuc-vu1/{maChiBo}/{maNhiemKy}', 'ChucVuController@TrangCapNhatChucVu1')->where("maChiBo", '[0-9]+')->where("maNhiemKy", '[0-9]+');
+
+Route::post('filter-cap-nhat-chuc-vu', 'ChucVuController@LocTrangCapNhatChucVu');
+
+Route::post('cap-nhat-chuc-vu-action', 'ChucVuController@ThemCapNhatChucVu');
+
+Route::post('in-ly-lich-trich-ngang', 'ChucVuController@InLyLichTrichNgang');
+
+Route::get("trang-so-cong-van-den", "CongVanDenController@TrangCongVanDen");
+
+Route::post("them-cong-van-den","CongVanDenController@ThemCongVanDen");
+
+Route::get("ket-xuat-so-cong-van-den", "CongVanDenController@KetXuatSo");
+
+Route::get("trang-so-cong-van-di", "CongVanDiController@TrangCongVanDi");
+
+Route::post("them-cong-van-di","CongVanDiController@ThemCongVanDi");
+
+Route::get("ket-xuat-so-cong-van-di", "CongVanDiController@KetXuatSo");
+
+Route::get("trang-dang-phi", "DangPhiController@TrangDangPhi");

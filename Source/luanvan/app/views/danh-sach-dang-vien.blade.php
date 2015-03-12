@@ -19,19 +19,24 @@
         </div>
         <div >
             <div class="col-md-9 container">
-                <form action="danh-sach-dang-vien-action" method="post" class="form-group">
+                <form action="danh-sach-dang-vien" method="post" class="form-group">
                     <div class="col-md-3">
-                        <select name="maChiBo" class="form-control">
+                        <select name="maChiBo" class="form-control" id="maChiBo">
                             <option value="0">Toàn Đảng bộ</option>
                             @foreach( $listChiBo as $chiBo )
-                            <option value="{{$chiBo->MACB}}" class="form-control">{{$chiBo->TENCB}}</option>
+                            <option value="{{$chiBo->MACB}}" class="form-control"
+                                    <?php
+                                        if( $maChiBoChon == $chiBo->MACB )
+                                            echo "selected";
+                                    ?>
+                                    >{{$chiBo->TENCB}}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="col-md-9">
                         <input class="btn btn-default"  type="submit" value="Liệt kê">
                         <input class="btn btn-default"  type="button" id="button1" value="Tạo sổ Đảng tịch">
-                        <input class="btn btn-default"  type="button" value="Tạo danh sách Đảng viên">
+                        <input class="btn btn-default"  type="button" id="button2" value="Tạo danh sách Đảng viên">
                         <input class="btn btn-default"  type="button" id="button3" value="Thêm Đảng viên">
                     </div>
                 </form>
@@ -50,9 +55,9 @@
                 </thead>
                 @foreach ($listDangVien as $item)
                 <tr>
-                    <th data-field="id">{{ $item->HOTENSUDUNG }}</th> 
+                    <th data-field="id"><a href="{{URL()."/trang-chinh-sua-dang-vien/".$item->MADANGVIEN }}" target="_blank"> {{ $item->HOTENSUDUNG }} </a></th> 
                     <th data-field="id">@if ($item->GIOITINH == "1") {{"Nam" }} @else {{"Nữ"}} @endif</th> 
-                    <th data-field="id">{{ date("d-m-Y", strtotime($item->HOTENSUDUNG)) }}</th> 
+                    <th data-field="id">{{ date("d-m-Y", strtotime($item->NGAYSINH)) }}</th> 
                     <th data-field="id">
                         @foreach( $listChiBo as $chiBo )
                             @foreach( $listLyLich as $lyLich )
@@ -70,11 +75,17 @@
         </div>
         </div>
         <script>
+            var value = $('#maChiBo').val()
             $('#button3').click(function() {
                 window.location = "http://localhost/luanvan/index.php/cap-nhat-dang-vien";
             });
             $('#button1').click(function() {
-                window.location = "http://localhost/luanvan/index.php/in-so-dang-tich";
+                window.open("http://localhost/luanvan/index.php/in-so-dang-tich/" + value, '_blank')
+            });
+            $('#button2').click(function() {
+                window.open("http://localhost/luanvan/index.php/in-danh-sach-dang-vien/" + value, '_blank');
+                //$(this).attr("http://localhost/luanvan/index.php/in-danh-sach-dang-vien/" + value, '_blank');
+                //window.open(link.attr('href'));
             });
         </script>
     </body>
