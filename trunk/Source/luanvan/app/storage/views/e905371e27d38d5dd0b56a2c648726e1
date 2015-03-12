@@ -25,467 +25,481 @@ and open the template in the editor.
             <?php echo $__env->make('menu', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
         </div>
         <div class="col-md-9 container">
-            
+
             <?php echo Form::open(array('url' => 'cap-nhat-dang-vien-action', 'files' => true)); ?>  
             <div class="col-md-12 container">
                 <center><h2>Trang cập nhật thông tin Đảng viên</h2></center>
                 <?php echo Form::submit('Lưu thông tin Đảng viên', array('class' => 'btn btn-default col-md-3'));; ?>
 
-                <button type="button" class="btn btn-default col-md-3" onclick="window.location='<?php echo url("xoa-dang-vien/".$dangVien->MADANGVIEN); ?>'">Xóa Đảng viên</button>
+                <button type="button" class="btn btn-default col-md-3" onclick="window.location ='<?php echo url("xoa-dang-vien/".$dangVien->MADANGVIEN); ?>'">Xóa Đảng viên</button>
                 <button type="button" class="btn btn-default col-md-3" id="hider">Ẩn thông tin cơ bản</button>
                 <button type="button" class="btn btn-default col-md-3" id="shower">Ẩn thông tin khác</button><br>
-                 
+
             </div>
             <div class="col-md-12"><br><br></div>
             <div class="col-md-12" id="box1">
-                
-            <input type="hidden" value="<?php echo $dangVien->MADANGVIEN; ?>" name="maDangVien">
-            <div class="form-group col-md-6 container">
-                <img src="<?php echo asset('storage/directory/'.$dangVien->HINHANH); ?>" alt="Avatar" class="img-circle" width="160px" height="160px"><br><br>
-                <?php echo Form::label('', 'Hình ảnh');; ?><br>
-                <input name="hinhanh" type="file" class="form-control">
-                
-                <?php echo Form::label('', 'Giới tính');; ?><br>
-                <div class="form-control">
-                    <label>
-                        <input type="radio" name="gioitinh" value="1" required
-                               <?php if ($dangVien->GIOITINH == "1") {
-                                   echo "checked='true'";
-                               }
-                               ?>
-                               > Nam
-                    </label>
-                    <label>
-                        <input type="radio" name="gioitinh" value="0" required
-                               <?php                                                              
-                               if ($dangVien->GIOITINH == "0") {
-                                   echo "checked='true'";
-                               }
-                               ?>
-                               > Nữ<br>
-                    </label>
-                </div>
 
-                <?php echo Form::label('', 'Nơi sinh');; ?><br>
-                <select class="form-control" name="noisinh">
-                    <?php foreach($listTinh as $tinh): ?>
-                    <?php foreach($listHuyen as $huyen): ?>
-                    <?php foreach($listXa as $xa): ?>
-                    <?php if( $xa->MAQH == $huyen->MAQH && $huyen->MATT == $tinh->MATT ): ?>
-                    <option value="<?php echo $xa->MAPX; ?>"
-                            <?php 
-                            if($dangVien->MAPX == $xa->MAPX) {
-                                echo "selected";
+                <input type="hidden" value="<?php echo $dangVien->MADANGVIEN; ?>" name="maDangVien">
+                <div class="form-group col-md-6 container">
+                    <img src="<?php echo asset('storage/directory/'.$dangVien->HINHANH); ?>" alt="Avatar" class="img-circle" width="160px" height="160px"><br><br>
+                    <?php echo Form::label('', 'Hình ảnh');; ?><br>
+                    <input name="hinhanh" type="file" class="form-control">
+
+                    <?php echo Form::label('', 'Giới tính');; ?><br>
+                    <div class="form-control">
+                        <label>
+                            <input type="radio" name="gioitinh" value="1" required
+                            <?php
+                            if ($dangVien->GIOITINH == "1") {
+                                echo "checked='true'";
                             }
                             ?>
-                            > <?php echo $xa->TENPX; ?>, <?php echo $huyen->TENQH; ?>, <?php echo $tinh->TENTT; ?> </option>
-                    <?php endif; ?>
-                    <?php endforeach; ?>
-                    <?php endforeach; ?>   
-                    <?php endforeach; ?>
-                </select>
-
-                <?php echo Form::label('', 'Nơi thường trú');; ?><br>
-                <select class="form-control" name="thuongtru">
-                    <?php foreach($listTinh as $tinh): ?>
-                    <?php foreach($listHuyen as $huyen): ?>
-                    <?php foreach($listXa as $xa): ?>
-                    <?php if( $xa->MAQH == $huyen->MAQH && $huyen->MATT == $tinh->MATT ): ?>
-                    <option value="<?php echo $xa->MAPX; ?>"
-                            <?php 
-                            if($dangVien->PHU_MAPX3 == $xa->MAPX) {
-                                echo "selected";
+                                   > Nam
+                        </label>
+                        <label>
+                            <input type="radio" name="gioitinh" value="0" required
+                            <?php
+                            if ($dangVien->GIOITINH == "0") {
+                                echo "checked='true'";
                             }
                             ?>
-                            > <?php echo $xa->TENPX; ?>, <?php echo $huyen->TENQH; ?>, <?php echo $tinh->TENTT; ?> </option>
-                    <?php endif; ?>
-                    <?php endforeach; ?>
-                    <?php endforeach; ?>   
-                    <?php endforeach; ?>
-                </select>
+                                   > Nữ<br>
+                        </label>
+                    </div>
 
-                <?php echo Form::label('', 'Dân tộc');; ?><br>
-                <select class="form-control" name="dantoc" required>
-                    <?php foreach( $listDanToc as $danToc): ?>
+                    <?php echo Form::label('', 'Nơi sinh');; ?><br>
+                    <select class="form-control" name="noisinh">
+                        <?php foreach($listTinh as $tinh): ?>
+                        <?php foreach($listHuyen as $huyen): ?>
+                        <?php foreach($listXa as $xa): ?>
+                        <?php if( $xa->MAQH == $huyen->MAQH && $huyen->MATT == $tinh->MATT ): ?>
+                        <option value="<?php echo $xa->MAPX; ?>"
+                        <?php
+                        if ($dangVien->MAPX == $xa->MAPX) {
+                            echo "selected";
+                        }
+                        ?>
+                                > <?php echo $xa->TENPX; ?>, <?php echo $huyen->TENQH; ?>, <?php echo $tinh->TENTT; ?> </option>
+                        <?php endif; ?>
+                        <?php endforeach; ?>
+                        <?php endforeach; ?>   
+                        <?php endforeach; ?>
+                    </select>
+
+                    <?php echo Form::label('', 'Nơi thường trú');; ?><br>
+                    <select class="form-control" name="thuongtru">
+                        <?php foreach($listTinh as $tinh): ?>
+                        <?php foreach($listHuyen as $huyen): ?>
+                        <?php foreach($listXa as $xa): ?>
+                        <?php if( $xa->MAQH == $huyen->MAQH && $huyen->MATT == $tinh->MATT ): ?>
+                        <option value="<?php echo $xa->MAPX; ?>"
+                        <?php
+                        if ($dangVien->PHU_MAPX3 == $xa->MAPX) {
+                            echo "selected";
+                        }
+                        ?>
+                                > <?php echo $xa->TENPX; ?>, <?php echo $huyen->TENQH; ?>, <?php echo $tinh->TENTT; ?> </option>
+                        <?php endif; ?>
+                        <?php endforeach; ?>
+                        <?php endforeach; ?>   
+                        <?php endforeach; ?>
+                    </select>
+
+                    <?php echo Form::label('', 'Dân tộc');; ?><br>
+                    <select class="form-control" name="dantoc" required>
+                        <?php foreach( $listDanToc as $danToc): ?>
                         <option value="<?php echo $danToc->MADT; ?>"
-                            <?php 
-                            if($dangVien->MADT == $danToc->MADT) {
-                                echo "selected";
-                            }
-                            ?>    
+                        <?php
+                        if ($dangVien->MADT == $danToc->MADT) {
+                            echo "selected";
+                        }
+                        ?>    
                                 ><?php echo $danToc->TENDT; ?></option>
-                    <?php endforeach; ?>
-                </select>
+                        <?php endforeach; ?>
+                    </select>
 
-                <?php echo Form::label('', 'Nghề nghiệp khi vào Đảng'); ?><br>
-                <select class="form-control" name="nghenghiepkhivaodang">
-                    <?php foreach( $listNgheNghiep as $ngheNghiep): ?>
+                    <?php echo Form::label('', 'Nghề nghiệp khi vào Đảng'); ?><br>
+                    <select class="form-control" name="nghenghiepkhivaodang">
+                        <?php foreach( $listNgheNghiep as $ngheNghiep): ?>
                         <option value="<?php echo $ngheNghiep->MANN; ?>"
-                                <?php 
-                                if($lyLich->NGHENGHIEPTRUOCKHIVAODANG == $ngheNghiep->MANN) {
-                                    echo "selected";
-                                }
-                                ?> 
+                        <?php
+                        if ($lyLich->NGHENGHIEPTRUOCKHIVAODANG == $ngheNghiep->MANN) {
+                            echo "selected";
+                        }
+                        ?> 
                                 ><?php echo $ngheNghiep->TENNN; ?></option>
-                    <?php endforeach; ?>
-                </select>
+                        <?php endforeach; ?>
+                    </select>
 
-                <?php echo Form::label('', 'Ngày vào Đảng'); ?><br>
-                <input class="form-control" data-provide="datepicker" name="ngayvaodang" type="text" value="<?php echo $lyLich->NGAYVAODANG; ?>" required>
+                    <?php echo Form::label('', 'Ngày vào Đảng'); ?><br>
+                    <input class="form-control" data-provide="datepicker" name="ngayvaodang" type="text" value="<?php echo $lyLich->NGAYVAODANG; ?>" required>
 
-                <?php echo Form::label('', 'Người giới thiệu 1');; ?><br>
-                <input class="form-control" name="nguoigioithieu1" type="text" value="<?php echo $dangVien->NGUOIGT1; ?>" required>
+                    <?php echo Form::label('', 'Người giới thiệu 1');; ?><br>
+                    <input class="form-control" name="nguoigioithieu1" type="text" value="<?php echo $dangVien->NGUOIGT1; ?>" required>
 
-                <?php echo Form::label('', 'Người giới thiệu 2');; ?><br>
-                <input class="form-control" name="nguoigioithieu2" type="text" value="<?php echo $dangVien->NGUOIGT2; ?>" required>
+                    <?php echo Form::label('', 'Người giới thiệu 2');; ?><br>
+                    <input class="form-control" name="nguoigioithieu2" type="text" value="<?php echo $dangVien->NGUOIGT2; ?>" required>
 
-                <?php echo Form::label('', 'Ngày chính thức');; ?><br>
-                <?php echo Form::text('ngaychinhthuc', $lyLich->NGAYVAODANGCHINHTHUC , array('class' => 'form-control','data-provide' => 'datepicker')); ?>
-
-
-                <?php echo Form::label('', 'Ngày vào Đoàn TNCSHCM');; ?><br>
-                <?php echo Form::text('ngayvaodoan', $vaoDoan -> NGAYVAODOAN, array('class' => 'form-control','data-provide' => 'datepicker')); ?>
+                    <?php echo Form::label('', 'Ngày chính thức');; ?><br>
+                    <?php echo Form::text('ngaychinhthuc', $lyLich->NGAYVAODANGCHINHTHUC , array('class' => 'form-control','data-provide' => 'datepicker')); ?>
 
 
-                <?php echo Form::label('', 'Trình độ văn hóa');; ?><br>
-                <select class="form-control" name="trinhdovh">
-                    <?php foreach( $listTrinhDoVH as $trinhDoVH): ?>
+                    <?php echo Form::label('', 'Ngày vào Đoàn TNCSHCM');; ?><br>
+                    <?php echo Form::text('ngayvaodoan', $vaoDoan -> NGAYVAODOAN, array('class' => 'form-control','data-provide' => 'datepicker')); ?>
+
+
+                    <?php echo Form::label('', 'Trình độ văn hóa');; ?><br>
+                    <select class="form-control" name="trinhdovh">
+                        <?php foreach( $listTrinhDoVH as $trinhDoVH): ?>
                         <option value="<?php echo $trinhDoVH->MATRINHDOVH; ?>"
-                                <?php 
-                                if($dangVien->MATRINHDOVH == $trinhDoVH->MATRINHDOVH) {
-                                    echo "selected";
-                                }
-                                ?> 
+                        <?php
+                        if ($dangVien->MATRINHDOVH == $trinhDoVH->MATRINHDOVH) {
+                            echo "selected";
+                        }
+                        ?> 
                                 ><?php echo $trinhDoVH->TENTRINHDOVH; ?></option>
-                    <?php endforeach; ?>
-                </select>
+                        <?php endforeach; ?>
+                    </select>
 
-                <?php echo Form::label('', 'Chuyên môn');; ?><br>
-                <select class="form-control" name="chuyenmon">
-                    <option value="0"
-                            <?php 
-                            if($dangVien->MACM == null) {
-                                echo "selected";
-                            }
-                            ?>
-                            >Không</option>
-                    <?php foreach( $listChuyenMon as $chuyenMon): ?>
+                    <?php echo Form::label('', 'Chuyên môn');; ?><br>
+                    <select class="form-control" name="chuyenmon">
+                        <option value="0"
+                        <?php
+                        if ($dangVien->MACM == null) {
+                            echo "selected";
+                        }
+                        ?>
+                                >Không</option>
+                        <?php foreach( $listChuyenMon as $chuyenMon): ?>
                         <option value="<?php echo $chuyenMon->MACM; ?>"
-                                <?php 
-                                if($dangVien->MACM == $chuyenMon->MACM) {
-                                    echo "selected";
-                                }
-                                ?> 
+                        <?php
+                        if ($dangVien->MACM == $chuyenMon->MACM) {
+                            echo "selected";
+                        }
+                        ?> 
                                 ><?php echo $chuyenMon->TENCM; ?></option>
-                    <?php endforeach; ?>
-                </select>
+                        <?php endforeach; ?>
+                    </select>
 
-                <?php echo Form::label('', 'Học vị');; ?><br>
-                <select class="form-control" name="hocvi">
-                    <option value="0"
-                            <?php 
-                                if($dangVien->MAHOCVI == null) {
-                                echo "selected";
-                            }
-                            ?>
-                            >Không</option>
-                    <?php foreach( $listHocVi as $hocVi): ?>
+                    <?php echo Form::label('', 'Học vị');; ?><br>
+                    <select class="form-control" name="hocvi">
+                        <option value="0"
+                        <?php
+                        if ($dangVien->MAHOCVI == null) {
+                            echo "selected";
+                        }
+                        ?>
+                                >Không</option>
+                        <?php foreach( $listHocVi as $hocVi): ?>
                         <option value="<?php echo $hocVi->MAHOCVI; ?>"
-                                <?php 
-                            if($dangVien->MAHOCVI == $hocVi->MAHOCVI) {
-                                echo "selected";
-                            }
-                            ?> 
+                        <?php
+                        if ($dangVien->MAHOCVI == $hocVi->MAHOCVI) {
+                            echo "selected";
+                        }
+                        ?> 
                                 ><?php echo $hocVi->TENHOCVI; ?></option>
-                    <?php endforeach; ?>
-                </select>
+                        <?php endforeach; ?>
+                    </select>
 
-                <?php echo Form::label('', 'Tình trạng sức khỏe');; ?><br>
-                <input class="form-control" name="suckhoe" type="text" value ="<?php echo $dangVien-> SUCKHOE; ?>" required>
+                    <?php echo Form::label('', 'Tình trạng sức khỏe');; ?><br>
+                    <input class="form-control" name="suckhoe" type="text" value ="<?php echo $dangVien-> SUCKHOE; ?>" required>
 
-                <?php echo Form::label('', 'Gia đình liệt sĩ');; ?><br>
-                <div class="form-control">
-                    <label>
-                        <input type="checkbox" name="lietsi" 
-                               <?php 
-                                if($dangVien->GDLIETSI == "1") {
-                                    echo "checked";
-                                }
-                                ?> >
-                    </label>
+                    <?php echo Form::label('', 'Gia đình liệt sĩ');; ?><br>
+                    <div class="form-control">
+                        <label>
+                            <input type="checkbox" name="lietsi" 
+                            <?php
+                            if ($dangVien->GDLIETSI == "1") {
+                                echo "checked";
+                            }
+                            ?> >
+                        </label>
+                    </div>
+
+                    <?php echo Form::label('', 'Số thẻ Đảng');; ?><br>
+                    <input class="form-control" name="thedang" type="text" pattern="^([0-9]){8,9}" value="<?php echo $theDang->SOTHE; ?>">
+                    <span class="help-block with-errors">Số thẻ Đảng gồm 8 đến 9 chữ số</span>
+
+                    <?php echo Form::label('', 'Ngày cấp thẻ');; ?><br>
+                    <?php echo Form::text('ngaycapthedang', $theDang->NGAYCAPTHE, array('class' => 'form-control'));; ?>
+
+
+                    <?php echo Form::label('', 'Hệ số lương');; ?><br>
+                    <?php echo Form::text('hsluong', $lyLich->HSLUONG, array('class' => 'form-control'));; ?>
+
+
+                    <?php echo Form::label('', 'Ngày nhập ngũ');; ?><br>
+                    <?php echo Form::text('nhapngu', $xuatNhapNgu->NGAYNHAPNGU, array('class' => 'form-control','data-provide' => 'datepicker')); ?>     
+
+                    <?php echo Form::label('', 'Phụ cấp thâm niên');; ?><br>
+                    <?php echo Form::text('thamnien', $lyLich -> HSTHAMNIEN, array('class' => 'form-control'));; ?>
+
+
+
+                    <?php echo Form::label('', 'Ngày từ trần');; ?><br>
+                    <?php echo Form::text('ngaytutran', $tuTran->NGAYTUTRAN, array('class' => 'form-control','data-provide' => 'datepicker')); ?>  
+
+                    <?php echo Form::label('', 'Chứng minh nhân dân');; ?><br>
+                    <input class="form-control" name="cmnd" type="text" value="<?php echo $dangVien->CMND; ?>" required maxlength="9" data-minlength="8" pattern="^([0-9]){9}">
                 </div>
 
-                <?php echo Form::label('', 'Số thẻ Đảng');; ?><br>
-                <input class="form-control" name="thedang" type="text" pattern="^([0-9]){8,9}" value="<?php echo $theDang->SOTHE; ?>">
-                <span class="help-block with-errors">Số thẻ Đảng gồm 8 đến 9 chữ số</span>
-                
-                <?php echo Form::label('', 'Ngày cấp thẻ');; ?><br>
-                <?php echo Form::text('ngaycapthedang', $theDang->NGAYCAPTHE, array('class' => 'form-control'));; ?>
+                <div class="form-group col-md-6 container">
+
+                    <div>
+                        <span></span>
+                    </div>
+                    <?php echo Form::label('', 'Họ tên khai sinh');; ?><br>
+                    <input class="form-control" name="hotenkhaisinh" type="text" value="<?php echo $dangVien -> HOTENKHAISINH; ?>" required>
+
+                    <?php echo Form::label('', 'Họ tên đang sử dụng');; ?><br>
+                    <input class="form-control" name="hotensudung" type="text" value="<?php echo $dangVien -> HOTENSUDUNG; ?>" required>
+
+                    <?php echo Form::label('', 'Bí danh');; ?><br>
+                    <?php echo Form::text('bidanh', $dangVien -> BIDANH, array('class' => 'form-control'));; ?>
 
 
-                <?php echo Form::label('', 'Hệ số lương');; ?><br>
-                <?php echo Form::text('hsluong', $lyLich->HSLUONG, array('class' => 'form-control'));; ?>
-
-                
-                <?php echo Form::label('', 'Ngày nhập ngũ');; ?><br>
-                <?php echo Form::text('nhapngu', $xuatNhapNgu->NGAYNHAPNGU, array('class' => 'form-control','data-provide' => 'datepicker')); ?>     
-                
-                <?php echo Form::label('', 'Phụ cấp thâm niên');; ?><br>
-                <?php echo Form::text('thamnien', $lyLich -> HSTHAMNIEN, array('class' => 'form-control'));; ?>
-
-
-                
-                <?php echo Form::label('', 'Ngày từ trần');; ?><br>
-                <?php echo Form::text('ngaytutran', $tuTran->NGAYTUTRAN, array('class' => 'form-control','data-provide' => 'datepicker')); ?>  
-                
-                <?php echo Form::label('', 'Chứng minh nhân dân');; ?><br>
-                <input class="form-control" name="cmnd" type="text" value="<?php echo $dangVien->CMND; ?>" required maxlength="9" data-minlength="8" pattern="^([0-9]){9}">
-            </div>
-
-            <div class="form-group col-md-6 container">
-
-                <div>
-                    <span></span>
-                </div>
-                <?php echo Form::label('', 'Họ tên khai sinh');; ?><br>
-                <input class="form-control" name="hotenkhaisinh" type="text" value="<?php echo $dangVien -> HOTENKHAISINH; ?>" required>
-
-                <?php echo Form::label('', 'Họ tên đang sử dụng');; ?><br>
-                <input class="form-control" name="hotensudung" type="text" value="<?php echo $dangVien -> HOTENSUDUNG; ?>" required>
-
-                <?php echo Form::label('', 'Bí danh');; ?><br>
-                <?php echo Form::text('bidanh', $dangVien -> BIDANH, array('class' => 'form-control'));; ?>
-
-                
-                <?php echo Form::label('', 'Chi bộ');; ?><br>
-                <select class="form-control" name="chibo">
-                    <?php foreach( $listChiBo as $chiBo): ?>
+                    <?php echo Form::label('', 'Chi bộ');; ?><br>
+                    <select class="form-control" name="chibo">
+                        <?php foreach( $listChiBo as $chiBo): ?>
                         <option value="<?php echo $chiBo->MACB; ?>"
-                                <?php 
-                            if($lyLich->MACB == $chiBo->MACB) {
+                        <?php
+                        if ($lyLich->MACB == $chiBo->MACB) {
                             echo "selected";
                         }
                         ?>
                                 ><?php echo $chiBo->TENCB; ?></option>
-                    <?php endforeach; ?>
-                </select>
-                
-                <?php echo Form::label('', 'Ngày sinh');; ?><br>
-                <input class="form-control" data-provide="datepicker" name="ngaysinh" type="text" value="<?php echo $dangVien -> NGAYSINH; ?>" required>
+                        <?php endforeach; ?>
+                    </select>
 
-                <?php echo Form::label('', 'Quê quán');; ?><br>
-                <select class="form-control" name="quequan">
-                    <?php foreach($listTinh as $tinh): ?>
-                    <?php foreach($listHuyen as $huyen): ?>
-                    <?php foreach($listXa as $xa): ?>
-                    <?php if( $xa->MAQH == $huyen->MAQH && $huyen->MATT == $tinh->MATT ): ?>
-                    <option value="<?php echo $xa->MAPX; ?>"
-                            <?php
-                        if($dangVien->PHU_MAPX == $xa->MAPX) {
-                        echo "selected";
-                    }
-                    ?>
-                            > <?php echo $xa->TENPX; ?>, <?php echo $huyen->TENQH; ?>, <?php echo $tinh->TENTT; ?> </option>
-                    <?php endif; ?>
-                    <?php endforeach; ?>
-                    <?php endforeach; ?>   
-                    <?php endforeach; ?>
-                </select>
+                    <?php echo Form::label('', 'Ngày sinh');; ?><br>
+                    <input class="form-control" data-provide="datepicker" name="ngaysinh" type="text" value="<?php echo $dangVien -> NGAYSINH; ?>" required>
 
-                <?php echo Form::label('', 'Nơi tạm trú');; ?><br>
-                <select class="form-control" name="tamtru">
-                    <option value="0">Không</option>
-                    <?php foreach($listTinh as $tinh): ?>
-                    <?php foreach($listHuyen as $huyen): ?>
-                    <?php foreach($listXa as $xa): ?>
-                    <?php if( $xa->MAQH == $huyen->MAQH && $huyen->MATT == $tinh->MATT ): ?>
-                    <option value="<?php echo $xa->MAPX; ?>"
-                            <?php
-                            if($dangVien->PHU_MAPX2 == $xa->MAPX) {
-                                echo "selected";
-                            }
-                            ?>
-                            > <?php echo $xa->TENPX; ?>, <?php echo $huyen->TENQH; ?>, <?php echo $tinh->TENTT; ?> </option>
-                    <?php endif; ?>
-                    <?php endforeach; ?>
-                    <?php endforeach; ?>   
-                    <?php endforeach; ?>
-                </select>
+                    <?php echo Form::label('', 'Quê quán');; ?><br>
+                    <select class="form-control" name="quequan">
+                        <?php foreach($listTinh as $tinh): ?>
+                        <?php foreach($listHuyen as $huyen): ?>
+                        <?php foreach($listXa as $xa): ?>
+                        <?php if( $xa->MAQH == $huyen->MAQH && $huyen->MATT == $tinh->MATT ): ?>
+                        <option value="<?php echo $xa->MAPX; ?>"
+                        <?php
+                        if ($dangVien->PHU_MAPX == $xa->MAPX) {
+                            echo "selected";
+                        }
+                        ?>
+                                > <?php echo $xa->TENPX; ?>, <?php echo $huyen->TENQH; ?>, <?php echo $tinh->TENTT; ?> </option>
+                        <?php endif; ?>
+                        <?php endforeach; ?>
+                        <?php endforeach; ?>   
+                        <?php endforeach; ?>
+                    </select>
 
-                <?php echo Form::label('', 'Tôn giáo');; ?><br>
-                <select class="form-control" name="tongiao">
-                    <option value="0">Không</option>
-                    <?php foreach( $listTonGiao as $tonGiao): ?>
+                    <?php echo Form::label('', 'Nơi tạm trú');; ?><br>
+                    <select class="form-control" name="tamtru">
+                        <option value="0">Không</option>
+                        <?php foreach($listTinh as $tinh): ?>
+                        <?php foreach($listHuyen as $huyen): ?>
+                        <?php foreach($listXa as $xa): ?>
+                        <?php if( $xa->MAQH == $huyen->MAQH && $huyen->MATT == $tinh->MATT ): ?>
+                        <option value="<?php echo $xa->MAPX; ?>"
+                        <?php
+                        if ($dangVien->PHU_MAPX2 == $xa->MAPX) {
+                            echo "selected";
+                        }
+                        ?>
+                                > <?php echo $xa->TENPX; ?>, <?php echo $huyen->TENQH; ?>, <?php echo $tinh->TENTT; ?> </option>
+                        <?php endif; ?>
+                        <?php endforeach; ?>
+                        <?php endforeach; ?>   
+                        <?php endforeach; ?>
+                    </select>
+
+                    <?php echo Form::label('', 'Tôn giáo');; ?><br>
+                    <select class="form-control" name="tongiao">
+                        <option value="0">Không</option>
+                        <?php foreach( $listTonGiao as $tonGiao): ?>
                         <option value="<?php echo $tonGiao->MATONGIAO; ?>"
-                                <?php
-                                if($dangVien->MATONGIAO == $tonGiao->MATONGIAO) {
-                                    echo "selected";
-                                }
-                                ?>
+                        <?php
+                        if ($dangVien->MATONGIAO == $tonGiao->MATONGIAO) {
+                            echo "selected";
+                        }
+                        ?>
                                 ><?php echo $tonGiao->TENTONGIAO; ?></option>
-                    <?php endforeach; ?>
-                </select>
+                        <?php endforeach; ?>
+                    </select>
 
-                <?php echo Form::label('', 'Nghề nghiệp đang làm');; ?><br>
-                <select class="form-control" name="nghenghiepdanglam">
-                    <?php foreach( $listNgheNghiep as $ngheNghiep): ?>
+                    <?php echo Form::label('', 'Nghề nghiệp đang làm');; ?><br>
+                    <select class="form-control" name="nghenghiepdanglam">
+                        <?php foreach( $listNgheNghiep as $ngheNghiep): ?>
                         <option value="<?php echo $ngheNghiep->MANN; ?>"
-                                <?php
-                                if($dangVien->MANN == $ngheNghiep->MANN) {
-                                    echo "selected";
-                                }
-                                ?>
+                        <?php
+                        if ($dangVien->MANN == $ngheNghiep->MANN) {
+                            echo "selected";
+                        }
+                        ?>
                                 ><?php echo $ngheNghiep->TENNN; ?></option>
-                    <?php endforeach; ?>
-                </select>
+                        <?php endforeach; ?>
+                    </select>
 
-                <?php echo Form::label('', 'Tại chi bộ'); ?><br>
-                <?php echo Form::text('noivaodang', $lyLich -> CBVAODANG, array('class' => 'form-control'));; ?>
-
-
-                <?php echo Form::label('', 'Chức vụ người giới thiệu 1');; ?><br>
-                <input class="form-control" name="cvnguoigioithieu1" type="text" value="<?php echo $dangVien -> CVNGUOIGT1; ?>" required>
-
-                <?php echo Form::label('', 'Chức vụ người giới thiệu 2');; ?><br>
-                <?php echo Form::text('cvnguoigioithieu2', $dangVien -> CVNGUOIGT2, array('class' => 'form-control'));; ?>
+                    <?php echo Form::label('', 'Tại chi bộ'); ?><br>
+                    <?php echo Form::text('noivaodang', $lyLich -> CBVAODANG, array('class' => 'form-control'));; ?>
 
 
-                <?php echo Form::label('', 'Tại chi bộ');; ?><br>
-                <?php echo Form::text('taichibochinhthuc', $lyLich -> CBVAODANGCHINHTHUC, array('class' => 'form-control'));; ?>
+                    <?php echo Form::label('', 'Chức vụ người giới thiệu 1');; ?><br>
+                    <input class="form-control" name="cvnguoigioithieu1" type="text" value="<?php echo $dangVien -> CVNGUOIGT1; ?>" required>
+
+                    <?php echo Form::label('', 'Chức vụ người giới thiệu 2');; ?><br>
+                    <?php echo Form::text('cvnguoigioithieu2', $dangVien -> CVNGUOIGT2, array('class' => 'form-control'));; ?>
 
 
-                <?php echo Form::label('', 'Tại');; ?><br>
-                <?php echo Form::text('noivaodoan', $vaoDoan -> NOIVAODOAN, array('class' => 'form-control'));; ?>
+                    <?php echo Form::label('', 'Tại chi bộ');; ?><br>
+                    <?php echo Form::text('taichibochinhthuc', $lyLich -> CBVAODANGCHINHTHUC, array('class' => 'form-control'));; ?>
 
 
-                <?php echo Form::label('', 'Trình độ chính trị');; ?><br>
-                <select class="form-control" name="trinhdoct">
-                    <?php foreach( $listTrinhDoCT as $trinhDoCT): ?>
+                    <?php echo Form::label('', 'Tại');; ?><br>
+                    <?php echo Form::text('noivaodoan', $vaoDoan -> NOIVAODOAN, array('class' => 'form-control'));; ?>
+
+
+                    <?php echo Form::label('', 'Trình độ chính trị');; ?><br>
+                    <select class="form-control" name="trinhdoct">
+                        <?php foreach( $listTrinhDoCT as $trinhDoCT): ?>
                         <option value="<?php echo $trinhDoCT->MATRINHDOCT; ?>"
-                                <?php
-                                if($lyLich->MATRINHDOCT == $trinhDoCT->MATRINHDOCT) {
-                                    echo "selected";
-                                }
-                                ?>
+                        <?php
+                        if ($lyLich->MATRINHDOCT == $trinhDoCT->MATRINHDOCT) {
+                            echo "selected";
+                        }
+                        ?>
                                 ><?php echo $trinhDoCT->TENTRINHDOCT; ?></option>
-                    <?php endforeach; ?>
-                </select>
-                
-                <?php echo Form::label('', 'Nghiệp vụ');; ?><br>
-                <select class="form-control" name="nghiepvu">
-                    <option value="0">Không</option>
-                    <?php foreach( $listNghiepVu as $nghiepVu): ?>
+                        <?php endforeach; ?>
+                    </select>
+
+                    <?php echo Form::label('', 'Nghiệp vụ');; ?><br>
+                    <select class="form-control" name="nghiepvu">
+                        <option value="0"
+                        <?php
+                        if ($dangVien->MANV == null) {
+                            echo "selected";
+                        }
+                        ?>
+                                >Không</option>
+                        <?php foreach( $listNghiepVu as $nghiepVu): ?>
                         <option value="<?php echo $dangVien -> MANV; ?>"
-                                <?php
-                                if($dangVien->MANV == $dangVien->MANV) {
-                                    echo "selected";
-                                }
-                                ?>
+                        <?php
+                        if ($dangVien->MANV == $nghiepVu->MANV) {
+                            echo "selected";
+                        }
+                        ?>
                                 ><?php echo $nghiepVu->TENNV; ?></option>
-                    <?php endforeach; ?>
-                </select>
+                        <?php endforeach; ?>
+                    </select>
 
-                <?php echo Form::label('', 'Học hàm');; ?><br>
-                <select class="form-control" name="hocham">
-                    <option value="0">Không</option>
-                    <?php foreach( $listHocHam as $hocHam): ?>
+                    <?php echo Form::label('', 'Học hàm');; ?><br>
+                    <select class="form-control" name="hocham">
+                        <option value="0">Không</option>
+                        <?php foreach( $listHocHam as $hocHam): ?>
                         <option value="<?php echo $hocHam->MAHOCHAM; ?>"
-                                <?php
-                                if($dangVien->MAHOCHAM == $hocHam->MAHOCHAM) {
-                                    echo "selected";
-                                }
-                                ?>
+                        <?php
+                        if ($dangVien->MAHOCHAM == $hocHam->MAHOCHAM) {
+                            echo "selected";
+                        }
+                        ?>
                                 ><?php echo $hocHam->TENHOCHAM; ?></option>
-                    <?php endforeach; ?>
-                </select>
-                
-                <?php echo Form::label('', 'Thương binh');; ?><br>
-                <select class="form-control" name="thuongbinh">
-                    <option value="0"
-                            <?php                                                            
-                            if ($thuongBinh->LOAITB == "0") {
-                                echo "selected";
-                            }
-                            ?>
-                            >Không</option>
-                    <option value="1"
-                            <?php                                    
-                            if ($thuongBinh->LOAITB == "1") {
-                                echo "selected";
-                            }
-                            ?>
-                            >1/4</option>
-                    <option value="2"
-                            <?php                                                            
-                            if ($thuongBinh->LOAITB == "2") {
-                                echo "selected";
-                            }
-                            ?>
-                            >2/4</option>
-                    <option value="3"
-                            <?php                                                            
-                            if ($thuongBinh->LOAITB == "3") {
-                                echo "selected";
-                            }
-                            ?>
-                            >3/4</option>
-                    <option value="4"
+                        <?php endforeach; ?>
+                    </select>
+
+                    <?php echo Form::label('', 'Thương binh');; ?><br>
+                    <select class="form-control" name="thuongbinh">
+                        <option value="0"
+                        <?php
+                        if ($thuongBinh->LOAITB == "0") {
+                            echo "selected";
+                        }
+                        ?>
+                                >Không</option>
+                        <option value="1"
+                        <?php
+                        if ($thuongBinh->LOAITB == "1") {
+                            echo "selected";
+                        }
+                        ?>
+                                >1/4</option>
+                        <option value="2"
+                        <?php
+                        if ($thuongBinh->LOAITB == "2") {
+                            echo "selected";
+                        }
+                        ?>
+                                >2/4</option>
+                        <option value="3"
+                        <?php
+                        if ($thuongBinh->LOAITB == "3") {
+                            echo "selected";
+                        }
+                        ?>
+                                >3/4</option>
+                        <option value="4"
+                        <?php
+                        if ($thuongBinh->LOAITB == "4") {
+                            echo "selected";
+                        }
+                        ?>
+                                >4/4</option>
+                    </select>
+
+                    <?php echo Form::label('', 'Ngày miễn công tác và SHĐ');; ?><br>
+                    <?php echo Form::text('mienct', $lyLich-> MIENCT_SHD, array('class' => 'form-control','data-provide' => 'datepicker')); ?>
+
+
+                    <?php echo Form::label('', 'Số lý lịch Đảng');; ?><br>
+                    <input class="form-control" name="lylich" type="text" value="<?php echo $lyLich->SOLL; ?>" pattern="^[0-9]{6}[A-z]{1,3}">
+                    <span class="help-block with-errors">Số lý lịch Đảng gồm 6 chữ số và từ 1 đến 3 ký tự</span>
+
+                    <?php echo Form::label('', 'Phụ cấp chức vụ');; ?><br>
+                    <?php echo Form::text('pcchucvu', $lyLich->HSCHUCVU, array('class' => 'form-control'));; ?>
+
+
+                    <?php echo Form::label('', 'Phụ cấp vượt khung');; ?><br>
+                    <?php echo Form::text('vuotkhung', $lyLich->HSVUOTKHUNG, array('class' => 'form-control'));; ?>
+
+
+                    <?php echo Form::label('', 'Ngày xuất ngũ');; ?><br>
+                    <?php echo Form::text('xuatngu', $xuatNhapNgu -> NGAYXUATNGU, array('class' => 'form-control','data-provide' => 'datepicker')); ?> 
+
+                    <?php echo Form::label('', 'Gia đình có công với cách mạng');; ?><br>
+                    <div class="form-control">
+                        <label>
+                            <input type="checkbox" name="giadinhcm" 
                             <?php
-                                if ($thuongBinh->LOAITB == "4") {
-                                echo "selected";
+                            if ($dangVien->COCONGCM == "1") {
+                                echo "checked";
                             }
-                            ?>
-                            >4/4</option>
-                </select>
+                            ?> >
+                        </label>
+                    </div>
 
-                <?php echo Form::label('', 'Ngày miễn công tác và SHĐ');; ?><br>
-                <?php echo Form::text('mienct', $lyLich-> MIENCT_SHD, array('class' => 'form-control','data-provide' => 'datepicker')); ?>
-
-
-                <?php echo Form::label('', 'Số lý lịch Đảng');; ?><br>
-                <input class="form-control" name="lylich" type="text" value="<?php echo $lyLich->SOLL; ?>" pattern="^[0-9]{6}[A-z]{1,3}">
-                <span class="help-block with-errors">Số lý lịch Đảng gồm 6 chữ số và từ 1 đến 3 ký tự</span>
-                
-                <?php echo Form::label('', 'Phụ cấp chức vụ');; ?><br>
-                <?php echo Form::text('pcchucvu', $lyLich->HSCHUCVU, array('class' => 'form-control'));; ?>
+                    <?php echo Form::label('', 'Lý do từ trần');; ?><br>
+                    <?php echo Form::text('lydotutran', $tuTran->LYDOTUTRAN, array('class' => 'form-control'));; ?>
 
 
-                <?php echo Form::label('', 'Phụ cấp vượt khung');; ?><br>
-                <?php echo Form::text('vuotkhung', $lyLich->HSVUOTKHUNG, array('class' => 'form-control'));; ?>
+                    <?php echo Form::label('', 'Số điện thoại');; ?><br>
+                    <?php echo Form::text('dienthoai', $dangVien->SDT, array('class' => 'form-control'));; ?>
 
 
-                <?php echo Form::label('', 'Ngày xuất ngũ');; ?><br>
-                <?php echo Form::text('xuatngu', $xuatNhapNgu -> NGAYXUATNGU, array('class' => 'form-control','data-provide' => 'datepicker')); ?> 
-                
-                <?php echo Form::label('', 'Gia đình có công với cách mạng');; ?><br>
-                <div class="form-control">
-                    <label>
-                        <input type="checkbox" name="giadinhcm" 
-                               <?php 
-                                if($dangVien->COCONGCM == "1") {
-                                    echo "checked";
-                                }
-                                ?> >
-                    </label>
+                    <?php echo Form::label('', 'Email');; ?><br>
+                    <?php echo Form::email('email', $dangVien->EMAIL, array('class' => 'form-control'));; ?>
+
                 </div>
-                
-                <?php echo Form::label('', 'Lý do từ trần');; ?><br>
-                <?php echo Form::text('lydotutran', $tuTran->LYDOTUTRAN, array('class' => 'form-control'));; ?>
 
-                
-                <?php echo Form::label('', 'Số điện thoại');; ?><br>
-                <?php echo Form::text('dienthoai', $dangVien->SDT, array('class' => 'form-control'));; ?>
-
-                
-                <?php echo Form::label('', 'Email');; ?><br>
-                <?php echo Form::email('email', $dangVien->EMAIL, array('class' => 'form-control'));; ?>
-
-            </div>
-            
             </div>
             <div class="col-md-12 session" id="box">
                 <p class="bg-info"><label>Khen thưởng</label></p>
-                <input id="ktkhenthuong" value="<?php for( $i = 1 ; $i <= $danhSachKhenThuong ; $i++) { echo "+".$i ;} ?>" type="hidden" name="ktkhenthuong">
+                <input id="ktkhenthuong" value="<?php
+                for ($i = 1; $i <= $danhSachKhenThuong; $i++) {
+                    echo "+" . $i;
+                }
+                if ($danhSachKhenThuong == 0) {
+                    echo "+1";
+                }
+                ?>" type="hidden" name="ktkhenthuong">
                 <table class="table" id="POITable5">
                     <thead>
                         <tr>
@@ -496,20 +510,20 @@ and open the template in the editor.
                         </tr>
                     </thead>
                     <tbody id="bodyPOITable5">
-                        <?php $count=1; ?>
+<?php $count = 1; ?>
                         <?php foreach( $khenThuongDangVien as $khenThuongDV): ?>
                         <tr>
                             <td>
                                 <select class="form-control" name="<?php echo 'khenthuong'.$count; ?>" id="dsKhenThuong">
                                     <option value="0">Không</option>
                                     <?php foreach( $listHTKT as $khenThuong): ?>
-                                        <option value="<?php echo $khenThuong->MAHTKT; ?>"
-                                                <?php 
-                                                if($khenThuongDV->MAHTKT == $khenThuong->MAHTKT){
-                                                    echo "selected";
-                                                }
-                                            ?>
-                                                ><?php echo $khenThuong->TENHTKT; ?></option>
+                                    <option value="<?php echo $khenThuong->MAHTKT; ?>"
+                                    <?php
+                                    if ($khenThuongDV->MAHTKT == $khenThuong->MAHTKT) {
+                                        echo "selected";
+                                    }
+                                    ?>
+                                            ><?php echo $khenThuong->TENHTKT; ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </td>
@@ -519,13 +533,20 @@ and open the template in the editor.
                                 <button class="form-control" type="button" onclick="deleteRow5(this)">Xóa</button>
                             </td> 
                         </tr>
-                        <?php $count++; ?>
+<?php $count++; ?>
                         <?php endforeach; ?>
                     </tbody>    
                 </table>
-                
+
                 <p class="bg-info"><label>Kỷ luật</label></p>
-                <input id="ktkyluat" value="<?php for( $i = 1 ; $i <= $danhSachKyLuat ; $i++) { echo "+".$i ;} ?>" type="hidden" name="ktkyluat">
+                <input id="ktkyluat" value="<?php
+                for ($i = 1; $i <= $danhSachKyLuat; $i++) {
+                    echo "+" . $i;
+                }
+                if ($danhSachKyLuat == 0) {
+                    echo "+1";
+                }
+                ?>" type="hidden" name="ktkyluat">
                 <table class="table" data-height="299" id="POITable7">
                     <thead>
                         <tr>
@@ -536,20 +557,20 @@ and open the template in the editor.
                         </tr>
                     </thead>
                     <tbody id="bodyPOITable7">
-                        <?php $countKyLuat=1; ?>
+<?php $countKyLuat = 1; ?>
                         <?php foreach( $kyLuatDangVien as $kyLuatDV): ?>
                         <tr>
                             <td>
                                 <select class="form-control" name="<?php echo 'kyluat'.$countKyLuat; ?>" id="dsKyLuat">
                                     <option value="0">Không</option>
                                     <?php foreach( $listHTKL as $kyLuat ): ?>
-                                        <option value="<?php echo $kyLuat->MAHTKL; ?>"
-                                                <?php 
-                                                if($kyLuatDV->MAHTKL == $kyLuat->MAHTKL){
-                                                    echo "selected";
-                                                }
-                                                ?>
-                                                ><?php echo $kyLuat->TENHTKL; ?></option>
+                                    <option value="<?php echo $kyLuat->MAHTKL; ?>"
+                                    <?php
+                                    if ($kyLuatDV->MAHTKL == $kyLuat->MAHTKL) {
+                                        echo "selected";
+                                    }
+                                    ?>
+                                            ><?php echo $kyLuat->TENHTKL; ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </td>
@@ -559,13 +580,17 @@ and open the template in the editor.
                                 <button class="form-control" type="button" onclick="deleteRow7(this)">Xóa</button>
                             </td> 
                         </tr>
-                        <?php $countKyLuat++; ?>
+<?php $countKyLuat++; ?>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
-                
+
                 <p class="bg-info"><label>Huy hiệu Đảng</label></p>
-                <input id="kthuyhieu" value="<?php for( $i = 1 ; $i <= $danhSachHuyHieu ; $i++) { echo "+".$i ;} ?>" type="hidden" name="kthuyhieu">
+                <input id="kthuyhieu" value="<?php
+for ($i = 1; $i <= $danhSachHuyHieu; $i++) {
+    echo "+" . $i;
+}
+?>" type="hidden" name="kthuyhieu">
                 <table class="table" data-height="299" id="POITable6">
                     <thead>
                         <tr>
@@ -575,7 +600,7 @@ and open the template in the editor.
                         </tr>
                     </thead>
                     <tbody id="bodyPOITable6">   
-                        <?php $countHuyHieu=1; ?>
+<?php $countHuyHieu = 1; ?>
                         <?php foreach( $huyHieuDang as $huyHieu): ?>
                         <tr>
                             <td><input class="form-control" name="<?php echo 'huyhieu'.$countHuyHieu; ?>" type="text" value="<?php echo $huyHieu->TENHH; ?>"></td> 
@@ -584,13 +609,20 @@ and open the template in the editor.
                                 <button class="form-control" type="button" onclick="deleteRow6(this)">Xóa</button>
                             </td> 
                         </tr>
-                        <?php $countHuyHieu++; ?>
+<?php $countHuyHieu++; ?>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
-                
+
                 <p class="bg-info"><label>Ngoại ngữ</label></p>
-                <input id="ktngoaingu" value="<?php for( $i = 1 ; $i <= $danhSachKTNgoaiNgu ; $i++) { echo "+".$i ;} ?>" type="hidden" name="ktngoaingu">
+                <input id="ktngoaingu" value="<?php
+                for ($i = 1; $i <= $danhSachKTNgoaiNgu; $i++) {
+                    echo "+" . $i;
+                }
+                if ($danhSachKTNgoaiNgu == 0) {
+                    echo "+1";
+                }
+                ?>" type="hidden" name="ktngoaingu">
                 <table class="table" data-height="299" id="POITable4">
                     <thead>
                         <tr>
@@ -599,20 +631,20 @@ and open the template in the editor.
                         </tr>
                     </thead>
                     <tbody id="bodyPOITable4">
-                        <?php $countNgoaiNgu=1; ?>
+<?php $countNgoaiNgu = 1; ?>
                         <?php foreach( $danhSachNgoaiNgu as $dsNgoaiNgu): ?>
                         <tr>
                             <td>
                                 <select class="form-control" name="<?php echo 'trinhdongoaingu'.$countNgoaiNgu; ?>" id="dsNgoaiNgu">
                                     <option value="0">Không</option>
                                     <?php foreach( $listNgoaiNgu as $ngoaiNgu): ?>
-                                        <option value="<?php echo $ngoaiNgu->MANGOAINGU; ?>"
-                                                <?php 
-                                                if($dsNgoaiNgu->MANGOAINGU == $ngoaiNgu->MANGOAINGU){
-                                                    echo "selected";
-                                                }
-                                                ?>
-                                                ><?php echo $ngoaiNgu->TENNGOAINGU; ?></option>
+                                    <option value="<?php echo $ngoaiNgu->MANGOAINGU; ?>"
+                                    <?php
+                                    if ($dsNgoaiNgu->MANGOAINGU == $ngoaiNgu->MANGOAINGU) {
+                                        echo "selected";
+                                    }
+                                    ?>
+                                            ><?php echo $ngoaiNgu->TENNGOAINGU; ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </td> 
@@ -620,13 +652,20 @@ and open the template in the editor.
                                 <button class="form-control" type="button" onclick="deleteRow4(this)">Xóa</button>
                             </td> 
                         </tr>
-                        <?php $countNgoaiNgu++; ?>
+<?php $countNgoaiNgu++; ?>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
-                
+
                 <p class="bg-info"><label>Quá trình công tác</label></p>
-                <input id="ktcongtac" value="<?php for( $i = 1 ; $i <= $danhSachCongTac ; $i++) { echo "+".$i ;} ?>" type="hidden" name="ktcongtac">
+                <input id="ktcongtac" value="<?php
+                for ($i = 1; $i <= $danhSachCongTac; $i++) {
+                    echo "+" . $i;
+                }
+                if ($danhSachCongTac == 0) {
+                    echo "+1";
+                }
+                ?>" type="hidden" name="ktcongtac">
                 <table class="table" data-height="299" id="POITable">
                     <thead>
                         <tr>
@@ -638,7 +677,7 @@ and open the template in the editor.
                         </tr>
                     </thead>
                     <tbody id="bodyPOITable">
-                        <?php $countCongTac=1; ?>
+<?php $countCongTac = 1; ?>
                         <?php foreach( $quaTrinhCongTac as $congTac): ?>
                         <tr>
                             <td><input class="form-control" data-provide="datepicker" name="<?php echo 'cttungay'.$countCongTac; ?>" type="text" value="<?php echo date("d-m-Y", strtotime($congTac->NGAYNHANCV)); ?>"></td>
@@ -649,25 +688,32 @@ and open the template in the editor.
                                 <button class="form-control" type="button" onclick="deleteRow(this)">Xóa</button>
                             </td> 
                         </tr>
-                        <?php $countCongTac++; ?>
+<?php $countCongTac++; ?>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
-                
+
                 <p class="bg-info"><label>Quá trình đào tạo</label></p>
-                <input id="ktdaotao" value="<?php for( $i = 1 ; $i <= $danhSachDaoTao ; $i++) { echo "+".$i ;} ?>" type="hidden" name="ktdaotao">
+                <input id="ktdaotao" value="<?php
+                for ($i = 1; $i <= $danhSachDaoTao; $i++) {
+                    echo "+" . $i;
+                }
+                if ($danhSachDaoTao == 0) {
+                    echo "+1";
+                }
+                ?>" type="hidden" name="ktdaotao">
                 <table class="table" data-height="299" id="POITable1">
                     <thead>
-                        <th>Trường</th> 
-                        <th>Ngành học</th> 
-                        <th>Từ</th> 
-                        <th>Đến</th> 
-                        <th>Hình thức học</th> 
-                        <th>Văn bằng, Chứng chỉ</th> 
-                        <th class="col-md-1"><button class="form-control" type='button' onclick="insRow1();">Thêm</button></th>
+                    <th>Trường</th> 
+                    <th>Ngành học</th> 
+                    <th>Từ</th> 
+                    <th>Đến</th> 
+                    <th>Hình thức học</th> 
+                    <th>Văn bằng, Chứng chỉ</th> 
+                    <th class="col-md-1"><button class="form-control" type='button' onclick="insRow1();">Thêm</button></th>
                     </thead>
                     <tbody id="bodyPOITable1">
-                        <?php $countDaoTao=1; ?>
+<?php $countDaoTao = 1; ?>
                         <?php foreach( $quaTrinhDaoTao as $daoTao): ?>
                         <tr>
                             <td><input class="form-control" name="<?php echo 'dttruong'.$countDaoTao; ?>" type="text" value="<?php echo $daoTao->TENTRUONG; ?>"></td> 
@@ -680,23 +726,30 @@ and open the template in the editor.
                                 <button class="form-control" type="button" onclick="deleteRow1(this)">Xóa</button>
                             </td> 
                         </tr>
-                        <?php $countDaoTao++; ?>
+<?php $countDaoTao++; ?>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
-                
+
                 <p class="bg-info"><label>Đi nước ngoài</label></p>
-                <input id="ktnuocngoai" value="<?php for( $i = 1 ; $i <= $danhSachNuocNgoai ; $i++) { echo "+".$i ;} ?>" type="hidden" name="ktnuocngoai">
+                <input id="ktnuocngoai" value="<?php
+for ($i = 1; $i <= $danhSachNuocNgoai; $i++) {
+    echo "+" . $i;
+}
+if ($danhSachNuocNgoai == 0) {
+                    echo "+1";
+                }
+?>" type="hidden" name="ktnuocngoai">
                 <table class="table" data-height="299" id="POITable2">
                     <thead>
-                        <th>Ngày đi</th> 
-                        <th>Ngày về</th> 
-                        <th>Quốc gia</th> 
-                        <th>Lý do đi</th> 
-                        <th class="col-md-1"><button class="form-control" type='button' onclick="insRow2();">Thêm</button></th>
+                    <th>Ngày đi</th> 
+                    <th>Ngày về</th> 
+                    <th>Quốc gia</th> 
+                    <th>Lý do đi</th> 
+                    <th class="col-md-1"><button class="form-control" type='button' onclick="insRow2();">Thêm</button></th>
                     </thead>
                     <tbody id="bodyPOITable2">
-                        <?php $countNuocNgoai=1; ?>
+<?php $countNuocNgoai = 1; ?>
                         <?php foreach( $diNuocNgoai as $diNN): ?>
                         <tr>
                             <td><input class="form-control" data-provide="datepicker" name="<?php echo 'nntungay'.$countNuocNgoai; ?>" type="text" value="<?php echo date("d-m-Y", strtotime($diNN -> NGAYDI)); ?>"></td>  
@@ -707,26 +760,33 @@ and open the template in the editor.
                                 <button class="form-control" type="button" onclick="deleteRow3(this)">Xóa</button>
                             </td> 
                         </tr>
-                        <?php $countNuocNgoai++; ?>
+                <?php $countNuocNgoai++; ?>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
-                
+
                 <p class="bg-info"><lable><b>Người thân</b></lable></p>
-                <input id="ktnguoithan" value="<?php for( $i = 1 ; $i <= $danhSachKTNguoiThan ; $i++) { echo "+".$i ;} ?>" type="hidden" name="ktnguoithan">
+                <input id="ktnguoithan" value="<?php
+                for ($i = 1; $i <= $danhSachKTNguoiThan; $i++) {
+                    echo "+" . $i;
+                }
+                if ($danhSachKTNguoiThan == 0) {
+                    echo "+1";
+                }
+                ?>" type="hidden" name="ktnguoithan">
                 <div class="nguoithan">
                     <table class="table" data-height="299" id="POITable3">
                         <thead>
-                            <td class="col-md-1">Quan hệ</td> 
-                            <td>Họ và tên</td> 
-                            <td  class="col-md-1">Năm sinh</td> 
-                            <td>Cư trú</td> 
-                            <td  class="col-md-1">Nghề nghiệp</td> 
-                            <td>Đặc điểm chính trị</td> 
-                            <th class="col-md-1"><button class="form-control" type='button' onclick="insRow3();">Thêm</button></th>
+                        <td class="col-md-1">Quan hệ</td> 
+                        <td>Họ và tên</td> 
+                        <td  class="col-md-1">Năm sinh</td> 
+                        <td>Cư trú</td> 
+                        <td  class="col-md-1">Nghề nghiệp</td> 
+                        <td>Đặc điểm chính trị</td> 
+                        <th class="col-md-1"><button class="form-control" type='button' onclick="insRow3();">Thêm</button></th>
                         </thead>
                         <tbody id="bodyPOITable3">
-                            <?php $countNguoiThan=1; ?>
+<?php $countNguoiThan = 1; ?>
                             <?php foreach( $danhSachNguoiThan as $nguoiThan): ?>
                             <tr>
                                 <td><input class="form-control" name="<?php echo 'ntquanhe'.$countNguoiThan; ?>" type="text" value="<?php echo $nguoiThan->QUANHE; ?>"></td>
@@ -739,35 +799,35 @@ and open the template in the editor.
                                     <button class="form-control" type="button" onclick="deleteRow3(this)">Xóa</button>
                                 </td>
                             </tr>
-                            <?php $countNguoiThan++; ?>
+<?php $countNguoiThan++; ?>
                             <?php endforeach; ?>
                         </tbody>
                     </table>
                 </div>
-            <?php echo Form::close(); ?>    
+                <?php echo Form::close(); ?>    
             </div>
-            
+
         </div>
         <script src="<?php echo asset('public/js/jquery-latest.min.js'); ?>" type="text/javascript"></script>
         <script>
-            $("#hider").click(function () {
-                if ($(this).text() === 'Ẩn thông tin cơ bản') {
-                    $(this).text('Hiện thông tin cơ bản');
-                    $("#box1").hide("fast");
-               } else{
-                    $(this).text('Ẩn thông tin cơ bản');
-                    $("#box1").show("fast");
-               }
-            });
-            $("#shower").click(function () {
-                if ($(this).text() === 'Ẩn thông tin khác') {
-                    $(this).text('Hiện thông tin khác');
-                    $("#box").hide("fast");
-               } else{
-                    $(this).text('Ẩn thông tin khác');
-                    $("#box").show("fast");
-               }
-            });
+                                        $("#hider").click(function () {
+                                            if ($(this).text() === 'Ẩn thông tin cơ bản') {
+                                                $(this).text('Hiện thông tin cơ bản');
+                                                $("#box1").hide("fast");
+                                            } else {
+                                                $(this).text('Ẩn thông tin cơ bản');
+                                                $("#box1").show("fast");
+                                            }
+                                        });
+                                        $("#shower").click(function () {
+                                            if ($(this).text() === 'Ẩn thông tin khác') {
+                                                $(this).text('Hiện thông tin khác');
+                                                $("#box").hide("fast");
+                                            } else {
+                                                $(this).text('Ẩn thông tin khác');
+                                                $("#box").show("fast");
+                                            }
+                                        });
         </script>
     </body>
 </html>
