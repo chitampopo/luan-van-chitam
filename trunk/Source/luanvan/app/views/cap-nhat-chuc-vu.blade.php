@@ -19,9 +19,9 @@
         <div class="col-md-3"> 
             @include('menu')
         </div>
-        <div class="col-md-9 container">
+        <div class="col-md-9 container alert alert-success">
             <h2>Trang cập nhật chức vụ Đảng viên và Lý lịch trích ngang</h2><br>
-            <div class="col-md-12">
+            <div class="col-md-12 alert alert-success">
                 <form method="post" action="filter-cap-nhat-chuc-vu" class="form-group">
                     <div class="col-md-4">
                         <select class="form-control" id="maChiBoChon" name="maChiBoChon">
@@ -53,7 +53,7 @@
                     </div>
                 </form>
             </div>
-            <div class="col-md-12">
+            <div class="col-md-12 alert alert-success">
                 <form method="post" action="in-ly-lich-trich-ngang" class="form-group">
                     <input type='hidden' value="{{$maChiBoChon}}" name="maChiBoDuocChon">
                     <input type="hidden" value="{{$maNhiemKy}}" name="maNhiemKyDuocChon">

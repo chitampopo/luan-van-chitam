@@ -14,11 +14,9 @@
         <div class="col-md-3"> 
             <?php echo $__env->make('menu', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
         </div>
-        <div class="col-md-9">
-            <h2>Danh sách Đảng viên</h2><br>
-        </div>
         <div >
-            <div class="col-md-9 container">
+            <div class="col-md-9 container alert alert-success" style="padding: 0 30px 0 30px">
+                <center><h2>Danh sách Đảng viên</h2></center><br>
                 <form action="danh-sach-dang-vien" method="post" class="form-group">
                     <div class="col-md-3">
                         <select name="maChiBo" class="form-control" id="maChiBo">
@@ -40,10 +38,7 @@
                         <input class="btn btn-default"  type="button" id="button3" value="Thêm Đảng viên">
                     </div>
                 </form>
-            </div>
-            <div class="col-md-9"><br><br>
-            </div>
-            <div class="col-md-9 container">
+                <br><br>
             <table class="table col-md-8">
                 <thead>
                     <tr>
@@ -84,7 +79,7 @@
                 window.open("http://localhost/luanvan/index.php/in-so-dang-tich/" + value, '_blank')
             });
             $('#button2').click(function() {
-                window.open("http://localhost/luanvan/index.php/in-danh-sach-dang-vien/" + value, '_blank');
+                window.open("http://localhost/luanvan/index.php/danh-sach-dang-vien-pdf/" + value, '_blank');
                 //$(this).attr("http://localhost/luanvan/index.php/in-danh-sach-dang-vien/" + value, '_blank');
                 //window.open(link.attr('href'));
             });

@@ -13,6 +13,6 @@ and open the template in the editor.
         </style>
     </head>
     <body>
-        <h3>Đảng viên này đã bị xóa, không thể truy cập!!!</h3>
+        <h3>{{$thongBao}}</h3>
     </body>
 </html>

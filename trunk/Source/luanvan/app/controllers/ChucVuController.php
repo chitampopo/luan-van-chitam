@@ -209,4 +209,29 @@ class ChucVuController extends Controller {
 	unlink($filename); // deletes the temporary file
     }
 
+    public function InLyLichTrichNgangPDF() {
+        $maNhiemKy = Input::get("maNhiemKyDuocChon");
+        $nhiemKy = NhiemKy::where("MANHIEMKY", "=", $maNhiemKy)->first();
+        $chucVuNguoiLap = Input::get("chucVuNguoiLap");
+        $nguoiLap = Input::get("nguoiLap");
+        $listTinh = TinhThanh::all();
+        $listHuyen = QuanHuyen::all();
+        $listXa = PhuongXa::all();
+        $listTheDang = TheDang::all();
+        $listChiBo = ChiBo::all();
+        
+        //$listDangVien = DB::select('select * from dangvien, lylich where dangvien.MADANGVIEN = lylich.MADANGVIEN and dangvien.XOA = 0');
+        $pdf = App::make('dompdf');
+        $pdf->loadHTML(View::make("in-danh-sach-ly-lich")
+                        ->with("listChiBo", $listChiBo)
+                        ->with("nhiemKy",$nhiemKy)
+                        ->with("chucVuNguoiLap",$chucVuNguoiLap)
+                        ->with("nguoiLap", $nguoiLap)
+                        ->with("listTinh",$listTinh)
+                        ->with("listHuyen",$listHuyen)
+                        ->with("listXa",$listXa)
+                        ->with("listTheDang",$listTheDang)
+        );
+        return $pdf->setPaper('a3')->setOrientation('landscape')->stream();
+    }
 }

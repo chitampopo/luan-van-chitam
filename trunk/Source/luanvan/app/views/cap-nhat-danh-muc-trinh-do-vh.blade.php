@@ -13,29 +13,17 @@ and open the template in the editor.
         <script src="{{asset('public/js/jquery-latest.min.js')}}" type="text/javascript"></script>
     </head>
     <body>
-        <div class="col-md-12">
-            <br><br>
-        </div>
-        <div class="col-md-12">
-            @include('header')
-        </div>
-        <div class="col-md-12">
-            <br><br>
-        </div>
-        <div class="col-md-4"> 
+        @include('header')
+        <div class="col-md-3"> 
             @include('menu')
         </div>
-        <div class="col-md-8">
-            <h2>Trang cập nhật danh mục trình độ văn hóa</h2><br>
-        </div>
-        <div class="form-group col-md-5 container">
+        <div class="form-group col-md-9 container alert alert-success" style="padding-left: 100px; padding-right: 100px">
+            <h2>Trang cập nhật danh mục trình độ văn hóa</h2>
             {{ Form::open(array('url' => 'trinh-do-vh-action')) }}
             {{ Form::label('', 'Trình độ văn hóa'); }}<br>
             <input class="form-control" name="ten" type="text" required minlength="4"><br>
             {{ Form::submit('Lưu lại', array('class' => 'btn btn-default')); }}
             {{ Form::close() }}
-        </div>
-        <div class="col-md-8 container">
             <table class="table col-md-8" data-height="299">
                 <thead>
                     <tr>

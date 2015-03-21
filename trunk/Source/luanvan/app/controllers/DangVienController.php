@@ -435,8 +435,13 @@ class DangVienController extends Controller {
         $dangVien = DangVien::where("MADANGVIEN", "=", $maDangVien)->first();
         $dangVien->NGAYSINH = date("d-m-Y", strtotime($dangVien->NGAYSINH));
         $lyLich = LyLich::where("MADANGVIEN", "=", $maDangVien)->first();
+        if ($lyLich->MIENCT_SHD == "1970-01-01") {
+            $lyLich->MIENCT_SHD = null;
+        } else {
+            $lyLich->MIENCT_SHD = date("d-m-Y", strtotime($lyLich->MIENCT_SHD));
+        }
         $lyLich->NGAYVAODANG = date("d-m-Y", strtotime($lyLich->NGAYVAODANG));
-        $lyLich->MIENCT_SHD = date("d-m-Y", strtotime($lyLich->MIENCT_SHD));
+
         $vaoDoan = DOANTNCSHCM::where("MADANGVIEN", "=", $maDangVien)->first();
         if ($vaoDoan == null) {
             $vaoDoan = new DOANTNCSHCM();
@@ -448,26 +453,26 @@ class DangVienController extends Controller {
             $theDang = new TheDang();
             $theDang->SOTHE = null;
             $theDang->NGAYCAPTHE = date("d-m-Y", strtotime($theDang->NGAYCAPTHE));
-        } else{
+        } else {
             $theDang->NGAYCAPTHE = date("d-m-Y", strtotime($theDang->NGAYCAPTHE));
         }
         $xuatNhapNgu = XuatNhapNgu::where("MADANGVIEN", "=", $maDangVien)->first();
-        
+
         if ($xuatNhapNgu == null) {
             $xuatNhapNgu = new XuatNhapNgu;
             $xuatNhapNgu->NGAYNHAPNGU = null;
             $xuatNhapNgu->NGAYXUATNGU = null;
-        } else{
+        } else {
             $xuatNhapNgu->NGAYNHAPNGU = date("d-m-Y", strtotime($xuatNhapNgu->NGAYNHAPNGU));
             $xuatNhapNgu->NGAYXUATNGU = date("d-m-Y", strtotime($xuatNhapNgu->NGAYXUATNGU));
         }
         $tuTran = TuTran::where("MADANGVIEN", "=", $maDangVien)->first();
-        
+
         if ($tuTran == null) {
             $tuTran = new TuTran();
             $tuTran->NGAYTUTRAN = null;
             $tuTran->LYDOTUTRAN = null;
-        } else{
+        } else {
             $tuTran->NGAYTUTRAN = date("d-m-Y", strtotime($tuTran->NGAYTUTRAN));
         }
         $thuongBinh = ThuongBinh::where("MADANGVIEN", "=", $maDangVien)->first();
@@ -759,8 +764,6 @@ class DangVienController extends Controller {
                         'NOIVAODOAN' => $noiVaoDoan));
         }
 
-
-
         LyLich::where("MADANGVIEN", "=", $maDangVien)->update(
                 array(
                     //Chi bộ
@@ -975,7 +978,7 @@ class DangVienController extends Controller {
 
     public function TrangDanhSachDangVien() {
         $listChiBo = ChiBo::all();
-        $listDangVien = DangVien::paginate(15);
+        $listDangVien = DangVien::where("XOA","=","0")->paginate(15);
         $listLyLich = LyLich::all();
         $maChiBoChon = "0";
         return View::make("danh-sach-dang-vien")
@@ -1011,13 +1014,19 @@ class DangVienController extends Controller {
         $maCB = $maChiBo;
         $listLyLich = LyLich::all();
         if ($maCB == "0") {
-            $listDangVien = DangVien::where("XOA", "=", "0")->get();
+            $listDangVien = DB::select('select * from dangvien, lylich '
+                            . 'where dangvien.MADANGVIEN = lylich.MADANGVIEN '
+                            . 'and dangvien.XOA = 0');
         } else {
-            $listDangVien = DB::table('dangvien')
-                    ->leftJoin('lylich', 'dangvien.MADANGVIEN', '=', 'lylich.MADANGVIEN')
-                    ->where('lylich.MACB', "=", $maChiBo)
-                    ->where("dangvien.XOA", "=", "0")
-                    ->get();
+            $listDangVien = DB::select('select * from dangvien, lylich '
+                            . 'where dangvien.MADANGVIEN = lylich.MADANGVIEN '
+                            . 'and dangvien.XOA = 0 '
+                            . 'and lylich.MACB = ' . $maCB);
+//            $listDangVien = DB::table('dangvien')
+//                    ->leftJoin('lylich', 'dangvien.MADANGVIEN', '=', 'lylich.MADANGVIEN')
+//                    ->where('lylich.MACB', "=", $maChiBo)
+//                    ->where("dangvien.XOA", "=", "0")
+//                    ->get();
         }
         $pdf = App::make('dompdf');
         $pdf->loadHTML(View::make("in-so-dang-tich")
@@ -1026,7 +1035,7 @@ class DangVienController extends Controller {
                         ->with("listLyLich", $listLyLich)
                         ->with("maChiBoChon", $maCB)
         );
-        return $pdf->setPaper('a4')->setOrientation('landscape')->stream();
+        return $pdf->setPaper('a3')->setOrientation('landscape')->stream();
         //return PDF::load(View::make("in-so-dang-tich")->render(), 'A4', 'landscape')->show();
     }
 
@@ -1067,18 +1076,18 @@ class DangVienController extends Controller {
         $phpWord->addFontStyle('rStyle', array('bold' => true, 'size' => 16));
         $phpWord->addParagraphStyle('pStyle', array('align' => 'center', 'spaceAfter' => 100));
         $tenChiBo = null;
-        if( $maChiBo == "0"){
+        if ($maChiBo == "0") {
             $section->addText(htmlspecialchars('DANH SÁCH ĐẢNG VIÊN CỦA ĐẢNG BỘ KHOA CNTT&TT'), 'rStyle', 'pStyle');
-        } else{
+        } else {
             $section->addText(htmlspecialchars("ĐẢNG BỘ KHOA CNTT&TT                   ĐẢNG CỘNG SẢN VIỆT NAM"), 'rStyle');
-            foreach($listChiBo as $chiBo){
-                if ( $maChiBo == $chiBo->MACB){
+            foreach ($listChiBo as $chiBo) {
+                if ($maChiBo == $chiBo->MACB) {
                     $section->addText(htmlspecialchars($chiBo->TENCB), 'rStyle');
                     $tenChiBo = $chiBo->TENCB;
                 }
             }
             $section->addText(htmlspecialchars(""));
-            $section->addText(htmlspecialchars('Danh sách Đảng viên của '.$tenChiBo), 'rStyle', 'pStyle');
+            $section->addText(htmlspecialchars('Danh sách Đảng viên của ' . $tenChiBo), 'rStyle', 'pStyle');
         }
         $section->addText(htmlspecialchars('Tính đến ngày ' . date("d-m-Y")), 'rStyle', 'pStyle');
 
@@ -1107,7 +1116,7 @@ class DangVienController extends Controller {
         $table->addRow();
         $cell2 = $table->addCell(10000, $cellColSpan);
         $textrun2 = $cell2->addTextRun($cellHCentered);
-        $textrun2->addText(htmlspecialchars("Chính thức (".count($listDangVien).")"));
+        $textrun2->addText(htmlspecialchars("Chính thức (" . count($listDangVien) . ")"));
         foreach ($listDangVien as $dangVien) {
             $table->addRow();
             $table->addCell(500)->addText(htmlspecialchars($count++));
@@ -1140,7 +1149,7 @@ class DangVienController extends Controller {
         $table->addRow();
         $cell3 = $table->addCell(10000, $cellColSpan);
         $textrun3 = $cell3->addTextRun($cellHCentered);
-        $textrun3->addText(htmlspecialchars("Dự bị (".count($listDangVienDuBi).")"));
+        $textrun3->addText(htmlspecialchars("Dự bị (" . count($listDangVienDuBi) . ")"));
         foreach ($listDangVienDuBi as $dangVien) {
             $table->addRow();
             $table->addCell(500)->addText(htmlspecialchars($count++));
@@ -1164,29 +1173,29 @@ class DangVienController extends Controller {
         $soChinhThuc = count($listDangVien);
         $soDuBi = count($listDangVienDuBi);
         $soDangVien = $soChinhThuc + $soDuBi;
-        $section->addText(htmlspecialchars('Tổng số: '.$soDangVien. " Đảng viên - Chính thức: ".$soChinhThuc." Dự bị: ".$soDuBi));
-        
-        
+        $section->addText(htmlspecialchars('Tổng số: ' . $soDangVien . " Đảng viên - Chính thức: " . $soChinhThuc . " Dự bị: " . $soDuBi));
+
+
         //$objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
         //$objWriter->save('C:\QuanLyDangVien\');
         // Save File
-	$objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
-	$filename = "DanhSachDangVien.docx";
-	$objWriter->save($filename);
- 
+        $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
+        $filename = "DanhSachDangVien.docx";
+        $objWriter->save($filename);
+
 
         // The following offers file to user on client side: deletes temp version of file
-	header('Content-Description: File Transfer');
-	header('Content-Type: application/octet-stream');
-	header('Content-Disposition: attachment; filename='.$filename);
-	header('Content-Transfer-Encoding: binary');
-	header('Expires: 0');
-	header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
-	header('Pragma: public');
-	header('Content-Length: ' . filesize($filename));
-	flush();
-	readfile($filename);
-	unlink($filename); // deletes the temporary file
+        header('Content-Description: File Transfer');
+        header('Content-Type: application/octet-stream');
+        header('Content-Disposition: attachment; filename=' . $filename);
+        header('Content-Transfer-Encoding: binary');
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+        header('Pragma: public');
+        header('Content-Length: ' . filesize($filename));
+        flush();
+        readfile($filename);
+        unlink($filename); // deletes the temporary file
         //echo "Danh sách đảng viên đã được lưu tại 'C:\QuanLyDangVien\DanhSachDangVien.docx'";
 //        header('Content-Description: File Transfer');
 //        header('Content-type: application/force-download');
@@ -1194,6 +1203,29 @@ class DangVienController extends Controller {
 //        header('Content-Transfer-Encoding: binary');
 //        header('Content-Length: '.filesize('DanhSachDangVien.docx'));
 //        readfile('DanhSachDangVien.docx');
+    }
+
+    public function InDanhSachDangVienPDF($maChiBo) {
+        $listChiBo = ChiBo::all();
+        $maCB = $maChiBo;
+        $listLyLich = LyLich::all();
+        if ($maCB == "0") {
+            $listDangVien = DB::select('select * from dangvien, lylich where dangvien.MADANGVIEN = lylich.MADANGVIEN and dangvien.XOA = 0 and NGAYVAODANGCHINHTHUC != "0000-00-00"');
+            $listDangVienDuBi = DB::select('select * from dangvien, lylich where dangvien.MADANGVIEN = lylich.MADANGVIEN and dangvien.XOA = 0 and NGAYVAODANGCHINHTHUC is null');
+        } else {
+            $listDangVien = DB::select('select * from dangvien, lylich where dangvien.MADANGVIEN = lylich.MADANGVIEN and dangvien.XOA = 0 and NGAYVAODANGCHINHTHUC != "0000-00-00" and lylich.MACB = ' . $maCB);
+            $listDangVienDuBi = DB::select('select * from dangvien, lylich where dangvien.MADANGVIEN = lylich.MADANGVIEN and dangvien.XOA = 0 and NGAYVAODANGCHINHTHUC is null and lylich.MACB = ' . $maCB);
+        }
+        $pdf = App::make('dompdf');
+        $pdf->loadHTML(View::make("in-danh-sach-dang-vien")
+                        ->with("listChiBo", $listChiBo)
+                        ->with("listDangVien", $listDangVien)
+                        ->with("listLyLich", $listLyLich)
+                        ->with("maChiBoChon", $maCB)
+                        ->with("listDangVienDuBi", $listDangVienDuBi)
+        );
+        return $pdf->setPaper('a3')->setOrientation('landscape')->stream();
+        //return PDF::load(View::make("in-so-dang-tich")->render(), 'A4', 'landscape')->show();
     }
 
 }
