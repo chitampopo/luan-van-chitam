@@ -8,12 +8,10 @@ and open the template in the editor.
     <head>
         <meta charset="UTF-8">
         <title>Chỉnh sửa thông tin Đảng viên</title>
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <link rel="stylesheet" href="{{asset('public/css/jquery-ui.css')}}"/>
         <link rel="stylesheet" href="{{asset('public/css/bootstrap.min.css')}}">
         <link rel="stylesheet" href="{{asset('public/css/bootstrap-datepicker.css')}}">
         <link rel="stylesheet" href="{{asset('public/css/style.css')}}">
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script src="{{asset('public/js/jquery-latest.min.js')}}" type="text/javascript"></script>
         <script src="{{asset('public/js/jquery-ui.js')}}" type="text/javascript"></script>
         <script src="{{asset('public/js/bootstrap-datepicker.js')}}" type="text/javascript"></script>
@@ -218,16 +216,20 @@ and open the template in the editor.
                     <span class="help-block with-errors">Số thẻ Đảng gồm 8 đến 9 chữ số</span>
 
                     {{ Form::label('', 'Ngày cấp thẻ'); }}<br>
-                    {{ Form::text('ngaycapthedang', $theDang->NGAYCAPTHE, array('class' => 'form-control')); }}
+                    @if( $theDang->NGAYCAPTHE == '01-01-1970')
+                    <input class="form-control" data-provide="datepicker" name="ngaycapthedang" type="text" value="" >
+                    @else
+                    {{ Form::text('ngaycapthedang', $lyLich-> MIENCT_SHD , array('class' => 'form-control','data-provide' => 'datepicker')) }}
+                    @endif
 
                     {{ Form::label('', 'Hệ số lương'); }}<br>
-                    {{ Form::text('hsluong', $lyLich->HSLUONG, array('class' => 'form-control')); }}
+                    {{ Form::text('hsluong', number_format($lyLich->HSLUONG,2 ), array('class' => 'form-control')); }}
 
                     {{ Form::label('', 'Ngày nhập ngũ'); }}<br>
                     {{ Form::text('nhapngu', $xuatNhapNgu->NGAYNHAPNGU, array('class' => 'form-control','data-provide' => 'datepicker')) }}     
 
                     {{ Form::label('', 'Phụ cấp thâm niên'); }}<br>
-                    {{ Form::text('thamnien', $lyLich -> HSTHAMNIEN, array('class' => 'form-control')); }}
+                    {{ Form::text('thamnien', number_format($lyLich -> HSTHAMNIEN ,2 ), array('class' => 'form-control')); }}
 
 
                     {{ Form::label('', 'Ngày từ trần'); }}<br>
@@ -265,7 +267,7 @@ and open the template in the editor.
                     </select>
 
                     {{ Form::label('', 'Ngày sinh'); }}<br>
-                    <input class="form-control" data-provide="datepicker" name="ngaysinh" type="text" value="{{$dangVien -> NGAYSINH}}" required>
+                    <input class="form-control" data-provide="datepicker" name="ngaysinh" type="text" value="{{$dangVien -> NGAYSINH or null}}" required>
 
                     {{ Form::label('', 'Quê quán'); }}<br>
                     <select class="form-control" name="quequan">
@@ -433,19 +435,25 @@ and open the template in the editor.
                         ?>
                                 >4/4</option>
                     </select>
-
+                    
+                   
                     {{ Form::label('', 'Ngày miễn công tác và SHĐ'); }}<br>
-                    {{ Form::text('mienct', $lyLich-> MIENCT_SHD, array('class' => 'form-control','data-provide' => 'datepicker')) }}
+                    @if( $lyLich-> MIENCT_SHD == '01-01-1970')
+                    <input class="form-control" data-provide="datepicker" name="ngaysinh" type="text" value="" required="">
+                    @else
+                    {{ Form::text('mienct', $lyLich-> MIENCT_SHD , array('class' => 'form-control','data-provide' => 'datepicker')) }}
+                    @endif
+                    
 
                     {{ Form::label('', 'Số lý lịch Đảng'); }}<br>
                     <input class="form-control" name="lylich" type="text" value="{{ $lyLich->SOLL}}" pattern="^[0-9]{6}[A-z]{1,3}">
                     <span class="help-block with-errors">Số lý lịch Đảng gồm 6 chữ số và từ 1 đến 3 ký tự</span>
 
                     {{ Form::label('', 'Phụ cấp chức vụ'); }}<br>
-                    {{ Form::text('pcchucvu', $lyLich->HSCHUCVU, array('class' => 'form-control')); }}
+                    {{ Form::text('pcchucvu', number_format($lyLich->HSCHUCVU,2 ), array('class' => 'form-control')); }}
 
                     {{ Form::label('', 'Phụ cấp vượt khung'); }}<br>
-                    {{ Form::text('vuotkhung', $lyLich->HSVUOTKHUNG, array('class' => 'form-control')); }}
+                    {{ Form::text('vuotkhung', number_format($lyLich->HSVUOTKHUNG,2 ), array('class' => 'form-control')); }}
 
                     {{ Form::label('', 'Ngày xuất ngũ'); }}<br>
                     {{ Form::text('xuatngu', $xuatNhapNgu -> NGAYXUATNGU, array('class' => 'form-control','data-provide' => 'datepicker')) }} 
@@ -663,8 +671,16 @@ for ($i = 1; $i <= $danhSachHuyHieu; $i++) {
 <?php $countCongTac = 1; ?>
                         @foreach( $quaTrinhCongTac as $congTac)
                         <tr>
+                            @if ( date("d-m-Y", strtotime($congTac->NGAYNHANCV)) == "01-01-1970" )
+                            <td><input class="form-control" data-provide="datepicker" name="{{'cttungay'.$countCongTac}}" type="text" value=""></td>
+                            @else
                             <td><input class="form-control" data-provide="datepicker" name="{{'cttungay'.$countCongTac}}" type="text" value="{{date("d-m-Y", strtotime($congTac->NGAYNHANCV))}}"></td>
+                            @endif
+                            @if ( date("d-m-Y", strtotime($congTac->NGAYHETCV)) == "01-01-1970" )
+                            <td><input class="form-control" data-provide="datepicker" name="{{'ctdenngay'.$countCongTac}}" type="text" value=""></td> 
+                            @else
                             <td><input class="form-control" data-provide="datepicker" name="{{'ctdenngay'.$countCongTac}}" type="text" value="{{date("d-m-Y", strtotime($congTac->NGAYHETCV))}}"></td> 
+                            @endif
                             <td><input class="form-control" name="{{'ctchucvu'.$countCongTac}}" type="text" value="{{$congTac->LAMCV}}"></td>
                             <td><input class="form-control" name="{{'ctdonvi'.$countCongTac}}" type="text" value="{{$congTac->DONVI}}"></td> 
                             <td>
@@ -735,8 +751,17 @@ if ($danhSachNuocNgoai == 0) {
 <?php $countNuocNgoai = 1; ?>
                         @foreach( $diNuocNgoai as $diNN)
                         <tr>
+                            @if(date("d-m-Y", strtotime($diNN -> NGAYDI)) == '01-01-1970')
+                            <td><input class="form-control" data-provide="datepicker" name="{{'nntungay'.$countNuocNgoai}}" type="text" value=""></td>  
+                            @else
                             <td><input class="form-control" data-provide="datepicker" name="{{'nntungay'.$countNuocNgoai}}" type="text" value="{{date("d-m-Y", strtotime($diNN -> NGAYDI))}}"></td>  
+                            @endif
+                            @if(date("d-m-Y", strtotime($diNN -> NGAYDI)) == '01-01-1970')
+                            <td><input class="form-control" data-provide="datepicker" name="{{'nndenngay'.$countNuocNgoai}}" type="text" value=""></td>
+                            @else
                             <td><input class="form-control" data-provide="datepicker" name="{{'nndenngay'.$countNuocNgoai}}" type="text" value="{{date("d-m-Y", strtotime($diNN -> NGAYVE))}}"></td>
+                            @endif
+                            
                             <td><input class="form-control" name="{{'nnquocgia'.$countNuocNgoai}}" type="text" value="{{$diNN -> QUOCGIA}}">
                             <td><input class="form-control" name="{{'nnlido'.$countNuocNgoai}}" type="text" value="{{$diNN -> LYDODI}}"></td> 
                             <td>
@@ -762,7 +787,7 @@ if ($danhSachNuocNgoai == 0) {
                         <thead>
                         <td class="col-md-1">Quan hệ</td> 
                         <td>Họ và tên</td> 
-                        <td  class="col-md-1">Năm sinh</td> 
+                        <td  class="col-md-1">Ngày sinh</td> 
                         <td>Cư trú</td> 
                         <td  class="col-md-1">Nghề nghiệp</td> 
                         <td>Đặc điểm chính trị</td> 

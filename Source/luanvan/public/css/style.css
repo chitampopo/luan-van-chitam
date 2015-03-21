@@ -1,8 +1,8 @@
 body{
     width: 1200px;
     margin: auto;
-    background: #86aecc;
-    //background-image: url(http://localhost/luanvan/public/images/repeat-background1.jpg);
+    background: #b5d3ea;
+    //background-image: url(http://localhost/luanvan/public/images/111.jpg);
     //background-repeat: repeat;
 }
 .form-horizontal{
@@ -26,6 +26,6 @@ body{
 }
 .nguoithan table
 {
-    width:1500px;
+    width:1600px;
 }
 

@@ -54,10 +54,10 @@
                         @endforeach
                         
                     </th> 
-                    <th data-field="id" >{{number_format($dangVien->HSLUONG, 1)}}</th> 
-                    <th data-field="id" >{{number_format($dangVien->HSCHUCVU ,1 )}}</th> 
-                    <th data-field="id" >{{number_format($dangVien->HSTHAMNIEN, 1)}}</th> 
-                    <th data-field="id" >{{number_format($dangVien->HSVUOTKHUNG, 1)}}</th> 
+                    <th data-field="id" >{{number_format($dangVien->HSLUONG, 2)}}</th> 
+                    <th data-field="id" >{{number_format($dangVien->HSCHUCVU ,2 )}}</th> 
+                    <th data-field="id" >{{number_format($dangVien->HSTHAMNIEN, 2)}}</th> 
+                    <th data-field="id" >{{number_format($dangVien->HSVUOTKHUNG, 2)}}</th> 
                     <th data-field="id" >
                         <?php
                         $luong = number_format($luongCoBan -> LUONGCB * ( $dangVien -> HSLUONG + $dangVien->HSCHUCVU ) * ( 1 + $dangVien->HSTHAMNIEN  + $dangVien->HSVUOTKHUNG) , 1 );

@@ -9,7 +9,7 @@
         <link rel="stylesheet" href="{{asset('public/css/style.css')}}">
         <script src="{{asset('public/js/jquery-latest.min.js')}}" type="text/javascript"></script>
         <script src="{{asset('public/js/script-menu-vertical.js')}}"></script>
-        <title>CSS MenuMaker</title>
+        <title>Trang quản lý</title>
         <script>
      
         </script>
@@ -57,19 +57,19 @@
                 <li class='active has-sub'><a href='#'>Kết nạp Đảng</a>
                     <ul>
                         <li>
-                            <a href='#'>Danh sách cảm tình Đảng</a>
+                            <a href='{{URL::to('/')}}/danh-sach-cam-tinh-dang'>Danh sách cảm tình Đảng</a>
                         </li>
                         <li>
                             <a href='#'>Báo cáo tạo nguồn kết nạp Đảng viên</a>
                         </li>
                         <li>
-                            <a href='#'>Giấy xin ý kiến đoàn thể, chi bộ nơi cư trú</a>
+                            <a href='{{URL::to('/')}}/trang-xin-y-kien-cam-tinh-dang'>Giấy xin ý kiến đoàn thể, chi bộ nơi cư trú</a>
                         </li>
                         <li>
-                            <a href='#'>Lập danh sách lớp bồi dưỡng kết nạp Đảng</a>
+                            <a href='{{URL::to('/')}}/lap-danh-sach-di-hoc/{{Session::get("maChiBoTaiKhoan")}}'>Lập danh sách lớp bồi dưỡng kết nạp Đảng</a>
                         </li>
                         <li>
-                            <a href='#'>Tổng hợp ý kiến nhận xét nơi công tác</a>
+                            <a href='{{URL::to('/')}}/trang-tong-hop-y-kien-cam-tinh-dang'>Tổng hợp ý kiến nhận xét nơi công tác</a>
                         </li>
                         <li>
                             <a href='#'>Phiếu thẩm tra, chứng nhận lí lịch Đảng viên</a>
@@ -82,10 +82,10 @@
                             <a href='#'>Danh sách lớp bồi dưỡng Đảng viên mới</a>
                         </li>
                         <li>
-                            <a href='#'>Phiếu xin YKNX ĐVDB ở Đoàn thể, Chi bộ nơi cư trú</a>
+                            <a href='{{URL::to("/")}}/trang-xin-y-kien-dang-vien-moi'>Phiếu xin YKNX ĐVDB ở Đoàn thể, Chi bộ nơi cư trú</a>
                         </li>
                         <li>
-                            <a href='#'>Tổng hợp ý kiến nhận xét ĐVDB nơi công tác</a>
+                            <a href='{{URL::to('/')}}/trang-tong-hop-y-kien-dang-vien-moi'>Tổng hợp ý kiến nhận xét ĐVDB nơi công tác</a>
                         </li>
                         <li>
                             <a href='#'>Phiếu báo công nhận ĐV chính thức</a>
@@ -95,10 +95,10 @@
                 <li class='active has-sub'><a href='#'>Nghị quyết, quyết định</a>
                     <ul>
                         <li>
-                            <a href='#'>Nghị quyết đề nghị kết nạp Đảng</a>
+                            <a href='{{URL::to('/')}}/trang-nghi-quyet-ket-nap'>Nghị quyết đề nghị kết nạp Đảng</a>
                         </li>
                         <li>
-                            <a href='#'>Nghị quyết đề nghị công nhận Đảng viên chính thức</a>
+                            <a href='{{URL::to('/')}}/trang-nghi-quyet-cong-nhan'>Nghị quyết đề nghị công nhận Đảng viên chính thức</a>
                         </li>
                         <li>
                             <a href='#'>Quyết định Đảng ủy</a>

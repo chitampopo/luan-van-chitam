@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title>In sổ Đảng tịch</title>
+        <style>
+            .tb{
+                border-collapse: collapse;
+                border: 1px solid black;
+            }
+            .tb td, .tb th{
+                border: 1px solid black;
+            }
+            body { 
+                font-family: DejaVu Sans, sans-serif;
+                font-size: 10;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="col-md-12">
+            <div class="col-md-3">
+                <b>
+                    <?php if($maChiBoChon == "0"): ?>
+                    <?php echo "<center><b><h2>DANH SÁCH ĐẢNG VIÊN CỦA ĐẢNG BỘ KHOA CNTT&TT<h2><b></center>"; ?>
+
+                    <?php echo "<center><b><h3>Tính đến ngày ".date("d-m-Y")."<h3><b></center><br><br>"; ?>
+
+                    <?php else: ?>
+                    <table>
+                        <tr>
+                            <td style="width: 500"><h3>ĐẢNG BỘ KHOA CNTT&TT</h3></td>
+                            <td><h3>ĐẢNG BỘ KHOA CNTT&TT  ĐẢNG CỘNG SẢN VIỆT NAM</h3></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <?php
+                                $dsChiBo = ChiBo::all();
+                                $checkCB = false;
+                                foreach ($dsChiBo as $chiBo) {
+                                    if ($maChiBoChon == $chiBo->MACB) {
+                                        echo "<h3>" . $chiBo->TENCB . "</h3>";
+                                        $checkCB = true;
+                                    }
+                                }
+                                ?>
+                            </td>
+                            <td></td>
+                        </tr>
+                    </table>
+
+                    <div class="col-md-12">
+                        <center><h2>DANH SÁCH ĐẢNG VIÊN CỦA
+                                <?php
+                                setlocale(LC_CTYPE, 'de_DE.UTF8');
+                                $dsChiBo = ChiBo::all();
+                                $checkCB = false;
+                                foreach ($dsChiBo as $chiBo) {
+                                    if ($maChiBoChon == $chiBo->MACB) {
+                                        echo mb_strtoupper($chiBo->TENCB, 'UTF-8');
+                                        $checkCB = true;
+                                    }
+                                }
+                                ?>
+                            </h2></center>
+                        <?php echo "<center><b><h3>Tính đến ngày ".date("d-m-Y")."<h3><b></center><br><br>"; ?>
+
+                    </div>
+                    <?php endif; ?>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <table class="tb">
+                <tr>
+                    <th style="width: 30px; text-align: center"><lable>STT</lable></th>
+                <th style="width: 200px; text-align: center"><lable>Họ và tên</lable></th>
+                <th style="width: 100px; text-align: center">
+                <lable>Ngày sinh</lable>
+                </th>
+                <th style="width: 300px; text-align: center"><lable>Quê quán</lable></th>
+                <th style="width: 150px; text-align: center"><lable>Ngày vào Đảng</lable></th>
+                <th style="width: 150px; text-align: center"><lable>Ngày chính thức</lable></th>
+                <th style="width: 150px; text-align: center"><lable>Số lý lịch</lable></th>
+                <th style="width: 150px; text-align: center"><lable>Số thẻ Đảng</lable></th>
+                <th style="width: 150px; text-align: center"><lable>Ghi chú</lable></th>
+                </tr>
+                <?php
+                $count = 1;
+                $listDanToc = DanToc::all();
+                $listTonGiao = TonGiao::all();
+                $listTinh = TinhThanh::all();
+                $listHuyen = QuanHuyen::all();
+                $listXa = PhuongXa::all();
+                $listVH = TrinhDoVH::all();
+                $listCT = TrinhDoCT::all();
+                $listCM = ChuyenMon::all();
+                $listNV = NghiepVu::all();
+                $listTDNN = CoTrinhDoNN::all();
+                $listNN = NgoaiNgu::all();
+                $listNNghiep = NgheNghiep::all();
+                $listTheDang = TheDang::all();
+                ?>
+                <tr>
+                    <td colspan="9">Chính thức ( <?php echo count($listDangVien); ?> )</td>
+                </tr>
+                <?php foreach($listDangVien as $item): ?>
+                <tr>
+                    <td> <?php echo $count++;; ?></td>
+                    <td><?php echo $item->HOTENSUDUNG; ?></td>
+                    <td>
+                        <?php echo date("d-m-Y", strtotime($item->NGAYSINH)); ?>
+
+                    </td>
+                    <td>
+                        <?php foreach($listTinh as $tinh): ?>
+                        <?php foreach($listHuyen as $huyen): ?>
+                        <?php foreach($listXa as $xa): ?>
+                        <?php if( $xa->MAQH == $huyen->MAQH && $huyen->MATT == $tinh->MATT && $item->PHU_MAPX == $xa->MAPX ): ?>
+                        <?php echo $xa->TENPX; ?>, <?php echo $huyen->TENQH; ?>, <?php echo $tinh->TENTT; ?>
+
+                        <?php endif; ?>
+                        <?php endforeach; ?>
+                        <?php endforeach; ?>   
+                        <?php endforeach; ?>
+                    </td>
+                    <td>
+                       <?php echo date("d-m-Y", strtotime($item ->	NGAYVAODANG)); ?>
+
+                    </td>
+                    <td>
+                        <?php echo date("d-m-Y", strtotime($item -> NGAYVAODANGCHINHTHUC)); ?>
+
+                    </td>
+                    <td><?php echo $item-> SOLL; ?></td>
+                    <td>
+                        <?php foreach( $listTheDang as $theDang ): ?>
+                        <?php if( $theDang->MADANGVIEN == $item -> MADANGVIEN ): ?>
+                        <?php echo $theDang -> SOTHE; ?>
+
+                        <?php endif; ?>
+                        <?php endforeach; ?>
+                    </td>
+                    <td></td>
+                </tr>
+                <?php endforeach; ?>
+                <tr>
+                    <td colspan="9">Dự bị ( <?php echo count($listDangVienDuBi); ?> )</td>
+                </tr>
+                <?php foreach($listDangVienDuBi as $item): ?>
+                <tr>
+                    <td> <?php echo $count++;; ?></td>
+                    <td><?php echo $item->HOTENSUDUNG; ?></td>
+                    <td>
+                        <?php echo date("d-m-Y", strtotime($item->NGAYSINH)); ?>
+
+                    </td>
+                    <td>
+                        <?php foreach($listTinh as $tinh): ?>
+                        <?php foreach($listHuyen as $huyen): ?>
+                        <?php foreach($listXa as $xa): ?>
+                        <?php if( $xa->MAQH == $huyen->MAQH && $huyen->MATT == $tinh->MATT && $item->PHU_MAPX == $xa->MAPX ): ?>
+                        <?php echo $xa->TENPX; ?>, <?php echo $huyen->TENQH; ?>, <?php echo $tinh->TENTT; ?>
+
+                        <?php endif; ?>
+                        <?php endforeach; ?>
+                        <?php endforeach; ?>   
+                        <?php endforeach; ?>
+                    </td>
+                    <td>
+                       <?php echo date("d-m-Y", strtotime($item ->	NGAYVAODANG)); ?>
+
+                    </td>
+                    <td>
+                        <?php echo date("d-m-Y", strtotime($item -> NGAYVAODANGCHINHTHUC)); ?>
+
+                    </td>
+                    <td><?php echo $item-> SOLL; ?></td>
+                    <td>
+                        <?php foreach( $listTheDang as $theDang ): ?>
+                        <?php if( $theDang->MADANGVIEN == $item -> MADANGVIEN ): ?>
+                        <?php echo $theDang -> SOTHE; ?>
+
+                        <?php endif; ?>
+                        <?php endforeach; ?>
+                    </td>
+                    <td></td>
+                </tr>
+                <?php endforeach; ?>
+            </table>
+            Tổng số: <?php echo count($listDangVien) + count($listDangVienDuBi); ?> ĐẢNG VIÊN– Chính thức: <?php echo count($listDangVien); ?> – Dự bị: <?php echo count($listDangVienDuBi); ?>
+
+        </div>
+    </body>
+</html>

@@ -15,13 +15,11 @@ and open the template in the editor.
     </head>
     <body>
         <?php echo $__env->make('header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
-        <div class="col-md-4"> 
+        <div class="col-md-3"> 
             <?php echo $__env->make('menu', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
         </div>
-        <div class="col-md-8">
-            <h2>Trang cập nhật danh mục dân tộc</h2><br>
-        </div>
-        <div class="form-group col-md-5 container">
+        <div class="form-group col-md-9 container alert alert-success" style="padding-left: 100px; padding-right: 100px">
+            <h2>Trang cập nhật danh mục dân tộc</h2>
             <?php echo Form::open(array('url' => 'dan-toc-action')); ?>
 
             <?php echo Form::label('Tên dân tộc', 'Nhập tên dân tộc');; ?><br>
@@ -30,8 +28,6 @@ and open the template in the editor.
 
             <?php echo Form::close(); ?>
 
-        </div>
-        <div class="col-md-8 container">
             <table class="table col-md-8" data-toggle="table" data-url="data1.json" data-cache="false" data-height="299">
                 <thead>
                     <tr>

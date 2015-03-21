@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title>In sổ Đảng tịch</title>
+        <style>
+            .tb{
+                border-collapse: collapse;
+                border: 1px solid black;
+            }
+            .tb td, .tb th{
+                border: 1px solid black;
+            }
+            .tenchibo{
+                font-size: 14;
+                color: blue;
+            }
+            body { 
+                font-family: DejaVu Sans, sans-serif;
+                font-size: 10;
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="col-md-12">
+            <center><h2>DANH SÁCH CHI ỦY CÁC CHI BỘ TRỰC THUỘC  ĐẢNG BỘ KHOA CNTT&TT</h2></center>
+            <center><h3>Nhiệm kỳ <?php echo $nhiemKy->TUNAM; ?> - <?php echo $nhiemKy->DENNAM; ?></h3></center>
+
+            <table class="tb">
+                <tr>
+                    <th style="width: 30px; text-align: center"><lable>STT</lable></th>
+                <th style="width: 150px; text-align: center"><lable>Họ và tên</lable></th>
+                <th style="width: 100px; text-align: center">
+                <lable>Ngày sinh</lable>
+                </th>
+                <th style="width: 200px; text-align: center"><lable>Quê quán</lable></th>
+                <th style="width: 100px; text-align: center"><lable>Ngày vào Đảng</lable></th>
+                <th style="width: 100px; text-align: center"><lable>Ngày chính thức</lable></th>
+                <th style="width: 150px; text-align: center"><lable>Số lý lịch</lable></th>
+                <th style="width: 150px; text-align: center"><lable>Số thẻ Đảng</lable></th>
+                <th style="width: 150px; text-align: center"><lable>Chức danh/học vị</lable></th>
+                <th style="width: 150px; text-align: center"><lable>Chức vụ trong chi ủy</lable></th>
+                <th style="width: 150px; text-align: center"><lable>Ghi chú</lable></th>
+                </tr>
+                <?php
+                $count = 1;
+                ?>
+                <?php foreach($listChiBo as $chiBo): ?>
+                    <?php
+                    $listDangVien = DB::select('select * from dangvien, lylich where dangvien.MADANGVIEN = lylich.MADANGVIEN and dangvien.XOA = 0 and lylich.MACB ='.$chiBo->MACB);
+                    ?>
+                    <tr>
+                        <td colspan="11" class='tenchibo'>
+                            <?php
+                            setlocale(LC_CTYPE, 'de_DE.UTF8');
+                            echo mb_strtoupper($chiBo->TENCB,'UTF-8');
+                            ?>
+                        </td>
+                    </tr>
+                    <?php foreach($listDangVien as $dangVien): ?>
+                        <?php if($dangVien->MACB == $chiBo->MACB): ?>
+                        <tr>
+                            <td><?php echo $count++; ?></td>
+                            <td><?php echo $dangVien->HOTENSUDUNG; ?></td>
+                            <td><?php echo date("d-m-Y", strtotime($dangVien->NGAYSINH)); ?></td>
+                            <td>
+                                <?php foreach($listTinh as $tinh): ?>
+                                <?php foreach($listHuyen as $huyen): ?>
+                                <?php foreach($listXa as $xa): ?>
+                                <?php if( $xa->MAQH == $huyen->MAQH && $huyen->MATT == $tinh->MATT && $dangVien->PHU_MAPX == $xa->MAPX ): ?>
+                                <?php echo $xa->TENPX; ?>, <?php echo $huyen->TENQH; ?>, <?php echo $tinh->TENTT; ?>
+
+                                <?php endif; ?>
+                                <?php endforeach; ?>
+                                <?php endforeach; ?>   
+                                <?php endforeach; ?>
+                            </td>
+                            <td>
+                                <?php echo date("d-m-Y", strtotime($dangVien ->	NGAYVAODANG)); ?>
+
+                            </td>
+                            <td>
+                                <?php echo date("d-m-Y", strtotime($dangVien -> NGAYVAODANGCHINHTHUC)); ?>
+
+                            </td>
+                            <td><?php echo $dangVien-> SOLL; ?></td>
+                            <td>
+                                <?php foreach( $listTheDang as $theDang ): ?>
+                                <?php if( $theDang->MADANGVIEN == $dangVien -> MADANGVIEN ): ?>
+                                <?php echo $theDang -> SOTHE; ?>
+
+                                <?php endif; ?>
+                                <?php endforeach; ?>
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                <?php endforeach; ?>
+            </table>
+            <div style="margin-left: 700">
+                <h3>Cần Thơ, ngày <?php echo date("d"); ?> tháng <?php echo date("m"); ?> năm <?php echo date("Y"); ?></h3>
+                <h3>TM Đảng ủy khoa CNTT&TT</h3>
+                <h3><?php echo $chucVuNguoiLap; ?></h3>
+                <br><br><br><br>
+                <h3><?php echo $nguoiLap; ?></h3>
+            </div>
+        </div>
+    </body>
+</html>

@@ -49,20 +49,20 @@
             <table>
                 <tr>
                     <th style="width: 30px; text-align: center"><lable>STT</lable></th>
-                    <th style="width: 80px; text-align: center"><lable>Họ và tên</lable></th>
-                    <th style="width: 50px; text-align: center">
-                        <lable>Nam, nữ<br> dân tộc<br>tôn giáo</lable>
+                    <th style="width: 150px; text-align: center"><lable>Họ và tên</lable></th>
+                    <th style="width: 80px; text-align: center">
+                        <lable>Nam, nữ<br> dân tộc,<br>tôn giáo</lable>
                     </th>
-                    <th style="width: 80px; text-align: center"><lable>Quê quán</lable></th>
-                    <th style="width: 100px; text-align: center"><lable>Văn hóa<br>Lý luận<br>CMNV<br>Ngoại ngữ</lable></th>
-                    <th style="width: 70px; text-align: center"><lable>Nghề nghiệp trước khi vào Đảng<br>nghề nghiệp hiện nay</lable></th>
-                    <th style="width: 70px; text-align: center"><lable>Ngày vào Đảng<br> ngày chính thức</lable></th>
-                    <th style="width: 100px; text-align: center"><lable>Số thẻ đảng viên<br> số lý lịch đảng viên</lable></th>
-                    <th style="width: 50px; text-align: center"><lable>Bộ đội<br>công an<br> hưu trí</lable></th>
-                    <th style="width: 50px; text-align: center"><lable>Ngày chuyển đi đến đảng bộ cơ sở</lable></th>
+                    <th style="width: 250px; text-align: center"><lable>Quê quán</lable></th>
+                    <th style="width: 120px; text-align: center"><lable>Văn hóa,<br>Lý luận,<br>CMNV,<br>Ngoại ngữ</lable></th>
+                    <th style="width: 90px; text-align: center"><lable>Nghề nghiệp trước khi vào Đảng,<br>nghề nghiệp hiện nay</lable></th>
+                    <th style="width: 120px; text-align: center"><lable>Ngày vào Đảng,<br> ngày chính thức</lable></th>
+                    <th style="width: 100px; text-align: center"><lable>Số thẻ đảng viên,<br> số lý lịch đảng viên</lable></th>
+                    <th style="width: 70px; text-align: center"><lable>Bộ đội,<br>công an,<br> hưu trí</lable></th>
+                    <th style="width: 70px; text-align: center"><lable>Ngày chuyển đi đến đảng bộ cơ sở</lable></th>
                     <th style="width: 70px; text-align: center"><lable>Ngày chuyển đến, ở đảng bộ cơ sở nào đến</lable></th>
-                    <th style="width: 50px; text-align: center"><lable>Ngày từ trần<br>lý do</lable></th>
-                    <th style="width: 70px; text-align: center"><lable>Ngày ra khỏi Đảng<br>hình thức ra Đảng</lable></th>
+                    <th style="width: 70px; text-align: center"><lable>Ngày từ trần,<br>lý do</lable></th>
+                    <th style="width: 70px; text-align: center"><lable>Ngày ra khỏi Đảng,<br>hình thức ra Đảng</lable></th>
                     <th><lable>Ghi chú</lable></th>
                 </tr>
                 <?php 
@@ -88,13 +88,13 @@
                         <td>
                             <?php 
                             if ($item->GIOITINH == "1"){
-                                echo "Nam<br>";
+                                echo "Nam, <br>";
                             } else{
-                                echo "Nữ<br>";
+                                echo "Nữ, <br>";
                             }
                             foreach( $listDanToc as $danToc){
                                 if ( $item->MADT == $danToc -> MADT){
-                                    echo $danToc->TENDT;
+                                    echo $danToc->TENDT.", ";
                                 }
                             }
                             echo "<br>";
@@ -106,7 +106,7 @@
                                 }
                             }
                             if($check == false){
-                                echo "---";
+                                echo "Không";
                             }
                             echo "<br>";
                         ?>
@@ -128,12 +128,12 @@
                             ?>
                             @foreach ($listVH as $vH)
                                 @if ( $vH->MATRINHDOVH == $item->MATRINHDOVH )
-                                {{ $vH->TENTRINHDOVH; }}
+                                {{ $vH->TENTRINHDOVH.", "; }}
                                 @endif
                             @endforeach<br>
                             @foreach ($listCT as $cT)
                                 @if ( $cT->MATRINHDOCT == $item->MATRINHDOCT )
-                                {{ $cT->TENTRINHDOCT; }}
+                                {{ $cT->TENTRINHDOCT.", "; }}
                                 @endif
                             @endforeach<br>
                             @foreach ($listCM as $cM)
@@ -145,7 +145,7 @@
                                 @endif
                             @endforeach
                             @if ( $checkCM == false )
-                                {{ "---------" }}
+                                {{ "" }}
                             @endif
                             <br>
                             @foreach ($listNV as $nV)
@@ -157,14 +157,14 @@
                                 @endif
                             @endforeach
                             @if ( $checkNV == false )
-                                {{ "---------" }}
+                                {{ "" }}
                             @endif
                             <br>
                             @foreach ($listNN as $nN)
                             @foreach ($listTDNN as $tDNN )
                                 @if ( $nN->MANGOAINGU == $tDNN->MANGOAINGU && $tDNN -> MADANGVIEN == $item->MADANGVIEN )
                                 <?php
-                                    echo  $nN->TENNGOAINGU;
+                                    echo  $nN->TENNGOAINGU."<br>";
                                 ?>
                                 @endif
                             @endforeach
@@ -173,7 +173,7 @@
                         <td>
                             @foreach ( $listNNghiep as $nNghiep )
                                 @if ( $item -> NGHENGHIEPTRUOCKHIVAODANG == $nNghiep->MANN )
-                                {{ $nNghiep->TENNN }}
+                                {{ $nNghiep->TENNN.", " }}
                                 @endif
                             @endforeach
                             @foreach ( $listNNghiep as $nNghiep )
@@ -183,10 +183,10 @@
                             @endforeach
                         </td>
                         <td>
-                            {{ date("d-m-Y", strtotime($item->NGAYVAODANG)) }}
+                            {{ date("d-m-Y", strtotime($item ->	NGAYVAODANG)).", " }}
                             <br>
                             @if ( $item -> NGAYVAODANGCHINHTHUC == null )
-                            {{ "-----" }}
+                            {{ "" }}
                             @else
                             {{ date("d-m-Y", strtotime($item -> NGAYVAODANGCHINHTHUC)) }}
                             @endif
@@ -194,7 +194,7 @@
                         <td>
                             @foreach ( $listTheDang as $theDang )
                             @if ( $theDang->MADANGVIEN == $item -> MADANGVIEN )
-                            {{ $theDang -> SOTHE }}
+                            {{ $theDang -> SOTHE.", " }}
                             @endif
                             @endforeach
                             <br>

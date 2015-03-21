@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title>In nghị quyết kết nạp Đảng</title>
+        <style>
+            .tb{
+                border-collapse: collapse;
+                border: 1px solid black;
+            }
+            .tb td, .tb th{
+                border: 1px solid black;
+            }
+            body { 
+                font-family: DejaVu Sans, sans-serif;
+                font-size: 10;
+                margin-left: 80px;
+                margin-right: 80px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="col-md-12">
+            <table style="text-align: center">
+                <tr>
+                    <td style="width: 200px;">ĐẢNG BỘ TRƯỜNG ĐH CẦN THƠ</td>
+                    <td style="width: 220px; padding-left: 30px">ĐẢNG CỘNG SẢN VIỆT NAM</td>
+                </tr>
+                <tr>
+                    <td style="width: 200px;">ĐẢNG ỦY KHOA CNTT&TT</td>
+                    <td style="width: 220px; padding-left: 30px"></td>
+                </tr>
+                <tr>
+                    <td style="width: 200px;">Số:............-NQ/ĐU</td>
+                    <td style="width: 220px; padding-left: 30px">
+                        Cần Thơ, ngày <?php echo date("d"); ?>, tháng <?php echo date("m"); ?>, năm <?php echo date("Y"); ?>
+
+                    </td>
+                </tr>
+            </table>
+            
+            <h2><center>NGHỊ QUYẾT</center></h2>
+            <H3><center>Đề nghị kết nạp đảng viên</center></H3>
+            
+            <div style="text-align: justify;">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Căn cứ Điều 4, Điều lệ Đảng Cộng sản Việt Nam.<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ngày <?php echo date("d"); ?>, tháng <?php echo date("m"); ?>, năm <?php echo date("Y"); ?>. Ban chấp hành Đảng bộ Khoa CNTT&TT
+                đã họp để xét, đề nghị kết nạp quần chúng <?php echo $camTinhDang->HOVATEN; ?> vào Đảng.
+                <?php if($maChiBo == 0): ?>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tổng số ủy viên Ban chấp hành <?php echo $soUyVienBanChapHanh; ?> đồng chí, có mặt <?php echo $soUyVienBanChapHanhCoMat; ?> đồng chí, vắng mặt <?php echo $soUyVienBanChapHanhVangMat; ?> đồng chí.<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Lý do vắng mặt: <?php echo $lyDoUyVienBanChapHanhVangMat; ?>.<br>
+                <?php else: ?>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tổng số đảng viên của Chi bộ <?php echo $soDangVien; ?> đảng viên,
+                trong đó chính thức <?php echo $soDangVienChinhThuc; ?> đồng chí, dự bị <?php echo $soDangVienDuBi; ?>.<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Có mặt: <?php echo $soDangVienCoMat; ?> đảng viên, trong đó chính thức <?php echo $soDangVienChinhThucCoMat; ?> đồng chí,
+                dự bị: <?php echo $soDangVienDuBiCoMat; ?>.<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vắng mặt: <?php echo $soDangVienVangMat; ?> đảng viên, trong đó chính thức <?php echo $soDangVienChinhThucVangMat; ?> đồng chí,
+                dự bị <?php echo $soDangVienDuBiVangMat; ?> đồng chí.<br>
+                <?php endif; ?>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chủ tọa hội nghị: đồng chí <?php echo $chuTri; ?>. Chức vụ: <?php echo $chucVuNguoiChuTri; ?><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Thư ký hội nghị: <?php echo $thuKy; ?><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sau khi nghe báo cáo và thảo luận, Đảng ủy thông nhất kết luận về quần chúng <?php echo $camTinhDang->HOVATEN; ?> như sau:<br>
+                Những ưu khuyết điểm chính:<br>
+                <?php echo $uuKhuyetDiem; ?><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Đối chiếu với quy định của Điều lệ Đảng về tiêu chuẩn 
+                và điều kiện kết nạp đảng viên, Đảng viên đã xét và biểu quyết kết nạp quần chúng <?php echo $camTinhDang->HOVATEN; ?> 
+                vào Đảng, kết quả như sau:<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Đồng ý kết nạp vào Đảng <?php echo $soTanThanh; ?> đồng chí (đạt <?php echo $soTanThanh / ($soTanThanh + $soKhongTanThanh)  * 100; ?> %) so với tổng số cấp ủy viên.<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Không đồng ý kết nạp vào Đảng <?php echo $soKhongTanThanh; ?> đồng chí (chiếm <?php echo $soKhongTanThanh / ($soTanThanh + $soKhongTanThanh)  * 100; ?> %) với lý do <?php echo $lyDoKhongTanThanh; ?>.<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Đề nghị Ban Thường vụ đảng ủy trường Đại học Cần Thơ xét quyết định kết nạp quần chúng <?php echo $camTinhDang->HOVATEN; ?> vào Đảng.
+                <table>
+                    <tr>
+                        <td style="width: 200px; text-align: center">
+                            Nơi nhận:
+                        </td>
+                        <td style="text-align: center; padding-left: 200px">
+                            T/M Chi ủy
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <?php echo $noiNhan; ?>
+
+                        </td>
+                        <td style="text-align: center; padding-left: 200px">
+                            <?php echo $chucVuNguoiLap; ?>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                        </td>
+                        <td style="text-align: center; padding-left: 200px">
+                            <br><br><br><br><br>
+                            <?php echo $nguoiLap; ?>
+
+                        </td>
+                    </tr>
+                </table>
+            </div>   
+        </div>
+    </body>
+</html>

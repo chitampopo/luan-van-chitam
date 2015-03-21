@@ -23,7 +23,7 @@ and open the template in the editor.
         <div class="col-md-3"> 
             @include('menu')
         </div>
-        <div class="col-md-9 container">
+        <div class="col-md-9 container  alert alert-success">
 
             {{ Form::open(array('url' => 'dang-vien-action', 'files' => true, 'data-toggle' => "validator", 'role'=> "form")) }}    
             <div class="col-md-12 container">
