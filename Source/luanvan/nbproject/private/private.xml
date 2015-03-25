@@ -4,11 +4,10 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/xampp/htdocs/luanvan/app/views/menu.blade.php</file>
-            <file>file:/C:/xampp/htdocs/luanvan/app/views/in-nghi-quyet-ket-nap-dang.blade.php</file>
-            <file>file:/C:/xampp/htdocs/luanvan/app/controllers/NQQDController.php</file>
-            <file>file:/C:/xampp/htdocs/luanvan/app/views/in-nghi-quyet-cong-nhan.blade.php</file>
-            <file>file:/C:/xampp/htdocs/luanvan/public/css/style.css</file>
+            <file>file:/C:/xampp/htdocs/luanvan/app/controllers/HuyHieuDangController.php</file>
+            <file>file:/C:/xampp/htdocs/luanvan/app/views/in-danh-sach-cap-lai-huy-hieu-dang.blade.php</file>
             <file>file:/C:/xampp/htdocs/luanvan/app/routes.php</file>
+            <file>file:/C:/xampp/htdocs/luanvan/app/views/trang-cap-lai-huy-hieu-dang.blade.php</file>
         </group>
     </open-files>
 </project-private>

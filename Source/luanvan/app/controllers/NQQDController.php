@@ -41,6 +41,49 @@ class NQQDController extends Controller {
         $noiNhan = Input::get("noiNhan");
         $camTinhDang = CamTinhDang::where("STTCTD", "=", $maCamTinhDang)->first();
         $chiBo = ChiBo::where("MACB", "=", $maChiBo)->first();
+        if ($maChiBo == "0") {
+            $maChiBo = null;
+            $NQDU = true;
+        } else {
+            $NQDU = false;
+        }
+
+        if (Ngay::where("NGAY", "=", date('Y-m-d'))->count() == 0) {
+            $ngay = new Ngay();
+            $ngay->NGAY = date('Y-m-d');
+            $ngay->save();
+        }
+        $nghiQuyet = new NghiQuyet();
+        $nghiQuyet->STTCTD = $maCamTinhDang;
+        $nghiQuyet->NGAY = date('Y-m-d');
+        $nghiQuyet->MACB = $maChiBo;
+        $nghiQuyet->TONGSOUVBCH = $soUyVienBanChapHanh;
+        $nghiQuyet->SLCOMAT = $soUyVienBanChapHanhCoMat;
+        $nghiQuyet->SLVANGMAT = $soUyVienBanChapHanhVangMat;
+        $nghiQuyet->LYDOVANG = $lyDoUyVienBanChapHanhVangMat;
+        $nghiQuyet->CHUTRI = $chuTri;
+        $nghiQuyet->CVCHUTRI = $chucVuNguoiChuTri;
+        $nghiQuyet->THUKY = $thuKy;
+        $nghiQuyet->UUKHUYETDIEM = $uuKhuyetDiem;
+        $nghiQuyet->SLTANTHANH = $soTanThanh;
+        $nghiQuyet->SLKTANTHANH = $soKhongTanThanh;
+        $nghiQuyet->LYDOKTANTHANH = $lyDoKhongTanThanh;
+        $nghiQuyet->NQDU = $NQDU;
+        $nghiQuyet->SODANGVIEN = $soDangVien;
+        $nghiQuyet->SODVCT = $soDangVienChinhThuc;
+        $nghiQuyet->SODVDB = $soDangVienDuBi;
+        $nghiQuyet->SODVCO = $soDangVienCoMat;
+        $nghiQuyet->SODVCTCO = $soDangVienChinhThucCoMat;
+        $nghiQuyet->SODVDBCO = $soDangVienDuBiCoMat;
+        $nghiQuyet->SODVVANG = $soDangVienVangMat;
+        $nghiQuyet->SODVCTVANG = $soDangVienChinhThucVangMat;
+        $nghiQuyet->SODVDBVANG = $soDangVienDuBiVangMat;
+        $nghiQuyet->NOINHAN = $noiNhan;
+        $nghiQuyet->NGUOILAP = $nguoiLap;
+        $nghiQuyet->CVNGUOILAP = $chucVuNguoiLap;
+        $nghiQuyet->LYDODVVANG = $lyDoDangVienVangMat;
+        $nghiQuyet->LOAINQ = 0;
+        $nghiQuyet->save();
 
         $pdf = App::make('dompdf');
         $pdf->loadHTML(
@@ -83,7 +126,7 @@ class NQQDController extends Controller {
         if ($maChiBo == "0") {
             $listDangVien = DangVien::all();
         } else {
-            $listDangVien = DB::select("select * from dangvien, lylich where dangvien.MADANGVIEN = lylich.MADANGVIEN and dangvien.XOA = 0 and lylich.MACB = ".$maChiBo);
+            $listDangVien = DB::select("select * from dangvien, lylich where dangvien.MADANGVIEN = lylich.MADANGVIEN and dangvien.XOA = 0 and lylich.MACB = " . $maChiBo);
         }
         return View::make("trang-nghi-quyet-cong-nhan")->with("listDangVien", $listDangVien);
     }
@@ -115,8 +158,50 @@ class NQQDController extends Controller {
         $chucVuNguoiLap = Input::get("chucVuNguoiLap");
         $nguoiLap = Input::get("nguoiLap");
         $noiNhan = Input::get("noiNhan");
-        $dangVien = DangVien::where("MADANGVIEN","=",$maDangVien)->first();
+        $dangVien = DangVien::where("MADANGVIEN", "=", $maDangVien)->first();
         $chiBo = ChiBo::where("MACB", "=", $maChiBo)->first();
+        if ($maChiBo == "0") {
+            $maChiBo = null;
+            $NQDU = true;
+        } else {
+            $NQDU = false;
+        }
+        if (Ngay::where("NGAY", "=", date('Y-m-d'))->count() == 0) {
+            $ngay = new Ngay();
+            $ngay->NGAY = date('Y-m-d');
+            $ngay->save();
+        }
+        $nghiQuyet = new NghiQuyet();
+        $nghiQuyet->MADANGVIEN = $maDangVien;
+        $nghiQuyet->NGAY = date('Y-m-d');
+        $nghiQuyet->MACB = $maChiBo;
+        $nghiQuyet->TONGSOUVBCH = $soUyVienBanChapHanh;
+        $nghiQuyet->SLCOMAT = $soUyVienBanChapHanhCoMat;
+        $nghiQuyet->SLVANGMAT = $soUyVienBanChapHanhVangMat;
+        $nghiQuyet->LYDOVANG = $lyDoUyVienBanChapHanhVangMat;
+        $nghiQuyet->CHUTRI = $chuTri;
+        $nghiQuyet->CVCHUTRI = $chucVuNguoiChuTri;
+        $nghiQuyet->THUKY = $thuKy;
+        $nghiQuyet->UUKHUYETDIEM = $uuKhuyetDiem;
+        $nghiQuyet->SLTANTHANH = $soTanThanh;
+        $nghiQuyet->SLKTANTHANH = $soKhongTanThanh;
+        $nghiQuyet->LYDOKTANTHANH = $lyDoKhongTanThanh;
+        $nghiQuyet->NQDU = $NQDU;
+        $nghiQuyet->SODANGVIEN = $soDangVien;
+        $nghiQuyet->SODVCT = $soDangVienChinhThuc;
+        $nghiQuyet->SODVDB = $soDangVienDuBi;
+        $nghiQuyet->SODVCO = $soDangVienCoMat;
+        $nghiQuyet->SODVCTCO = $soDangVienChinhThucCoMat;
+        $nghiQuyet->SODVDBCO = $soDangVienDuBiCoMat;
+        $nghiQuyet->SODVVANG = $soDangVienVangMat;
+        $nghiQuyet->SODVCTVANG = $soDangVienChinhThucVangMat;
+        $nghiQuyet->SODVDBVANG = $soDangVienDuBiVangMat;
+        $nghiQuyet->NOINHAN = $noiNhan;
+        $nghiQuyet->NGUOILAP = $nguoiLap;
+        $nghiQuyet->CVNGUOILAP = $chucVuNguoiLap;
+        $nghiQuyet->LYDODVVANG = $lyDoDangVienVangMat;
+        $nghiQuyet->LOAINQ = 1;
+        $nghiQuyet->save();
 
         $pdf = App::make('dompdf');
         $pdf->loadHTML(
@@ -146,6 +231,46 @@ class NQQDController extends Controller {
                         ->with("soTanThanh", $soTanThanh)
                         ->with("soKhongTanThanh", $soKhongTanThanh)
                         ->with("lyDoKhongTanThanh", $lyDoKhongTanThanh)
+                        ->with("chucVuNguoiLap", $chucVuNguoiLap)
+                        ->with("nguoiLap", $nguoiLap)
+                        ->with("noiNhan", $noiNhan)
+        );
+        return $pdf->setPaper('a4')->stream();
+    }
+
+    public function TrangLapQD() {
+        return View::make("trang-lap-quyet-dinh");
+    }
+
+    public function InQD() {
+
+        $tenQuyetDinh = Input::get("tenQuyetDinh");
+        $cacQuyetDinh = Input::get("cacQuyetDinh");
+        $cacCanCu = Input::get("canCu");
+        $noiNhan = Input::get("noiNhan");
+        $nguoiLap = Input::get("nguoiLap");
+        $chucVuNguoiLap = Input::get("chucVuNguoiLap");
+        $maChiBo = Input::get("maChiBo");
+        if (Ngay::where("NGAY", "=", date('Y-m-d'))->count() == 0) {
+            $ngay = new Ngay();
+            $ngay->NGAY = date('Y-m-d');
+            $ngay->save();
+        }
+        $quyetDinh = new QuyetDinh();
+        $quyetDinh->NGAY = date('Y-m-d');
+        $quyetDinh->TENQD = $tenQuyetDinh;
+        $quyetDinh->CACQD = $cacQuyetDinh;
+        $quyetDinh->CACCANCU = $cacCanCu;
+        $quyetDinh->NOINHAN = $noiNhan;
+        $quyetDinh->NGUOIKYQD = $nguoiLap;
+        $quyetDinh->CVNGUOIKYQD = $chucVuNguoiLap;
+        $quyetDinh->save();
+        $pdf = App::make('dompdf');
+        $pdf->loadHTML(
+                View::make("in-quyet-dinh")
+                        ->with("tenQuyetDinh", $tenQuyetDinh)
+                        ->with("cacQuyetDinh", $cacQuyetDinh)
+                        ->with("cacCanCu", $cacCanCu)
                         ->with("chucVuNguoiLap", $chucVuNguoiLap)
                         ->with("nguoiLap", $nguoiLap)
                         ->with("noiNhan", $noiNhan)

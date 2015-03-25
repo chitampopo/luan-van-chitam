@@ -177,3 +177,44 @@ Route::get("trang-nghi-quyet-cong-nhan", array("before" => "filter.dangnhap", "u
 
 Route::post("in-nghi-quyet-cong-nhan", "NQQDController@InNQCongNhan");
 
+Route::get("trang-lap-quyet-dinh", array("before" => "filter.dangnhap", "uses" => "NQQDController@TrangLapQD"));
+
+Route::post("in-quyet-dinh", "NQQDController@InQD");
+
+Route::get("trang-danh-gia-dang-vien", array("before" => "filter.dangnhap", "uses" => "DanhGiaXepLoaiController@TrangDanhGia"));
+
+Route::post("filter-danh-gia", "DanhGiaXepLoaiController@LocDanhSach");
+
+Route::post("luu-danh-gia", "DanhGiaXepLoaiController@LuuDanhGia");
+
+Route::get("trang-danh-gia-chi-bo", array("before" => "filter.dangnhap", "uses" => "DanhGiaXepLoaiController@TrangDanhGiaChiBo"));
+
+Route::post("luu-danh-gia-chi-bo", "DanhGiaXepLoaiController@LuuDanhGiaChiBo");
+
+Route::post("filter-danh-gia-chi-bo", "DanhGiaXepLoaiController@LocDanhSachChiBo");
+
+Route::get("trang-lap-danh-sach-boi-duong-dvm", array("before" => "filter.dangnhap", "uses" => "DangVienMoiController@TrangLapDanhSachBoiDuong"));
+
+Route::post("in-danh-sach-boi-duong-dvm", "DangVienMoiController@TaoDanhSachBoiDuong");
+
+Route::get("trang-cap-the-moi", array("before" => "filter.dangnhap", "uses" => "TheDangVienController@TrangCapTheMoi"));
+
+Route::post("in-danh-sach-cap-the-moi", "TheDangVienController@LapDanhSachCapTheMoi");
+
+Route::get("trang-cap-lai-the-bi-mat", array("before" => "filter.dangnhap", "uses" => "TheDangVienController@TrangCapTheLaiBiMat"));
+
+Route::post("in-danh-sach-cap-the-bi-mat", "TheDangVienController@LapDanhSachCapTheBiMat");
+
+Route::get("trang-cap-lai-the-bi-hong", array("before" => "filter.dangnhap", "uses" => "TheDangVienController@TrangCapTheLaiBiHong"));
+
+Route::post("in-danh-sach-cap-the-bi-hong", "TheDangVienController@LapDanhSachCapTheBiHong");
+
+Route::get("trang-cap-huy-hieu-dang", array("before" => "filter.dangnhap", "uses" => "HuyHieuDangController@TrangCapHuyHieuDang"));
+
+Route::post("in-danh-sach-cap-the-huy-hieu-dang", "HuyHieuDangController@LapDanhSachCapHuyHieuDang");
+
+Route::get("trang-cap-lai-huy-hieu-dang", array("before" => "filter.dangnhap", "uses" => "HuyHieuDangController@TrangCapLaiHuyHieuDang"));
+
+Route::post("in-danh-sach-cap-lai-the-huy-hieu-dang", "HuyHieuDangController@LapDanhSachCapLaiHuyHieuDang");
+
+Route::post("filter-trang-cap-lai-huy-hieu-dang", "HuyHieuDangController@LocTrangCapLaiHuyHieuDang");

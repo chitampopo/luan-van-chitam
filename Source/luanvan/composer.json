@@ -6,7 +6,8 @@
     "require": {
         "laravel/framework": "4.2.*",
         "barryvdh/laravel-dompdf": "0.4.*",
-        "phpoffice/phpword": "dev-master"
+        "phpoffice/phpword": "dev-master",
+        "tinymce/tinymce": "dev-master"
     },
     "autoload": {
         "classmap": [

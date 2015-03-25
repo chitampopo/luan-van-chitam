@@ -35,7 +35,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class='active has-sub'><a href='#'>Đảng phí</a>
+                <li class='active has-sub'><a href='#'>Đảng phí --</a>
                     <ul>
                         <li>
                             <a href='#'>Báo cáo cá nhân thu, nộp Đảng phí theo tháng</a>
@@ -79,7 +79,7 @@
                 <li class='active has-sub'><a href='#'>Công nhận Đảng viên chính thức</a>
                     <ul>
                         <li>
-                            <a href='#'>Danh sách lớp bồi dưỡng Đảng viên mới</a>
+                            <a href='<?php echo URL::to("/"); ?>/trang-lap-danh-sach-boi-duong-dvm'>Danh sách lớp bồi dưỡng Đảng viên mới</a>
                         </li>
                         <li>
                             <a href='<?php echo URL::to("/"); ?>/trang-xin-y-kien-dang-vien-moi'>Phiếu xin YKNX ĐVDB ở Đoàn thể, Chi bộ nơi cư trú</a>
@@ -101,14 +101,14 @@
                             <a href='<?php echo URL::to('/'); ?>/trang-nghi-quyet-cong-nhan'>Nghị quyết đề nghị công nhận Đảng viên chính thức</a>
                         </li>
                         <li>
-                            <a href='#'>Quyết định Đảng ủy</a>
+                            <a href='<?php echo URL::to("/"); ?>/trang-lap-quyet-dinh'>Quyết định Đảng ủy</a>
                         </li>
                         <li>
                             <a href='#'>Quyết định Chi ủy</a>
                         </li>
                     </ul>
                 </li>
-                <li class='active has-sub'><a href='#'>Khen thuởng, kỷ luật</a>
+                <li class='active has-sub'><a href='#'>Khen thuởng, kỷ luật --</a>
                     <ul>
                         <li>
                             <a href='#'>Đảng bộ - Đề nghị khen thưởng</a>
@@ -123,23 +123,23 @@
                 </li><li class='active has-sub'><a href='#'>Thẻ Đảng, Huy hiệu Đảng</a>
                     <ul>
                         <li>
-                            <a href='#'>Đề nghị cấp huy hiệu Đảng</a>
+                            <a href='<?php echo URL::to('/'); ?>/trang-cap-huy-hieu-dang'>Đề nghị cấp huy hiệu Đảng</a>
                         </li>
                         <li>
-                            <a href='#'>Đề nghị cấp lại huy hiệu Đảng</a>
+                            <a href='<?php echo URL::to('/'); ?>/trang-cap-lai-huy-hieu-dang'>Đề nghị cấp lại huy hiệu Đảng</a>
                         </li>
                         <li>
-                            <a href='#'>Đề nghị cáp thẻ Đảng</a>
+                            <a href='<?php echo URL::to('/'); ?>/trang-cap-the-moi'>Đề nghị cáp thẻ Đảng</a>
                         </li>
                         <li>
-                            <a href='#'>Đề nghị cấp lại thẻ Đảng bị mất</a>
+                            <a href='<?php echo URL::to('/'); ?>/trang-cap-lai-the-bi-mat'>Đề nghị cấp lại thẻ Đảng bị mất</a>
                         </li>
                         <li>
-                            <a href='#'>Đề nghị cấp lại thẻ Đảng bị hỏng</a>
+                            <a href='<?php echo URL::to('/'); ?>/trang-cap-lai-the-bi-hong'>Đề nghị cấp lại thẻ Đảng bị hỏng</a>
                         </li>
                     </ul>
                 </li>
-                <li class='active has-sub'><a href='#'>Chuyển sinh hoạt Đảng</a>
+                <li class='active has-sub'><a href='#'>Chuyển sinh hoạt Đảng --</a>
                     <ul>
                         <li>
                             <a href='#'>Báo cáo Đảng viên chuyển ra nước ngoài</a>
@@ -149,10 +149,10 @@
                 <li class='active has-sub'><a href='#'>Đánh giá, xếp loại</a>
                     <ul>
                         <li>
-                            <a href='#'>Đánh giá, xếp loại Đảng viên</a>
+                            <a href='<?php echo URL::to('/'); ?>/trang-danh-gia-dang-vien'>Đánh giá, xếp loại Đảng viên</a>
                         </li>
                         <li>
-                            <a href='#'>Đánh giá, xếp loại Chi bộ</a>
+                            <a href='<?php echo URL::to('/'); ?>/trang-danh-gia-chi-bo'>Đánh giá, xếp loại Chi bộ</a>
                         </li>
                     </ul>
                 </li>

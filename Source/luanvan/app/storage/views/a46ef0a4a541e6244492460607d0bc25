@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>In danh sách cử Đảng viên học lớp bồi dưỡng Đảng viên mới</title>
+        <style>
+            .tb{
+                border-collapse: collapse;
+                border: 1px solid black;
+            }
+            .tb td, .tb th{
+                border: 1px solid black;
+            }
+            body { 
+                font-family: DejaVu Sans, sans-serif;
+                font-size: 10;
+                margin-left: 50px;
+                margin-right: 50px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="col-md-12">
+            <table style="text-align: center">
+                <tr>
+                    <td style="width: 500px;">
+                        <?php if($maChiBo != 0): ?>
+                        ĐẢNG BỘ KHOA CNTT&TT
+                        <?php else: ?>
+                        ĐẢNG BỘ TRƯỜNG ĐAI HỌC CẦN THƠ
+                        <?php endif; ?>
+                    </td>
+                    <td style="width: 500px; padding-left: 30px">ĐẢNG CỘNG SẢN VIỆT NAM</td>
+                </tr>
+                <tr>
+                    <td style="width: 500px;">
+                        <?php if($maChiBo != 0): ?>
+                        <?php echo $chiBo->TENCB; ?>
+
+                        <?php else: ?>
+                        ĐẢNG ỦY KHOA CNTT&TT
+                        <?php endif; ?>
+                    </td>
+                    <td style="width: 500px; padding-left: 30px"></td>
+                </tr>
+                <tr>
+                    <td style="width: 500px;">
+                    </td>
+                    <td style="width: 500px; padding-left: 30px">
+                        Cần Thơ, ngày <?php echo date("d"); ?>, tháng <?php echo date("m"); ?>, năm <?php echo date("Y"); ?>
+
+                    </td>
+                </tr>
+            </table>
+            <H3><center>Danh sách lớp Đảng viên mới
+                    <Br>Khóa ngày <?php echo $khoaNgay; ?>
+
+                </center></H3>
+
+            <table class="tb">
+                <tr>
+                    <th style="width: 30px">STT</th>
+                    <th>Họ và tên</th>
+                    <th style="width: 90px">Ngày sinh</th>
+                    <th style="width: 350px">Quê quán</th>
+                    <th>Chi bộ</th>
+                    <th style="width: 90px">Ngày vào Đảng</th>
+                </tr>
+                <?php
+                $count = 1;
+                ?>
+                <?php foreach($listDangVienMoi as $dangVien): ?>
+                <tr>
+                    <td><?php echo $count++;; ?></td>
+                    <td><?php echo $dangVien->HOTENSUDUNG; ?></td>
+                    <td><?php echo date("d-m-Y",strtotime($dangVien->NGAYSINH)); ?></td>
+                    <Td>
+                        <?php foreach($listTinh as $tinh): ?>
+                        <?php foreach($listHuyen as $huyen): ?>
+                        <?php foreach($listXa as $xa): ?>
+                        <?php if($huyen->MATT == $tinh->MATT && $xa->MAQH == $huyen->MAQH && $xa->MAPX == $dangVien->PHU_MAPX): ?>
+                        <?php echo $xa->TENPX.", ".$huyen->TENQH.", ".$tinh->TENTT; ?>
+
+                        <?php endif; ?>
+                        <?php endforeach; ?>
+                        <?php endforeach; ?>
+                        <?php endforeach; ?>
+                    </td>
+                    <td>
+                        <?php foreach($listChiBo as $chiBo): ?>
+                        <?php if($chiBo -> MACB == $dangVien->MACB): ?>
+                        <?php echo $chiBo->TENCB; ?>
+
+                        <?php endif; ?>
+                        <?php endforeach; ?>
+                    </td>
+                    <td>
+                        <?php echo date("d-m-Y",strtotime($dangVien->NGAYVAODANG)); ?>
+
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </table>
+
+            <table>
+                <tr>
+                    <td style="width: 200px; text-align: center">
+                    </td>
+                    <td style="text-align: center; padding-left:500px">
+                        T/M Đảng ủy
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                    </td>
+                    <td style="text-align: center; vertical-align: top; padding-left: 500px">
+                        <?php echo $chucVuNguoiLap; ?>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                    </td>
+                    <td style="text-align: center; padding-left: 500px">
+                        <br><br><br>
+                        <?php echo $nguoiLap; ?>
+
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </body>
+</html>
