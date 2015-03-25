@@ -11,6 +11,13 @@
         <script src="<?php echo asset('public/js/jquery-ui.js'); ?>" type="text/javascript"></script>
         <script src="<?php echo asset('public/js/bootstrap-datepicker.js'); ?>" type="text/javascript"></script>
         <script src="<?php echo asset('public/js/script2.js'); ?>" type="text/javascript"></script>
+        <!-- Tích hợp editor -->
+        <script type="text/javascript" src="<?php echo asset('vendor/tinymce/tinymce/tinymce.min.js'); ?>"></script>
+        <script type="text/javascript">
+        tinymce.init({
+            selector: "textarea"
+         });
+        </script>
     </head>
     <body>
         <?php echo $__env->make('header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

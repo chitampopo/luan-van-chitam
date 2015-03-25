@@ -23,15 +23,33 @@
         <div class="col-md-12">
             <table style="text-align: center">
                 <tr>
-                    <td style="width: 200px;">ĐẢNG BỘ TRƯỜNG ĐH CẦN THƠ</td>
-                    <td style="width: 220px; padding-left: 30px">ĐẢNG CỘNG SẢN VIỆT NAM</td>
+                    <td style="width: 270px;">
+                        <?php if($maChiBo != 0): ?>
+                        ĐẢNG BỘ KHOA CNTT&TT
+                        <?php else: ?>
+                        ĐẢNG BỘ TRƯỜNG ĐAI HỌC CẦN THƠ
+                        <?php endif; ?>
+                    </td>
+                    <td style="width: 300px; padding-left: 30px">ĐẢNG CỘNG SẢN VIỆT NAM</td>
                 </tr>
                 <tr>
-                    <td style="width: 200px;">ĐẢNG ỦY KHOA CNTT&TT</td>
+                    <td style="width: 200px;">
+                        <?php if($maChiBo != 0): ?>
+                        <?php echo $chiBo->TENCB; ?>
+
+                        <?php else: ?>
+                        ĐẢNG ỦY KHOA CNTT&TT
+                        <?php endif; ?>
+                    </td>
                     <td style="width: 220px; padding-left: 30px"></td>
                 </tr>
                 <tr>
-                    <td style="width: 200px;">Số:............-NQ/ĐU</td>
+                    <td style="width: 200px;">Số:............-NQ/
+                        <?php if($maChiBo != 0): ?>
+                        CB
+                        <?php else: ?>
+                        ĐU
+                        <?php endif; ?></td>
                     <td style="width: 220px; padding-left: 30px">
                         Cần Thơ, ngày <?php echo date("d"); ?>, tháng <?php echo date("m"); ?>, năm <?php echo date("Y"); ?>
 
@@ -44,8 +62,14 @@
             
             <div style="text-align: justify;">
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Căn cứ Điều 4, Điều lệ Đảng Cộng sản Việt Nam.<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ngày <?php echo date("d"); ?>, tháng <?php echo date("m"); ?>, năm <?php echo date("Y"); ?>. Ban chấp hành Đảng bộ Khoa CNTT&TT
-                đã họp để xét, đề nghị kết nạp quần chúng <?php echo $camTinhDang->HOVATEN; ?> vào Đảng.
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ngày <?php echo date("d"); ?>, tháng <?php echo date("m"); ?>, năm <?php echo date("Y"); ?>. Ban chấp hành
+                <?php if($maChiBo != 0): ?>
+                Đảng ủy <?php echo $chiBo->TENCB; ?>
+
+                <?php else: ?>
+                Đảng bộ Khoa CNTT&TT
+                <?php endif; ?>
+                đã họp để xét, đề nghị kết nạp quần chúng <?php echo $camTinhDang->HOVATEN; ?> vào Đảng.<br>
                 <?php if($maChiBo == 0): ?>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tổng số ủy viên Ban chấp hành <?php echo $soUyVienBanChapHanh; ?> đồng chí, có mặt <?php echo $soUyVienBanChapHanhCoMat; ?> đồng chí, vắng mặt <?php echo $soUyVienBanChapHanhVangMat; ?> đồng chí.<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Lý do vắng mặt: <?php echo $lyDoUyVienBanChapHanhVangMat; ?>.<br>
@@ -67,7 +91,13 @@
                 vào Đảng, kết quả như sau:<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Đồng ý kết nạp vào Đảng <?php echo $soTanThanh; ?> đồng chí (đạt <?php echo $soTanThanh / ($soTanThanh + $soKhongTanThanh)  * 100; ?> %) so với tổng số cấp ủy viên.<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Không đồng ý kết nạp vào Đảng <?php echo $soKhongTanThanh; ?> đồng chí (chiếm <?php echo $soKhongTanThanh / ($soTanThanh + $soKhongTanThanh)  * 100; ?> %) với lý do <?php echo $lyDoKhongTanThanh; ?>.<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Đề nghị Ban Thường vụ đảng ủy trường Đại học Cần Thơ xét quyết định kết nạp quần chúng <?php echo $camTinhDang->HOVATEN; ?> vào Đảng.
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <?php if($maChiBo != 0): ?>
+                Đề nghị Ban thường vụ đảng ủy Khoa CNTT&TT
+                <?php else: ?>
+                Đề nghị Ban Thường vụ đảng ủy trường Đại học Cần Thơ
+                <?php endif; ?>
+                 xét quyết định kết nạp quần chúng <?php echo $camTinhDang->HOVATEN; ?> vào Đảng.
                 <table>
                     <tr>
                         <td style="width: 200px; text-align: center">

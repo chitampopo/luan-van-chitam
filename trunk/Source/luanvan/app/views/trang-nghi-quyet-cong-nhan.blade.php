@@ -11,6 +11,13 @@
         <script src="{{asset('public/js/jquery-ui.js')}}" type="text/javascript"></script>
         <script src="{{asset('public/js/bootstrap-datepicker.js')}}" type="text/javascript"></script>
         <script src="{{asset('public/js/script2.js')}}" type="text/javascript"></script>
+        <!-- Tích hợp editor -->
+        <script type="text/javascript" src="{{asset('vendor/tinymce/tinymce/tinymce.min.js')}}"></script>
+        <script type="text/javascript">
+        tinymce.init({
+            selector: "textarea"
+         });
+        </script>
     </head>
     <body>
         @include('header')

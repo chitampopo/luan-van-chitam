@@ -43,12 +43,7 @@
                     <td style="width: 220px; padding-left: 30px"></td>
                 </tr>
                 <tr>
-                    <td style="width: 200px;">Số:............-NQ/
-                        @if ($maChiBo != 0)
-                        CB
-                        @else
-                        ĐU
-                        @endif</td>
+                    <td style="width: 200px;">
                     <td style="width: 220px; padding-left: 30px">
                         Cần Thơ, ngày {{date("d")}}, tháng {{date("m")}}, năm {{date("Y")}}
                     </td>
