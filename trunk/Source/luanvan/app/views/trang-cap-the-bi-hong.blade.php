@@ -2,6 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <link rel="Shortcut Icon" href="{{asset('public/images/logo.ico')}}" type="image/x-icon" />  
         <title>Trang lập danh sách đề nghị cấp thẻ Đảng viên bị hỏng</title>
         <link rel="stylesheet" href="{{asset('public/css/jquery-ui.css')}}"/>
         <link rel="stylesheet" href="{{asset('public/css/bootstrap.min.css')}}">
@@ -28,16 +29,20 @@ tinymce.init({
             @include('menu')
         </div>
         <div >
-            <div class="form-inline col-md-9 container alert alert-success">
+            <div class="form-inline col-md-9 container alert alert-info">
                 <center><h2>Trang lập danh sách đề nghị cấp lại thẻ Đảng viên Bị hỏng</h2></center><br><br>
+                <form method="post" action="loc-danh-sach-cap-lai-the-bi-hong">
+                    Đợt ngày:
+                    <input class="form-control" size="20" data-provide="datepicker" name="dotNgay" type="text" value="{{$dotNgay}}" required>
+                    <input type="submit" value="Xem danh sách" class="form-control">
+                </form>
                 <form method="post" action="in-danh-sach-cap-the-bi-hong">
                     <input type="hidden" name="maChiBo" value="{{Session::get("maChiBoTaiKhoan")}}">
+                    <input name="dotNgay1" type="hidden" value="{{$dotNgay}}" >
                     Nơi nhận: 
                     <textarea class="form-control" name="noiNhan" id="elm2"></textarea>
                     <br>
-                    Đợt ngày:
-                    <input class="form-control" size="20" data-provide="datepicker" name="dotNgay" type="text" value="" required>
-                    <input type="submit" value="Tạo" class="form-control">
+                    <input type="submit" value="Tạo danh sách" class="form-control">
                     <br><br>
                     <table class='table'>
                         <thead>
@@ -78,6 +83,13 @@ tinymce.init({
                                     @endforeach
                                 </td>
                                 <td><input type="checkbox" name="{{'chonDangVien'.$dangVien->MADANGVIEN}}"
+                                    <?php
+                                    foreach ($dsCapThe as $ds) {
+                                        if ($ds->MADANGVIEN == $dangVien->MADANGVIEN) {
+                                            echo "checked";
+                                        }
+                                    }
+                                    ?>>
                                 </td>
                             </tr>
                             @endforeach

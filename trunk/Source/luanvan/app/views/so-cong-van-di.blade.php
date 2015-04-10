@@ -2,82 +2,116 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <link rel="Shortcut Icon" href="{{asset('public/images/logo.ico')}}" type="image/x-icon" />  
         <title>Cập nhật sổ công văn đến</title>
         <link rel="stylesheet" href="{{asset('public/css/bootstrap.min.css')}}">
         <link rel="stylesheet" href="{{asset('public/css/style.css')}}">
         <script src="{{asset('public/js/jquery-latest.min.js')}}" type="text/javascript"></script>
+        <script src="{{asset('public/js/bootstrap.min.js')}}" type="text/javascript"></script>
+        <!-- DATA TABLES -->
+        <link href="{{asset('public/css/dataTables.bootstrap.css')}}" rel="stylesheet" type="text/css" />
     </head>
     <body>
         <div class="col-md-12">
-            <br><br>
+            <br>
         </div>
         <div class="col-md-12">
             @include('header')
         </div>
         <div class="col-md-12">
-            <br><br>
+            <br>
         </div>
         <div class="col-md-3"> 
             @include('menu')
         </div>
-        <div class="col-md-9">
-            <h2>Trang cập nhật sổ công văn đến</h2><br>
-        </div>
-        <form method="post" action="them-cong-van-di" class="form-group">
-            <div class="form-group col-md-7 container">
-                <div class="form-group">
-                    Số công văn: <br>
-                    <input type="text" name="soCongVan" class="form-control" required>
-                    Tên công văn: <br>
-                    <input type="text" name="tenCongVan" class="form-control" required>
-                    Ngày gởi:<br>
-                    <input type="text" name="ngayGoiCongVan" class="form-control" required>
-                    Nơi gởi đến: <br>
-                    <input type="text" name="noiGoiDi" class="form-control" required>
-                    Người gởi:<br>
-                    <input type="text" name="nguoiGoiCongVan" class="form-control" required>
-                    Ghi chú: <br>
-                    <input type="text" name="ghiChu" class="form-control"><br>
+
+        <div class="col-md-9 container alert alert-info">
+            <center><h2>Trang cập nhật sổ công văn đến</h2></center><br>
+            <div style="float:right">
+                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">Thêm công văn</button>
+                <button type="button" class="btn btn-default" id="button1" class="form-control">Kết xuất sổ</button>
+            </div><br><br>
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                            <h3 class="modal-title custom_align" id="Heading" style="color: #228B22">Thêm cuộc gọi</h3>
+                        </div>
+                        <div class="modal-body">
+                            <form method="post" action="them-cong-van-di" class="form-group">
+                                Số công văn: <br>
+                                <input type="text" name="soCongVan" class="form-control" required>
+                                Tên công văn: <br>
+                                <input type="text" name="tenCongVan" class="form-control" required>
+                                Ngày gởi:<br>
+                                <input type="text" name="ngayGoiCongVan" class="form-control" required>
+                                Nơi gởi đến: <br>
+                                <input type="text" name="noiGoiDi" class="form-control" required>
+                                Người gởi:<br>
+                                <input type="text" name="nguoiGoiCongVan" class="form-control" required>
+                                Ghi chú: <br>
+                                <input type="text" name="ghiChu" class="form-control "><br>
+                                <input type="submit" class="form-control btn-primary" value="Lưu">
+                            </form>
+                        </div>
+                    </div>
+                    <!-- /.modal-content --> 
                 </div>
             </div>
-            <div class="col-md-2">
-                <br>
-                <input type="submit" class="form-control" value="Lưu">
-                <br>
-                <input type="button" id="button1" class="form-control" value="Kết xuất sổ">
+            <div class="box">
+                <div class="box-body">
+                    <table class="table table-bordered table-striped" id="example1" data-height="299">
+                        <thead>
+                            <tr>
+                                <th data-field="id" style="width: 20px">STT</th> 
+                                <th data-field="id" style="width: 20px">Số CV</th> 
+                                <th data-field="id">Tên CV</th> 
+                                <th data-field="id"style="width: 100px">Ngày gởi</th> 
+                                <th data-field="id">Nơi gởi đi</th> 
+                                <th data-field="id">Người gởi</th> 
+                                <th data-field="id">Ghi chú</th> 
+                            </tr>
+                        </thead>
+                        <?php $count = 1; ?>
+                        @foreach( $listCongVan as $congVan )
+                        <tr>
+                            <td data-field="id">{{$count++;}}</td> 
+                            <td data-field="id">{{$congVan->SOCVDI}}</td> 
+                            <td data-field="id">{{$congVan->TENCVDI}}</td> 
+                            <td data-field="id">{{date("d-m-Y", strtotime($congVan->NGAYGOI));}}</td> 
+                            <td data-field="id">{{$congVan->NOIGOIDI}}</td> 
+                            <td data-field="id">{{$congVan->NGUOIGOICV}}</td> 
+                            <td data-field="id">{{$congVan->GHICHUCVDI}}</td> 
+                        </tr>
+                        @endforeach
+                    </table>
+                </div>
             </div>
-        </form>
-        <div class="col-md-9 container">
-            <table class="table" data-height="299">
-                <thead>
-                    <tr>
-                        <th data-field="id">STT</th> 
-                        <th data-field="id">Số CV</th> 
-                        <th data-field="id">Tên CV</th> 
-                        <th data-field="id">Ngày gởi</th> 
-                        <th data-field="id">Nơi gởi đi</th> 
-                        <th data-field="id">Người gởi</th> 
-                        <th data-field="id">Ghi chú</th> 
-                    </tr>
-                </thead>
-                <?php $count = 1; ?>
-                @foreach( $listCongVan as $congVan )
-                <tr>
-                    <th data-field="id" class="col-md-1">{{$count++;}}</th> 
-                    <th data-field="id" class="col-md-1">{{$congVan->SOCVDI}}</th> 
-                    <th data-field="id"  class="col-md-3">{{$congVan->TENCVDI}}</th> 
-                    <th data-field="id" class="col-md-2">{{date("d-m-Y", strtotime($congVan->NGAYGOI));}}</th> 
-                    <th data-field="id" class="col-md-2">{{$congVan->NOIGOIDI}}</th> 
-                    <th data-field="id" class="col-md-1">{{$congVan->NGUOIGOICV}}</th> 
-                    <th data-field="id" class="col-md-2">{{$congVan->GHICHUCVDI}}</th> 
-                </tr>
-                @endforeach
-            </table>
         </div>
 
         <script>
 $('#button1').click(function () {
     window.location = "http://localhost/luanvan/index.php/ket-xuat-so-cong-van-di";
+});
+        </script>
+        <!-- DATA TABES SCRIPT -->
+        <script src="{{asset('public/js/jquery.dataTables.js')}}" type="text/javascript"></script>
+        <script src="{{asset('public/js/dataTables.bootstrap.js')}}" type="text/javascript"></script>
+        <script>
+$('#button1').click(function () {
+    window.location = "http://localhost/luanvan/index.php/ket-xuat-so-cong-van-den";
+});
+$(function () {
+    $("#example1").dataTable();
+    $('#example2').dataTable({
+        "bPaginate": true,
+        "bLengthChange": false,
+        "bFilter": false,
+        "bSort": true,
+        "bInfo": true,
+        "bAutoWidth": false
+    });
 });
         </script>
     </body>

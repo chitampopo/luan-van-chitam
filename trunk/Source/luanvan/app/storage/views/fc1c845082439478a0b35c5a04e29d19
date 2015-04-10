@@ -2,6 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <link rel="Shortcut Icon" href="<?php echo asset('public/images/logo.ico'); ?>" type="image/x-icon" />  
         <title>Trang nghị quyết kết nạp</title>
         <link rel="stylesheet" href="<?php echo asset('public/css/jquery-ui.css'); ?>"/>
         <link rel="stylesheet" href="<?php echo asset('public/css/bootstrap.min.css'); ?>">
@@ -19,7 +20,7 @@ tinymce.init({
     selector: "textarea#elm1",
     theme: "modern",
     width: 800,
-    height: 200,
+    height: 150,
     plugins: [
         "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
         "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
@@ -41,7 +42,7 @@ tinymce.init({
     selector: "textarea#elm2",
     theme: "modern",
     width: 600,
-    height: 150,
+    height: 100,
     plugins: [
         "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
         "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
@@ -70,7 +71,7 @@ tinymce.init({
             <div class="form-group col-md-12 container ">
                 <form method="post" action="in-nghi-quyet-ket-nap">
                     <input type="hidden" name="maChiBo" value="<?php echo Session::get("maChiBoTaiKhoan"); ?>">
-                    <div class="col-md-12 form-group form-inline alert alert-success">
+                    <div class="col-md-12 form-group form-inline alert alert-info">
                         <center><h2>Trang lập nghị quyết kết nạp cảm tình Đảng</h2></center><br>
                         <div class="form-group">
                             <label>Cảm tình Đảng:&nbsp;&nbsp;&nbsp;</label>

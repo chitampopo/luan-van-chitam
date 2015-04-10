@@ -8,14 +8,10 @@ class DanhGiaXepLoaiController extends Controller {
         $listChiBo = ChiBo::all();
         $listLyLich = LyLich::all();
         if ($maChiBo == "0") {
-            $listDangVien = DangVien::where("XOA", "=", "0")->paginate(15);
+            $listDangVien = DangVien::where("XOA", "=", "0")->get();
         } else {
-            $perpage = 15;
-            $pageNumber = Input::get('page', 1);
-            $array = DB::select("select * from dangvien, lylich where dangvien.MADANGVIEN = lylich.MADANGVIEN"
+            $listDangVien = DB::select("select * from dangvien, lylich where dangvien.MADANGVIEN = lylich.MADANGVIEN"
                             . " and dangvien.XOA = 0 and lylich.MACB = " . $maChiBo);
-            $slice = array_slice($array, $perpage * ($pageNumber - 1), $perpage);
-            $listDangVien = Paginator::make($slice, count($array), $perpage);
         }
 
         $listNam = Nam::all();
@@ -34,14 +30,10 @@ class DanhGiaXepLoaiController extends Controller {
         $listLyLich = LyLich::all();
 
         if ($maChiBo == "0") {
-            $listDangVien = DangVien::where("XOA", "=", "0")->paginate(15);
+            $listDangVien = DangVien::where("XOA", "=", "0")->get();
         } else {
-            $perpage = 15;
-            $pageNumber = Input::get('page', 1);
-            $array = DB::select("select * from dangvien, lylich where dangvien.MADANGVIEN = lylich.MADANGVIEN"
+            $listDangVien = DB::select("select * from dangvien, lylich where dangvien.MADANGVIEN = lylich.MADANGVIEN"
                             . " and dangvien.XOA = 0 and lylich.MACB = " . $maChiBo);
-            $slice = array_slice($array, $perpage * ($pageNumber - 1), $perpage);
-            $listDangVien = Paginator::make($slice, count($array), $perpage);
         }
         $listNam = Nam::all();
         return View::make("trang-danh-gia-dang-vien")

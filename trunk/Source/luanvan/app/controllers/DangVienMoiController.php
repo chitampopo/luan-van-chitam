@@ -148,18 +148,21 @@ class DangVienMoiController extends Controller {
         }
         $newDotBD = BoiDuongDVM::where("NGAYBD", "=", date("Y-m-d", strtotime($khoaNgay)))->first();
         if ($maChiBo == "0") {
-            $listDangVienMoi = DB::select("select * from dangvien, lylich where dangvien.MADANGVIEN = lylich.MADANGVIEN and dangvien.XOA = 0 and lylich.NGAYVAODANGCHINHTHUC is null");
+            $listDangVien = DB::select("select * from dangvien, lylich where dangvien.MADANGVIEN = lylich.MADANGVIEN and dangvien.XOA = 0 and lylich.NGAYVAODANGCHINHTHUC is null");
         } else {
-            $listDangVienMoi = DB::select("select * from dangvien, lylich where dangvien.MADANGVIEN = lylich.MADANGVIEN and dangvien.XOA = 0 and lylich.NGAYVAODANGCHINHTHUC is null and lylich.MACB = " . $maChiBo);
+            $listDangVien = DB::select("select * from dangvien, lylich where dangvien.MADANGVIEN = lylich.MADANGVIEN and dangvien.XOA = 0 and lylich.NGAYVAODANGCHINHTHUC is null and lylich.MACB = " . $maChiBo);
         }
-
-
-        foreach ($listDangVienMoi as $dangVien) {
+        foreach ($listDangVien as $dangVien) {
             if (Input::has('chonDangVien' . $dangVien->MADANGVIEN)) {
                 LyLich::where("MADANGVIEN", "=", $dangVien->MADANGVIEN)->update(array(
                     'DOTBD' => $newDotBD->DOTBD
                 ));
             }
+        }
+        if ($maChiBo == "0") {
+            $listDangVienMoi = DB::select("select * from dangvien, lylich where dangvien.MADANGVIEN = lylich.MADANGVIEN and dangvien.XOA = 0 and lylich.NGAYVAODANGCHINHTHUC is null and lylich.DOTBD = ".$newDotBD->DOTBD);
+        } else {
+            $listDangVienMoi = DB::select("select * from dangvien, lylich where dangvien.MADANGVIEN = lylich.MADANGVIEN and dangvien.XOA = 0 and lylich.NGAYVAODANGCHINHTHUC is null and lylich.MACB = " . $maChiBo. " and lylich.DOTBD = ".$newDotBD->DOTBD);
         }
         //return Redirect::to("trang-lap-danh-sach-boi-duong-dvm");
         $pdf = App::make('dompdf');

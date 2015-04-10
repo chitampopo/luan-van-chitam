@@ -7,6 +7,7 @@ and open the template in the editor.
 <html>
     <head>
         <meta charset="UTF-8">
+        <link rel="Shortcut Icon" href="{{asset('public/images/logo.ico')}}" type="image/x-icon" />  
         <title>In danh sách cử Đảng viên học lớp bồi dưỡng Đảng viên mới</title>
         <style>
             .tb{

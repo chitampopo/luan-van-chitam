@@ -2,6 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <link rel="Shortcut Icon" href="{{asset('public/images/logo.ico')}}" type="image/x-icon" />  
         <title>Trang tổng hợp ý kiến đánh giá cảm tình Đảng</title>
         <link rel="stylesheet" href="{{asset('public/css/jquery-ui.css')}}"/>
         <link rel="stylesheet" href="{{asset('public/css/bootstrap.min.css')}}">
@@ -11,72 +12,57 @@
         <script src="{{asset('public/js/jquery-ui.js')}}" type="text/javascript"></script>
         <script src="{{asset('public/js/bootstrap-datepicker.js')}}" type="text/javascript"></script>
         <script src="{{asset('public/js/script2.js')}}" type="text/javascript"></script>
+        <!-- Tích hợp editor -->
+        <script type="text/javascript" src="{{asset('vendor/tinymce/tinymce/tinymce.min.js')}}"></script>
+        <script type="text/javascript">
+        tinymce.init({
+            selector: "textarea",
+            width: 660
+         });
+        </script>
     </head>
     <body>
         @include('header')
         <div class="col-md-3"> 
             @include('menu')
         </div>
-        <div class="col-md-9">
-            <h2>Trang tổng hợp ý kiến đánh giá cảm tình Đảng</h2><br>
-        </div>
-        <div class="col-md-8">
-            <div class="form-group col-md-9 container ">
-                <form method="post" action="in-phieu-tong-hop-y-kien-cam-tinh-dang">
-                    <input type="hidden" name="maChiBo" value="{{Session::get("maChiBoTaiKhoan")}}">
-                    <div class="col-md-12">
-                        <label>Cảm tình Đảng:</label><br>
-                        <select name="camTinhDang" class="form-control">
-                            @foreach( $listCamTinhDang as $camTinhDang )
-                            <option value="{{$camTinhDang->STTCTD}}">{{$camTinhDang->HOVATEN}}</option>
-                            @endforeach
-                        </select><br>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="col-md-6 form-inline">
-                            <label>Tên tổ chức làm việc:</label>
-                            <input type="text" class="form-control col-md-6" name="noiLamViec"/>
-                            <label>Tên tổ chức nơi cư trú:</label>
-                            <input type="text" class="form-control" name="noiCuTru"/>
-                        </div>
-                        <div class="col-md-6 form-inline">
-                            <label>có:</label><br>
-                            <input type="text" class="form-control" name="soLuongNoiLamViec" placeholder="số lượng đồng chí"/><br>
-                            <label>có:</label><br>
-                            <input type="text" class="form-control" name="soLuongNoiCuTru"  placeholder="số lượng đồng chí"/>
-                        </div>
-                    </div>
-                    Nội dung:<br>
-                    <textarea name="noiDung" class="form-control">
-                        
-                    </textarea>
-                    <div class="col-xs-6"> 
-                        <label>Số tán thành:</label><br>
-                        <input type="number" name="soTanThanh" class="form-control">
-                    </div>
-                    <div class="col-xs-6"> 
-                        <label>Số không tán thành:</label><br>
-                        <input type="number" name="soKhongTanThanh"  class="form-control">
-                    </div>
-                    <label><br>Lý do không tán thành:</label><br>
-                    <input type="text" class="form-control" name="lyDoKhongTanThanh"  class="form-control"/><br>
-                    <div class="col-md-6"> 
-                        <label>Chức vụ người lập:</label><br>
-                        <input type="text" name="chucVuNguoiLap"  class="form-control">
-                    </div>
-                    <div class="col-md-6"> 
-                        <label>Người lập:</label><br>
-                        <input type="text" name="nguoiLap"  class="form-control">
-                    </div>
-                    <div class="col-md-3"> 
-                        <br><input type="submit" value="Tạo"  class="form-control">
-                    </div>
+        <div class="form-inline col-md-9 container alert alert-info">
+            <center><h2>Trang tổng hợp ý kiến đánh giá cảm tình Đảng</h2><br></center>
+            <form method="post" action="in-phieu-tong-hop-y-kien-cam-tinh-dang" style="margin-left: 100px">
+                <input type="hidden" name="maChiBo" value="{{Session::get("maChiBoTaiKhoan")}}">
+                <label>Cảm tình Đảng:</label>
+                <select name="camTinhDang" class="form-control">
+                    @foreach( $listCamTinhDang as $camTinhDang )
+                    <option value="{{$camTinhDang->STTCTD}}">{{$camTinhDang->HOVATEN}}</option>
+                    @endforeach
+                </select><br><br>
+                <label>Tên tổ chức làm việc:&nbsp;&nbsp;&nbsp;</label>
+                <input type="text" class="form-control" size="40" name="noiLamViec"/>
+                <label>có:</label>
+                <input type="text" class="form-control" name="soLuongNoiLamViec" placeholder="số lượng đồng chí"/><br><br>
+                <label>Tên tổ chức nơi cư trú:</label>
+                <input type="text" class="form-control" size="40" name="noiCuTru"/>
+                <label>có:</label>
+                <input type="text" class="form-control" name="soLuongNoiCuTru"  placeholder="số lượng đồng chí"/><br><br>
+                <label>Nội dung:</label><br>
+                <textarea name="noiDung" class="form-control"></textarea><br><br>
+                <label>Số tán thành:</label>
+                <input type="number" name="soTanThanh" class="form-control">
+                <label>Số không tán thành:</label>
+                <input type="number" name="soKhongTanThanh"  class="form-control"><br>
+                <label><br>Lý do không tán thành:</label><br>
+                <input type="text" class="form-control" name="lyDoKhongTanThanh" size="80" class="form-control"/><br>
+                <label>Chức vụ người lập:</label><br>
+                <input type="text" name="chucVuNguoiLap" size="80" class="form-control"><Br>
+                <label>Người lập:</label><br>
+                <input type="text" name="nguoiLap"  size="80"class="form-control">
+                <br><input type="submit" value="Tạo"  class="form-control">
 
-                </form>
-            </div>
-
+            </form>
         </div>
-        <script>
+
+    </div>
+    <script>
 $("#hider").click(function () {
     $("#box").hide("fast", function () {
     });
@@ -84,7 +70,7 @@ $("#hider").click(function () {
 $("#shower").click(function () {
     $("#box").show("fast");
 });
-        </script>
-    </body>
+    </script>
+</body>
 </html>
 

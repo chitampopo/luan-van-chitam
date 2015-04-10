@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="Shortcut Icon" href="<?php echo asset('public/images/logo.ico'); ?>" type="image/x-icon" />  
+        <title>Đảng phí</title>
+        <link rel="stylesheet" href="<?php echo asset('public/css/bootstrap.min.css'); ?>">
+        <link rel="stylesheet" href="<?php echo asset('public/css/style.css'); ?>">
+        <script src="<?php echo asset('public/js/jquery-latest.min.js'); ?>" type="text/javascript"></script>
+        <script src="<?php echo asset('public/js/bootstrap.min.js'); ?>" type="text/javascript"></script>
+        <!-- DATA TABLES -->
+        <link href="<?php echo asset('public/css/dataTables.bootstrap.css'); ?>" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <div class="col-md-12">
+            <br>
+        </div>
+        <?php echo $__env->make('header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+        <br>
+        <div class="col-md-3"> 
+            <?php echo $__env->make('menu', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+        </div>
+        <div class="col-md-9 container alert alert-info">
+            <center><h2><br>Trang cập nhật các hệ số lương</h2></center><br>
+            <form method="post" action="luu-cac-he-so">
+                <div class="col-md-12">
+                    <div class="col-md-3">
+                    </div>
+                    <div class="col-md-3">
+                    </div>
+                    <div class="col-md-3">
+                    </div>
+                    <div class="col-md-3">
+                        <input type="submit" value="Lưu các hệ số" class="form-control" >
+                    </div>
+                </div>
+                <br><br><br>
+                <div class="box">
+                    <div class="box-body">
+                        <table class="table table-bordered table-striped" id="example1" data-height="299">
+                            <thead>
+                                <tr>
+                                    <th style="width: 30px">STT</th> 
+                                    <th style="width: 120px">Họ và tên</th> 
+                                    <th style="width: 150px">Chi bộ</th> 
+                                    <th style="width: 70px">Hệ số lương</th> 
+                                    <th style="width: 70px">Phụ cấp chức vụ</th> 
+                                    <th style="width: 70px">Phụ cấp thâm niên</th> 
+                                    <th style="width: 70px">Phụ cấp vượt khung</th> 
+                                </tr>
+                            </thead>
+                            <?php
+                            $count = 1;
+                            $listChiBo = ChiBo::all();
+                            ?>
+                            <?php foreach( $listDangVien as $dangVien ): ?>
+                            <tr>
+                                <td data-field="id" ><?php echo $count++;; ?></td> 
+                                <td data-field="id" ><?php echo $dangVien->HOTENSUDUNG; ?></td> 
+                                <td data-field="id"  >
+                                    <?php foreach( $listChiBo as $chiBo ): ?>
+                                    <?php if($chiBo->MACB == $dangVien->MACB): ?>
+                                    <?php echo $chiBo->TENCB; ?>
+
+                                    <?php endif; ?>
+                                    <?php endforeach; ?>
+
+                                    </th> 
+                                <td data-field="id" >
+                                    <input type="text" size="5" class="form-control" name="<?php echo "hsLuong".$dangVien->MADANGVIEN; ?>" value="<?php echo number_format($dangVien->HSLUONG,2); ?>" >
+                                </td> 
+                                <td data-field="id" >
+                                    <input type="text" size="5" class="form-control" name="<?php echo "hsChucVu".$dangVien->MADANGVIEN; ?>"  value="<?php echo number_format($dangVien->HSCHUCVU,2); ?>">
+                                </td> 
+                                <td data-field="id" >
+                                    <input type="text" size="5" class="form-control" name="<?php echo "hsThamNien".$dangVien->MADANGVIEN; ?>" value="<?php echo number_format($dangVien->HSTHAMNIEN,2); ?>" >
+                                </td> 
+                                <td data-field="id" >
+                                    <input type="text" size="5" class="form-control" name="<?php echo "hsVuotKhung".$dangVien->MADANGVIEN; ?>"  value="<?php echo number_format($dangVien->HSVUOTKHUNG,2); ?>">
+                                </td> 
+                            </tr>
+                            <?php endforeach; ?>
+                        </table>
+                    </div><!-- /.box-body -->
+                </div><!-- /.box -->
+            </form>
+        </div>
+        <!-- DATA TABES SCRIPT -->
+        <script src="<?php echo asset('public/js/jquery.dataTables.js'); ?>" type="text/javascript"></script>
+        <script src="<?php echo asset('public/js/dataTables.bootstrap.js'); ?>" type="text/javascript"></script>
+        <script>
+$(function () {
+    $("#example1").dataTable();
+    $('#example2').dataTable({
+        "bPaginate": true,
+        "bLengthChange": false,
+        "bFilter": false,
+        "bSort": true,
+        "bInfo": true,
+        "bAutoWidth": false
+    });
+});
+        </script>
+    </body>
+</html>

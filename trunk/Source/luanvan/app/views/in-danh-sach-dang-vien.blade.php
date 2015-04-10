@@ -2,6 +2,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <link rel="Shortcut Icon" href="{{asset('public/images/logo.ico')}}" type="image/x-icon" />  
         <title>In sổ Đảng tịch</title>
         <style>
             .tb{
@@ -10,10 +11,12 @@
             }
             .tb td, .tb th{
                 border: 1px solid black;
+                padding-left: 5px;
             }
             body { 
                 font-family: DejaVu Sans, sans-serif;
                 font-size: 10;
+                padding: 5px;
             }
         </style>
     </head>

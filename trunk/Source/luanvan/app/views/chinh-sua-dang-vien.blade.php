@@ -7,6 +7,7 @@ and open the template in the editor.
 <html>
     <head>
         <meta charset="UTF-8">
+        <link rel="Shortcut Icon" href="{{asset('public/images/logo.ico')}}" type="image/x-icon" />  
         <title>Chỉnh sửa thông tin Đảng viên</title>
         <link rel="stylesheet" href="{{asset('public/css/jquery-ui.css')}}"/>
         <link rel="stylesheet" href="{{asset('public/css/bootstrap.min.css')}}">
@@ -22,7 +23,7 @@ and open the template in the editor.
         <div class="col-md-3"> 
             @include('menu')
         </div>
-        <div class="col-md-9 container">
+        <div class="col-md-9 container alert alert-info">
 
             {{ Form::open(array('url' => 'cap-nhat-dang-vien-action', 'files' => true)) }}  
             <div class="col-md-12 container">

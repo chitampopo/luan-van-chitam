@@ -3,13 +3,24 @@
 class CamTinhDangController extends Controller {
 
     public function TrangDanhSachCamTinhDang() {
+        $maChiBo = Session::get("maChiBoTaiKhoan");
+        $thangNam = date("m-Y");
+        if ($maChiBo == "0") {
+            $listCamTinhDang = CamTinhDang::where("THANGNAM", "<=", $thangNam)->get();
+        } else {
+            $listCamTinhDang = CamTinhDang::where("MACB", "=", $maChiBo)
+                    ->where("THANGNAM", "<=", $thangNam)
+                    ->get();
+        }
         $listThangNam = ThangNam::all();
-        $listCamTinhDang = CamTinhDang::all();
         $listChiBo = ChiBo::all();
+
         return View::make('danh-sach-cam-tinh-dang')
                         ->with("listThangNam", $listThangNam)
                         ->with('listCamTinhDang', $listCamTinhDang)
-                        ->with("listChiBo", $listChiBo);
+                        ->with("listChiBo", $listChiBo)
+                        ->with("thangNamChon", $thangNam)
+                        ->with("maChiBoChon", $maChiBo);
     }
 
     public function TrangThemCamTinhDang() {
@@ -258,10 +269,14 @@ class CamTinhDangController extends Controller {
     }
 
     public function InDanhSachCamTinhDang($maChiBo, $thangNam) {
-        $listCamTinhDang = CamTinhDang::where("MACB", "=", $maChiBo)
-                ->where("THANGNAM", "<=", $thangNam)
-                ->get();
-
+        $maChiBo = Session::get("maChiBoTaiKhoan");
+        if ($maChiBo == "0") {
+            $listCamTinhDang = CamTinhDang::where("THANGNAM", "<=", $thangNam)->get();
+        } else {
+            $listCamTinhDang = CamTinhDang::where("MACB", "=", $maChiBo)
+                    ->where("THANGNAM", "<=", $thangNam)
+                    ->get();
+        }
         $listChiBo = ChiBo::all();
         $pdf = App::make('dompdf');
         $pdf->loadHTML(
@@ -277,9 +292,13 @@ class CamTinhDangController extends Controller {
     public function LocCamTinhDang() {
         $maChiBo = Input::get("maChiBo");
         $thangNam = Input::get("thangNam");
-        $listCamTinhDang = CamTinhDang::where("MACB", "=", $maChiBo)
-                ->where("THANGNAM", "<=", $thangNam)
-                ->get();
+        if ($maChiBo == "0") {
+            $listCamTinhDang = CamTinhDang::where("THANGNAM", "<=", $thangNam)->get();
+        } else {
+            $listCamTinhDang = CamTinhDang::where("MACB", "=", $maChiBo)
+                    ->where("THANGNAM", "<=", $thangNam)
+                    ->get();
+        }
         $listThangNam = ThangNam::all();
         $listChiBo = ChiBo::all();
         return View::make('danh-sach-cam-tinh-dang')
@@ -313,7 +332,7 @@ class CamTinhDangController extends Controller {
         $listHuyen = QuanHuyen::all();
         $listXa = PhuongXa::all();
         $khoaNgay = date("d-m-Y", strtotime(Input::get("khoangay")));
-        if($maChiBo == 0){
+        if ($maChiBo == 0) {
             $listCamTinhDang = CamTinhDang::all();
         } else {
             $listCamTinhDang = CamTinhDang::where("MACB", "=", $maChiBo)->get();
@@ -343,16 +362,21 @@ class CamTinhDangController extends Controller {
         return $pdf->setPaper('a3')->setOrientation('landscape')->stream();
     }
 
-    public function TrangXinYKien(){
+    public function TrangXinYKien() {
         $maChiBo = Session::get("maChiBoTaiKhoan");
-        $listCamTinhDang = CamTinhDang::where("MACB","=",$maChiBo)->get();
-        return View::make("trang-xin-y-kien-cam-tinh-dang")->with("listCamTinhDang",$listCamTinhDang);
+        if ($maChiBo == "0") {
+            $listCamTinhDang = CamTinhDang::all();
+        } else {
+            $listCamTinhDang = CamTinhDang::where("MACB", "=", $maChiBo)->get();
+        }
+        return View::make("trang-xin-y-kien-cam-tinh-dang")->with("listCamTinhDang", $listCamTinhDang);
     }
-    
-    public function InPhieuXinYKien(){
-        $chiBo = ChiBo::where("MACB","=",Input::get("maChiBo"))->first();
+
+    public function InPhieuXinYKien() {
+        $maChiBo = Session::get("maChiBoTaiKhoan");
+        $chiBo = ChiBo::where("MACB", "=", Input::get("maChiBo"))->first();
         $loaiPhieu = Input::get("loaiPhieu"); //0 hoac 1
-        $camTinhDang = CamTinhDang::where("STTCTD","=",Input::get("camTinhDang"))->first();
+        $camTinhDang = CamTinhDang::where("STTCTD", "=", Input::get("camTinhDang"))->first();
         $cuTru = Input::get("cuTruTai");
         $soTanThanh = Input::get("soTanThanh");
         $soKhongTanThanh = Input::get("soKhongTanThanh");
@@ -364,16 +388,16 @@ class CamTinhDangController extends Controller {
         $listHuyen = QuanHuyen::all();
         $listXa = PhuongXa::all();
         $queQuan = null;
-        foreach($listTinh as $tinh){
-            foreach($listHuyen as $huyen){
-                foreach ($listXa as $xa){
-                    if ( $xa->MAPX == $camTinhDang->maquequan && $huyen->MAQH == $xa->MAQH && $huyen->MATT == $tinh->MATT ){
-                        $queQuan = $xa->TENPX.", ".$huyen->TENQH.", ".$tinh->TENTT;
+        foreach ($listTinh as $tinh) {
+            foreach ($listHuyen as $huyen) {
+                foreach ($listXa as $xa) {
+                    if ($xa->MAPX == $camTinhDang->maquequan && $huyen->MAQH == $xa->MAQH && $huyen->MATT == $tinh->MATT) {
+                        $queQuan = $xa->TENPX . ", " . $huyen->TENQH . ", " . $tinh->TENTT;
                     }
                 }
             }
         }
-        
+
         $pdf = App::make('dompdf');
         $pdf->loadHTML(
                 View::make("in-phieu-xin-y-kien-ctd")
@@ -383,25 +407,28 @@ class CamTinhDangController extends Controller {
                         ->with("cuTru", $cuTru)
                         ->with("soTanThanh", $soTanThanh)
                         ->with("soKhongTanThanh", $soKhongTanThanh)
-                        ->with("lyDoKhongTanThanh",$lyDoKhongTanThanh)
+                        ->with("lyDoKhongTanThanh", $lyDoKhongTanThanh)
                         ->with("chucVuNguoiLap", $chucVuNguoiLap)
                         ->with("nguoiLap", $nguoiLap)
-                        ->with("noiGoiDen",$noiGoiDen)
-                        ->with("queQuan",$queQuan)
+                        ->with("noiGoiDen", $noiGoiDen)
+                        ->with("queQuan", $queQuan)
         );
         return $pdf->setPaper('a4')->stream();
     }
-    
-    
-    public function TrangTongHopYKien(){
+
+    public function TrangTongHopYKien() {
         $maChiBo = Session::get("maChiBoTaiKhoan");
-        $listCamTinhDang = CamTinhDang::where("MACB","=",$maChiBo)->get();
-        return View::make("trang-tong-hop-y-kien-cam-tinh-dang")->with("listCamTinhDang",$listCamTinhDang);
+        if ($maChiBo == "0") {
+            $listCamTinhDang = CamTinhDang::all();
+        } else {
+            $listCamTinhDang = CamTinhDang::where("MACB", "=", $maChiBo)->get();
+        }
+        return View::make("trang-tong-hop-y-kien-cam-tinh-dang")->with("listCamTinhDang", $listCamTinhDang);
     }
-    
-    public function InPhieuTongHop(){
-        $chiBo = ChiBo::where("MACB","=",Input::get("maChiBo"))->first();
-        $camTinhDang = CamTinhDang::where("STTCTD","=",Input::get("camTinhDang"))->first();
+
+    public function InPhieuTongHop() {
+        $chiBo = ChiBo::where("MACB", "=", Input::get("maChiBo"))->first();
+        $camTinhDang = CamTinhDang::where("STTCTD", "=", Input::get("camTinhDang"))->first();
         $soTanThanh = Input::get("soTanThanh");
         $soKhongTanThanh = Input::get("soKhongTanThanh");
         $lyDoKhongTanThanh = Input::get("lyDoKhongTanThanh");
@@ -419,15 +446,16 @@ class CamTinhDangController extends Controller {
                         ->with("camTinhDang", $camTinhDang)
                         ->with("soTanThanh", $soTanThanh)
                         ->with("soKhongTanThanh", $soKhongTanThanh)
-                        ->with("lyDoKhongTanThanh",$lyDoKhongTanThanh)
+                        ->with("lyDoKhongTanThanh", $lyDoKhongTanThanh)
                         ->with("chucVuNguoiLap", $chucVuNguoiLap)
                         ->with("nguoiLap", $nguoiLap)
-                        ->with("noiDung",$noiDung)
-                        ->with("noiLamViec",$noiLamViec)
-                        ->with("noiCuTru",$noiCuTru)
-                        ->with("soLuongNoiLamViec",$soLuongNoiLamViec)
-                        ->with("soLuongNoiCuTru",$soLuongNoiCuTru)
+                        ->with("noiDung", $noiDung)
+                        ->with("noiLamViec", $noiLamViec)
+                        ->with("noiCuTru", $noiCuTru)
+                        ->with("soLuongNoiLamViec", $soLuongNoiLamViec)
+                        ->with("soLuongNoiCuTru", $soLuongNoiCuTru)
         );
         return $pdf->setPaper('a4')->stream();
     }
+
 }

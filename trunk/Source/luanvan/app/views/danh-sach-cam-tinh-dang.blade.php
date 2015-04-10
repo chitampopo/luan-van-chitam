@@ -17,26 +17,35 @@ and open the template in the editor.
         <script src="{{asset('public/js/jquery-ui.js')}}" type="text/javascript"></script>
         <script src="{{asset('public/js/bootstrap-datepicker.js')}}" type="text/javascript"></script>
         <script src="{{asset('public/js/script1.js')}}" type="text/javascript"></script>
+        <!-- DATA TABLES -->
+        <link href="{{asset('public/css/dataTables.bootstrap.css')}}" rel="stylesheet" type="text/css" />
     </head>
     <body>
         @include('header')
         <div class="col-md-3"> 
             @include('menu')
         </div>
-        <div class="col-md-9 container">
+        <div class="col-md-9 container alert alert-info">
             <div class="col-md-12 container">
                 <center><h2>Danh sách cảm tình Đảng</h2></center>
                 <form method="post" action="filter-cam-tinh-dang">
                     <div class="col-md-6">
                         Chi bộ:<Br>
                         <select name="maChiBo" id="maChiBo" class="form-control">
-                            @foreach ($listChiBo as $chiBo )
-                            <option value="{{$chiBo->MACB}}"
+                            <option value="0"
                                     <?php
-                                    if(isset($maChiBoChon) && $chiBo->MACB == $maChiBoChon){
+                                    if($maChiBoChon == "0"){
                                         echo "selected";
                                     }
                                     ?>
+                                    >Toàn Đảng bộ</option>
+                            @foreach ($listChiBo as $chiBo )
+                            <option value="{{$chiBo->MACB}}"
+                            <?php
+                            if (isset($maChiBoChon) && $chiBo->MACB == $maChiBoChon) {
+                                echo "selected";
+                            }
+                            ?>
                                     >{{$chiBo->TENCB}}</option>
                             @endforeach
                         </select>
@@ -46,24 +55,24 @@ and open the template in the editor.
                         <select name="thangNam" id="thangNam" class="form-control">
                             @foreach ($listThangNam as $thangNam )
                             <option value="{{$thangNam->THANGNAM}}"
-                                    <?php
-                                    if(isset($thangNamChon) && $thangNam->THANGNAM == $thangNamChon){
-                                        echo "selected";
-                                    }
-                                    ?>
+                            <?php
+                            if (isset($thangNamChon) && $thangNam->THANGNAM == $thangNamChon) {
+                                echo "selected";
+                            }
+                            ?>
                                     >{{$thangNam->THANGNAM}}</option>
                             @endforeach
                         </select><br>
                     </div>&nbsp;&nbsp;
-                    <input type="submit" value="Liệt kê" class="btn btn-warning">
-                    <button type="button" id="button1" class="btn btn-warning">In danh sách cảm tình Đảng</button>
-                    <button type="button" id="button2" class="btn btn-warning">Thêm cảm tình Đảng</button>
+                    <input type="submit" value="Liệt kê" class="btn btn-default">
+                    <button type="button" id="button1" class="btn btn-default">In danh sách cảm tình Đảng</button>
+                    <button type="button" id="button2" class="btn btn-default">Thêm cảm tình Đảng</button>
                 </form>
 
             </div>
             <div class="col-md-12"><br><br></div>
             <div class="col-md-12 nguoithan" id="box">
-                <table class="table" data-height="299" id="POITable1">
+                <table class="table" data-height="299" id="example1">
                     <thead>
                     <th style="width: 70px">STT</th> 
                     <th style="width: 200px">Họ và tên</th> 
@@ -169,6 +178,22 @@ $('#button2').click(function () {
 });
 $('#button1').click(function () {
     window.open("http://localhost/luanvan/index.php/in-danh-sach-cam-tinh-dang/" + value + "/" + value1, '_blank')
+});
+        </script>
+        <!-- DATA TABES SCRIPT -->
+        <script src="{{asset('public/js/jquery.dataTables.js')}}" type="text/javascript"></script>
+        <script src="{{asset('public/js/dataTables.bootstrap.js')}}" type="text/javascript"></script>
+        <script>
+$(function () {
+    $("#example1").dataTable();
+    $('#example2').dataTable({
+        "bPaginate": true,
+        "bLengthChange": false,
+        "bFilter": false,
+        "bSort": true,
+        "bInfo": true,
+        "bAutoWidth": false
+    });
 });
         </script>
     </body>

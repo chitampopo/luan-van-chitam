@@ -2,6 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <link rel="Shortcut Icon" href="<?php echo asset('public/images/logo.ico'); ?>" type="image/x-icon" />  
         <title>Trang lập phiếu xin ý kiến đánh giá cảm tình Đảng</title>
         <link rel="stylesheet" href="<?php echo asset('public/css/jquery-ui.css'); ?>"/>
         <link rel="stylesheet" href="<?php echo asset('public/css/bootstrap.min.css'); ?>">
@@ -17,54 +18,42 @@
         <div class="col-md-3"> 
             <?php echo $__env->make('menu', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
         </div>
-        <div class="col-md-9">
-            <h2>Trang lập phiếu xin ý kiến đánh giá cảm tình Đảng</h2><br>
-        </div>
-        <div class="col-md-8">
-            <div class="form-group col-md-9 container ">
-                <form method="post" action="in-phieu-xin-y-kien-cam-tinh-dang">
-                    <input type="hidden" name="maChiBo" value="<?php echo Session::get("maChiBoTaiKhoan"); ?>">
-                    <label>Loại phiếu:</label><br>
-                    <input type="radio" name="loaiPhieu" value="0">Gửi đoàn thể
-                    <input type="radio" name="loaiPhieu" value="1">Gửi nơi cư trú<br><br>
-                    <label>Nơi gởi đến:</label><br>
-                    <input type="text" class="form-control" name="noiGoiDen"/><br>
-                    <label>Cảm tình Đảng:</label><br>
-                    <select name="camTinhDang" class="form-control">
-                        <?php foreach( $listCamTinhDang as $camTinhDang ): ?>
-                        <option value="<?php echo $camTinhDang->STTCTD; ?>"><?php echo $camTinhDang->HOVATEN; ?></option>
-                        <?php endforeach; ?>
-                    </select><br>
-                    <label>Cư trú tại:</label><br>
-                    <input type="text" class="form-control" name="cuTruTai"/><br>
-                    <div class="col-xs-6"> 
-                        <label>Số tán thành:</label><br>
-                        <input type="number" name="soTanThanh" class="form-control">
-                    </div>
-                    <div class="col-xs-6"> 
-                        <label>Số không tán thành:</label><br>
-                        <input type="number" name="soKhongTanThanh"  class="form-control">
-                    </div>
-                    
-                    <label><br>Lý do không tán thành:</label><br>
-                    <input type="text" class="form-control" name="lyDoKhongTanThanh"  class="form-control"/><br>
-                    <div class="col-md-6"> 
-                        <label>Chức vụ người lập:</label><br>
-                        <input type="text" name="chucVuNguoiLap"  class="form-control">
-                    </div>
-                    <div class="col-md-6"> 
-                        <label>Người lập:</label><br>
-                        <input type="text" name="nguoiLap"  class="form-control">
-                    </div>
-                    <div class="col-md-3"> 
-                         <br><input type="submit" value="Tạo"  class="form-control">
-                    </div>
-                   
-                </form>
-            </div>
+        <div class="form-inline col-md-9 container alert alert-info" >
+            <center><h2>Trang lập phiếu xin ý kiến đánh giá cảm tình Đảng</h2></center><br>
 
+            <form method="post" action="in-phieu-xin-y-kien-cam-tinh-dang" style="padding-left: 130px">
+                <input type="hidden" name="maChiBo" value="<?php echo Session::get("maChiBoTaiKhoan"); ?>">
+                <label>Loại phiếu:</label><br>
+                <input type="radio" name="loaiPhieu" value="0">Gửi đoàn thể &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                <input type="radio" name="loaiPhieu" value="1">Gửi nơi cư trú<br>
+                <label>Nơi gởi đến:</label><br>
+                <input type="text" class="form-control" size="80" name="noiGoiDen"/><br>
+                <label>Cảm tình Đảng:</label><br>
+                <select name="camTinhDang" class="form-control">
+                    <?php foreach( $listCamTinhDang as $camTinhDang ): ?>
+                    <option value="<?php echo $camTinhDang->STTCTD; ?>"><?php echo $camTinhDang->HOVATEN; ?></option>
+                    <?php endforeach; ?>
+                </select><br>
+                <label>Cư trú tại:</label><br>
+                <input type="text" class="form-control" size="80"  name="cuTruTai"/><br><br>
+                <label>Số tán thành:</label>
+                <input type="number" name="soTanThanh" style="width: 10em"class="form-control">
+                <label>Số không tán thành:</label>
+                <input type="number" name="soKhongTanThanh" style="width: 10em"  class="form-control"><br>
+
+                <label><br>Lý do không tán thành:</label><br>
+                <input type="text" class="form-control" name="lyDoKhongTanThanh" size="80"  class="form-control"/><br>
+                <label>Chức vụ người lập:</label><br>
+                <input type="text" name="chucVuNguoiLap"  size="80" class="form-control"><br>
+                <label>Người lập:</label><br>
+                <input type="text" name="nguoiLap" size="80" class="form-control">
+                <br><br><input type="submit" value="Tạo"  class="form-control">
+
+            </form>
         </div>
-        <script>
+
+    </div>
+    <script>
 $("#hider").click(function () {
     $("#box").hide("fast", function () {
     });
@@ -72,6 +61,6 @@ $("#hider").click(function () {
 $("#shower").click(function () {
     $("#box").show("fast");
 });
-        </script>
-    </body>
+    </script>
+</body>
 </html>

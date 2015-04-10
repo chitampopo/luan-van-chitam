@@ -46,6 +46,7 @@ class HuyHieuDangController extends Controller {
         }
         
         $newDotCapHHD = DSCapHHD::where("DOTCAPHHD", "=", $dotCapHHD-> DOTCAPHHD)->where("LOAICAPHHD","=",$maHuyHieuDang)->first();
+        
         if ($maChiBo == "0") {
             $listDangVien = DB::select("select * from dangvien, lylich where dangvien.MADANGVIEN = lylich.MADANGVIEN and dangvien.XOA = 0 and dangvien.MADANGVIEN not in (select MADANGVIEN from huyhieudang)");
         } else {
@@ -104,7 +105,7 @@ class HuyHieuDangController extends Controller {
                         ->with("listHuyen", $listHuyen)
                         ->with("listXa", $listXa)
                         ->with("listChiBo", $listChiBo)
-                        ->with("maLoaiHH", 1);
+                        ->with("maLoaiHH", "1");
     }
     
     public function LocTrangCapLaiHuyHieuDang(){

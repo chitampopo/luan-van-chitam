@@ -53,7 +53,7 @@ class DangVienController extends Controller {
         $biDanh = Input::get("bidanh");
         $dangVien->BIDANH = $biDanh;
         //Upload hình ảnh Đảng viên
-        if (Input::get('hinhanh') != null) {
+        if (Input::file('hinhanh') != null) {
             //Input::file('hinhanh')->getClientOriginalName()
             $hinhAnh = Input::file('hinhanh')->getClientOriginalName();
             Input::file('hinhanh')->move(base_path() . '/storage/directory', $hinhAnh);
@@ -61,6 +61,7 @@ class DangVienController extends Controller {
         } else {
             $dangVien->HINHANH = null;
         }
+        
         //Giới tính
         $gioiTinh = Input::get("gioitinh");
         $dangVien->GIOITINH = $gioiTinh;
@@ -201,7 +202,7 @@ class DangVienController extends Controller {
         $maTheDV = Input::get("thedang");
         $theDang = new TheDang();
         $theDang->SOTHE = $maTheDV;
-        $theDang->NGAYCAPTHE = Input::get("ngaycapthedang");
+        $theDang->NGAYCAPTHE = date("Y-m-d", strtotime(Input::get("ngaycapthedang")));
         //Số lý lịch
         $soLyLich = Input::get("lylich");
         $lylich->SOLL = $soLyLich;
@@ -242,8 +243,8 @@ class DangVienController extends Controller {
         $dsKhenThuong = Input::get("ktkhenthuong");
         $dsKhenThuongNew = substr($dsKhenThuong, 1);
         $array = explode("+", $dsKhenThuongNew);
-        $khenthuong = new KhenThuongDV();
         foreach ($array as $item) {
+            $khenthuong = new KhenThuongDV();
             $khenthuong->MADANGVIEN = $maDangVien;
             $maHinhThucKhenThuong = Input::get("khenthuong" . $item);
             $khenthuong->MAHTKT = $maHinhThucKhenThuong;
@@ -261,6 +262,7 @@ class DangVienController extends Controller {
                 $khenthuong->save();
             }
         }
+        
         //Kỷ luật
         $kyLuat = substr(Input::get("ktkyluat"), 1);
         $dsKyLuat = explode("+", $kyLuat);
@@ -978,7 +980,13 @@ class DangVienController extends Controller {
 
     public function TrangDanhSachDangVien() {
         $listChiBo = ChiBo::all();
-        $listDangVien = DangVien::where("XOA","=","0")->paginate(15);
+        $maChiBo = Session::get("maChiBoTaiKhoan");
+        if($maChiBo == "0"){
+            $listDangVien = DangVien::where("XOA","=","0")->get();
+        } else{
+            $listDangVien = DB::select("select * from dangvien, lylich where dangvien.MADANGVIEN = lylich.MADANGVIEN and dangvien.XOA = 0 and lylich.MACB = ".$maChiBo);
+        }
+        
         $listLyLich = LyLich::all();
         $maChiBoChon = "0";
         return View::make("danh-sach-dang-vien")
@@ -993,14 +1001,14 @@ class DangVienController extends Controller {
         $maCB = Input::get("maChiBo");
         $listLyLich = LyLich::all();
         if ($maCB == "0") {
-            $listDangVien = DangVien::where("XOA", "=", "0")->paginate(15);
+            $listDangVien = DangVien::where("XOA", "=", "0")->get();
         } else {
             $list = array();
             $listMaDangVien = LyLich::where("MACB", "=", $maCB)->get();
             foreach ($listMaDangVien as $maDangVien) {
                 array_push($list, $maDangVien->MADANGVIEN);
             }
-            $listDangVien = DangVien::whereIn("MADANGVIEN", $list)->paginate(15);
+            $listDangVien = DangVien::whereIn("MADANGVIEN", $list)->get();
         }
         return View::make("danh-sach-dang-vien")
                         ->with("listChiBo", $listChiBo)

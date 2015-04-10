@@ -7,6 +7,7 @@ and open the template in the editor.
 <html>
     <head>
         <meta charset="UTF-8">
+        <link rel="Shortcut Icon" href="{{asset('public/images/logo.ico')}}" type="image/x-icon" />  
         <title>Cập nhật thông tin Đảng viên</title>
         <link rel="stylesheet" href="{{asset('public/css/jquery-ui.css')}}"/>
         <link rel="stylesheet" href="{{asset('public/css/bootstrap.min.css')}}">
@@ -23,7 +24,7 @@ and open the template in the editor.
         <div class="col-md-3"> 
             @include('menu')
         </div>
-        <div class="col-md-9 container  alert alert-success">
+        <div class="col-md-9 container alert alert-info">
 
             {{ Form::open(array('url' => 'dang-vien-action', 'files' => true, 'data-toggle' => "validator", 'role'=> "form")) }}    
             <div class="col-md-12 container">
@@ -142,16 +143,18 @@ and open the template in the editor.
                     <span class="help-block with-errors">Số thẻ Đảng gồm 8 đến 9 chữ số</span>
 
                     {{ Form::label('', 'Ngày cấp thẻ'); }}<br>
-                    {{ Form::text('ngaycapthedang', null, array('class' => 'form-control')); }}
+                    {{ Form::text('ngaycapthedang', '', array('class' => 'form-control','data-provide' => 'datepicker')) }}  
 
                     {{ Form::label('', 'Hệ số lương'); }}<br>
                     {{ Form::text('hsluong', null, array('class' => 'form-control')); }}
-
-                    {{ Form::label('', 'Ngày nhập ngũ'); }}<br>
-                    {{ Form::text('nhapngu', '', array('class' => 'form-control','data-provide' => 'datepicker')) }}  
-
+                    <span class="help-block with-errors">số có 2 chử số thập phân</span>
+                    
                     {{ Form::label('', 'Phụ cấp thâm niên'); }}<br>
                     {{ Form::text('thamnien', null, array('class' => 'form-control')); }}
+                    <span class="help-block with-errors">Từ 0.00 đến 1.00</span>
+                    
+                    {{ Form::label('', 'Ngày nhập ngũ'); }}<br>
+                    {{ Form::text('nhapngu', '', array('class' => 'form-control','data-provide' => 'datepicker')) }}  
 
                     {{ Form::label('', 'Ngày từ trần'); }}<br>
                     {{ Form::text('ngaytutran', '', array('class' => 'form-control','data-provide' => 'datepicker')) }}  
@@ -280,15 +283,6 @@ and open the template in the editor.
                     {{ Form::label('', 'Số lý lịch Đảng'); }}<br> 
                     <input class="form-control" name="lylich" type="text" pattern="^[0-9]{6}[A-z]{1,3}">
                     <span class="help-block with-errors">Số lý lịch Đảng gồm 6 chữ số và từ 1 đến 3 ký tự</span>
-                
-                    {{ Form::label('', 'Phụ cấp chức vụ'); }}<br>
-                    {{ Form::text('pcchucvu', null, array('class' => 'form-control')); }}
-
-                    {{ Form::label('', 'Phụ cấp vượt khung'); }}<br>
-                    {{ Form::text('vuotkhung', null, array('class' => 'form-control')); }}
-
-                    {{ Form::label('', 'Ngày xuất ngũ'); }}<br>
-                    {{ Form::text('xuatngu', '', array('class' => 'form-control','data-provide' => 'datepicker')) }} 
 
                     {{ Form::label('', 'Gia đình có công với cách mạng'); }}<br>
                     <div class="form-control">
@@ -296,6 +290,19 @@ and open the template in the editor.
                             <input type="checkbox" name="giadinhcm" >
                         </label>
                     </div>
+                    
+                    {{ Form::label('', 'Phụ cấp chức vụ'); }}<br>
+                    {{ Form::text('pcchucvu', null, array('class' => 'form-control')); }}
+                    <span class="help-block with-errors">Từ 0.00 đến 1.00</span>
+                    
+                    {{ Form::label('', 'Phụ cấp vượt khung'); }}<br>
+                    {{ Form::text('vuotkhung', null, array('class' => 'form-control')); }}
+                    <span class="help-block with-errors">Từ 0.00 đến 1.00</span>
+                    
+                    {{ Form::label('', 'Ngày xuất ngũ'); }}<br>
+                    {{ Form::text('xuatngu', '', array('class' => 'form-control','data-provide' => 'datepicker')) }} 
+
+                    
 
                     {{ Form::label('', 'Lý do từ trần'); }}<br>
                     {{ Form::text('lydotutran', null, array('class' => 'form-control')); }}
@@ -527,19 +534,19 @@ and open the template in the editor.
                 if ($(this).text() === 'Ẩn thông tin cơ bản') {
                     $(this).text('Hiện thông tin cơ bản');
                     $("#box1").hide("fast");
-               } else{
+                } else {
                     $(this).text('Ẩn thông tin cơ bản');
                     $("#box1").show("fast");
-               }
+                }
             });
             $("#shower").click(function () {
                 if ($(this).text() === 'Ẩn thông tin khác') {
                     $(this).text('Hiện thông tin khác');
                     $("#box").hide("fast");
-               } else{
+                } else {
                     $(this).text('Ẩn thông tin khác');
                     $("#box").show("fast");
-               }
+                }
             });
         </script>
     </body>

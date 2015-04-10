@@ -1,12 +1,8 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
     <head>
         <meta charset="UTF-8">
+        <link rel="Shortcut Icon" href="{{asset('public/images/logo.ico')}}" type="image/x-icon" />  
         <title>In danh sách cấp thẻ Đảng viên mới</title>
         <style>
             .tb{
@@ -104,6 +100,7 @@ and open the template in the editor.
             <table>
                 <tr>
                     <td style="width: 200px; text-align: center">
+                        Nơi nhận
                     </td>
                     <td style="text-align: center; padding-left:500px">
                         T/M Đảng ủy
@@ -111,6 +108,7 @@ and open the template in the editor.
                 </tr>
                 <tr>
                     <td>
+                        {{$noiNhan}}
                     </td>
                     <td style="text-align: center; vertical-align: top; padding-left: 500px">
                     </td>

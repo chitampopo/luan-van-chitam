@@ -2,6 +2,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <link rel="Shortcut Icon" href="{{asset('public/images/logo.ico')}}" type="image/x-icon" />  
         <title>In sổ Đảng tịch</title>
         <style>
             .tb{
@@ -88,9 +89,31 @@
                                 {{ $theDang -> SOTHE }}
                                 @endif
                                 @endforeach
-                            </td>8
-                            <td></td>
-                            <td></td>
+                            </td>
+                            <td>
+                                <?php
+                                $listChuyenMon = ChuyenMon::all();
+                                $listHocVi = HocVi::all();
+                                ?>
+                                @foreach($listChuyenMon as $chuyenMon)
+                                @if($chuyenMon->MACM == $dangVien->MACM)
+                                {{$chuyenMon->TENCM}}
+                                @endif
+                                @endforeach
+                                @foreach($listHocVi as $hocVi)
+                                @if($hocVi->MAHOCVI == $dangVien->MAHOCVI)
+                                {{"/ ".$hocVi->TENHOCVI}}
+                                @endif
+                                @endforeach
+                            </td>
+                            <td>
+                                <?php
+                                $giuCV = DB::select("select * from giucv, chucvu where chucvu.MACV = giucv.MACV and giucv.MANHIEMKY = ".$nhiemKy->MANHIEMKY." and giucv.MADANGVIEN = ".$dangVien->MADANGVIEN)
+                                ?>
+                                @foreach($giuCV as $cv)
+                                {{$cv->TENCV}}
+                                @endforeach
+                            </td>
                             <td></td>
                         </tr>
                         @endif

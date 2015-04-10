@@ -2,6 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <link rel="Shortcut Icon" href="{{asset('public/images/logo.ico')}}" type="image/x-icon" />  
         <title>Trang lập danh sách cử đi học lớp bồi dưỡng Đảng viên mới</title>
         <link rel="stylesheet" href="{{asset('public/css/jquery-ui.css')}}"/>
         <link rel="stylesheet" href="{{asset('public/css/bootstrap.min.css')}}">
@@ -11,6 +12,9 @@
         <script src="{{asset('public/js/jquery-ui.js')}}" type="text/javascript"></script>
         <script src="{{asset('public/js/bootstrap-datepicker.js')}}" type="text/javascript"></script>
         <script src="{{asset('public/js/script2.js')}}" type="text/javascript"></script>
+        <!-- DATA TABLES -->
+        <link href="{{asset('public/css/dataTables.bootstrap.css')}}" rel="stylesheet" type="text/css" />
+
     </head>
     <body>
         @include('header')
@@ -18,12 +22,12 @@
             @include('menu')
         </div>
         <div >
-            <div class="form-inline col-md-9 container alert alert-success">
+            <div class="form-inline col-md-9 container alert alert-info">
                 <center><h2>Trang lập danh sách cử đi học lớp bồi dưỡng Đảng viên mới</h2></center><br><br>
                 <form method="post" action="in-danh-sach-boi-duong-dvm">
                     <input type="hidden" name="maChiBo" value="{{Session::get("maChiBoTaiKhoan")}}">
                     Khóa ngày:
-                    <input class="form-control" size="20" data-provide="datepicker" name="khoangay" type="text" value="" required>
+                    <input class="form-control" size="15" data-provide="datepicker" name="khoangay" type="text" value="" required>
                     Người lập: 
                     <input type="text" name="nguoiLap" class="form-control">
                     Chức vụ: 
@@ -31,7 +35,7 @@
                     <input type="submit" value="Tạo" class="form-control">
 
                     <br><br>
-                    <table class='table'>
+                    <table class='table' id="example1">
                         <thead>
                             <tr>
                                 <th>STT</th>
@@ -70,13 +74,13 @@
                                     @endforeach
                                 </td>
                                 <td><input type="checkbox" name="{{'chonDangVien'.$dangVien->MADANGVIEN}}"
-                                           <?php
-                                           $lylich = LyLich::where("MADANGVIEN","=",$dangVien->MADANGVIEN)->first();
-                                           if($lylich->DOTBD != null){
-                                               echo "checked";
-                                           }
-                                           ?>
-                                           </td>
+                                    <?php
+                                    $lylich = LyLich::where("MADANGVIEN", "=", $dangVien->MADANGVIEN)->first();
+                                    if ($lylich->DOTBD != null) {
+                                        echo "checked";
+                                    }
+                                    ?>
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -85,6 +89,26 @@
             </div>
 
         </div>
+        <!-- jQuery -->
+        <script type="text/javascript" charset="utf8" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+
+        <!-- DATA TABES SCRIPT -->
+        <script src="{{asset('public/js/jquery.dataTables.js')}}" type="text/javascript"></script>
+        <script src="{{asset('public/js/dataTables.bootstrap.js')}}" type="text/javascript"></script>
+        
+        <script>
+$(function () {
+    $("#example1").dataTable();
+    $('#example2').dataTable({
+        "bPaginate": true,
+        "bLengthChange": false,
+        "bFilter": false,
+        "bSort": true,
+        "bInfo": true,
+        "bAutoWidth": false
+    });
+});
+        </script>
     </body>
 </html>
 
