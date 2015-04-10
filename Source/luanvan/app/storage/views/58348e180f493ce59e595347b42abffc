@@ -2,6 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <link rel="Shortcut Icon" href="<?php echo asset('public/images/logo.ico'); ?>" type="image/x-icon" />  
         <title>Trang nghị quyết công nhận đảng viên chính thức</title>
         <link rel="stylesheet" href="<?php echo asset('public/css/jquery-ui.css'); ?>"/>
         <link rel="stylesheet" href="<?php echo asset('public/css/bootstrap.min.css'); ?>">
@@ -28,7 +29,7 @@
             <div class="form-group col-md-12 container ">
                 <form method="post" action="in-nghi-quyet-cong-nhan">
                     <input type="hidden" name="maChiBo" value="<?php echo Session::get("maChiBoTaiKhoan"); ?>">
-                    <div class="col-md-12 form-group form-inline alert alert-success">
+                    <div class="col-md-12 form-group form-inline alert alert-info">
                         <center><h2>Trang lập nghị quyết công nhận đảng viên chính thức</h2></center><br>
                         <div class="form-group">
                             <label>Cảm tình Đảng:&nbsp;&nbsp;&nbsp;</label>
@@ -70,26 +71,26 @@
                         <label>Dự bị:</label>
                         <input type="number" class="form-control" name="soVangMatDuBi"/><br><br>
                         <label>Lý do vắng mặt:</label>
-                        <input type="text" class="form-control" name="lyDoVangMat"  class="form-control" size="102"/><br><br>
+                        <input type="text" class="form-control" name="lyDoVangMat"  class="form-control" size="105"/><br><br>
                         <?php endif; ?>
                         <label>Chủ trì&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
                         <input type="text" class="form-control" name="chuTri" size="40" class="form-control"/>
                         <label>Chức vụ:&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                        <input type="text" class="form-control" name="chucVuChuTri"  size="37"  class="form-control"/><br><br>
+                        <input type="text" class="form-control" name="chucVuChuTri"  size="39"  class="form-control"/><br><br>
                         <label>Thư ký:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                        <input type="text" class="form-control" name="thuKy" size="60" class="form-control"/><br><br>
+                        <input type="text" class="form-control" name="thuKy" size="103" class="form-control"/><br><br>
                         <label>Ưu khuyết điểm:</label><br>
                         <textarea name="noiDung" class="form-control" rows="4" cols="123"></textarea><br><br>
                         <label>Số tán thành:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                        <input type="number" name="soTanThanh" class="form-control" size="40">
+                        <input type="number" name="soTanThanh" class="form-control" style="width: 17em">
                         <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Số không tán thành:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                        <input type="number" name="soKhongTanThanh"  class="form-control" size="35"><br>
+                        <input type="number" name="soKhongTanThanh"  class="form-control" style="width: 17em"><br>
                         <label><br>Lý do không tán thành:</label><br>
                         <input type="text" class="form-control" name="lyDoKhongTanThanh" size="122"  class="form-control"/><br><br>
                         <label>Chức vụ người lập:</label>
                         <input type="text" name="chucVuNguoiLap"  class="form-control" size="35">
                         <label>Người lập:</label>
-                        <input type="text" name="nguoiLap"  class="form-control" size="40"><br><Br>
+                        <input type="text" name="nguoiLap"  class="form-control" size="42"><br><Br>
                         <label>Nơi nhận:</label><br>
                         <textarea name="noiNhan" class="form-control" rows="4" cols="50"></textarea><br><br>
                         <div style="float:right">

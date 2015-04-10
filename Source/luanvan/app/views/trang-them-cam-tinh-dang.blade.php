@@ -2,6 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <link rel="Shortcut Icon" href="{{asset('public/images/logo.ico')}}" type="image/x-icon" />  
         <title>Trang thêm cảm tình Đảng</title>
         <link rel="stylesheet" href="{{asset('public/css/jquery-ui.css')}}"/>
         <link rel="stylesheet" href="{{asset('public/css/bootstrap.min.css')}}">
@@ -17,10 +18,8 @@
         <div class="col-md-3"> 
             @include('menu')
         </div>
-        <div class="col-md-9">
-            <h2>Trang thêm cảm tình Đảng</h2><br>
-        </div>
-        <div class="form-group col-md-9 container " >
+        <div class="form-group col-md-9 container alert alert-info" >
+            <center><h2>Trang thêm cảm tình Đảng</h2></center>
             {{ Form::open(array('url' => 'them-cam-tinh-dang-action')) }}
             <div class="col-md-6">
                 {{ Form::label('', 'Chi bộ'); }}<br>

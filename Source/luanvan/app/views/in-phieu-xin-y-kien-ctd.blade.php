@@ -2,6 +2,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <link rel="Shortcut Icon" href="{{asset('public/images/logo.ico')}}" type="image/x-icon" />  
         <title>In sổ Đảng tịch</title>
         <style>
             .tb{
@@ -37,10 +38,10 @@
                     </td>
                 </tr>
             </table>
-            
+
             <h2><center>PHIẾU XIN Ý KIẾN</center></h2>
             <H3><center>Nhận xét về quần chúng</center></H3>
-            
+
             <center><b>Kính gửi: </b> {{$noiGoiDen}}</center>
             <div style="text-align: justify">
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Căn cứ vào Hướng dẫn số 03-HD/BTCTW ngày 29/12/2006 của Ban Tổ

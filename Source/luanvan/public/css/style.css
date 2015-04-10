@@ -1,7 +1,7 @@
 body{
     width: 1200px;
     margin: auto;
-    background: #b5d3ea;
+    background: #BDBDBD;
     //background-image: url(http://localhost/luanvan/public/images/111.jpg);
     //background-repeat: repeat;
 }
@@ -27,5 +27,9 @@ body{
 .nguoithan table
 {
     width:1600px;
+}
+
+#example1 th{
+    background-color: steelblue;
 }
 

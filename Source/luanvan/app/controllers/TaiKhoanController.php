@@ -22,7 +22,7 @@ class TaiKhoanController extends Controller{
                 $tk = TaiKhoan::where("TENTAIKHOAN","=",$taiKhoan)->first();
                 Session::put('maChiBoTaiKhoan',$tk->MACB);
             }
-            return View::make("menu");
+            return View::make("trang-quan-tri");
         } else {
             return View::make('dang-nhap')->with('ThongBao', 
                     'Đăng nhập không thành công! Vui lòng làm lại<br>');
@@ -34,6 +34,6 @@ class TaiKhoanController extends Controller{
         Session::forget('loaiTaiKhoan');
         Session::forget('maChiBoTaiKhoan');
         //echo "Bạn đã đăng xuất";
-        return Redirect::to("/");
+        return Redirect::to("admin");
     }
 }

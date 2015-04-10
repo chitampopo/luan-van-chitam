@@ -2,12 +2,15 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <link rel="Shortcut Icon" href="<?php echo asset('public/images/logo.ico'); ?>" type="image/x-icon" />  
         <title>Trang cập nhật đánh giá và phân loại Đảng viên</title>
         <link rel="stylesheet" href="<?php echo asset('public/css/bootstrap.min.css'); ?>">
         <link rel="stylesheet" href="<?php echo asset('public/css/style.css'); ?>">
         <script src="<?php echo asset('public/js/jquery-ui.js'); ?>" type="text/javascript"></script>
         <script src="<?php echo asset('public/js/jquery.validate.min'); ?>" type="text/javascript"></script>
         <script src="<?php echo asset('public/js/jquery-latest.min.js'); ?>" type="text/javascript"></script>
+        <!-- DATA TABLES -->
+        <link href="<?php echo asset('public/css/dataTables.bootstrap.css'); ?>" rel="stylesheet" type="text/css" />
     </head>
     <body>
         <?php echo $__env->make('header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
@@ -15,26 +18,26 @@
             <?php echo $__env->make('menu', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
         </div>
         <div >
-            <div class="col-md-9 container alert alert-success" style="padding: 0 30px 0 30px">
+            <div class="col-md-9 container alert alert-info" style="padding: 0 30px 0 30px">
                 <center><h2>Trang cập nhật đánh giá và phân loại Đảng viên</h2></center><br>
                 <form action="filter-danh-gia" method="post" class="form-group">
                     <div class="col-md-4">
                         <select name="maChiBo" class="form-control" id="maChiBo"
-                                
+
                                 >
                             <option value="0"
-                                    <?php
-                                    if (Session::get("maChiBoTaiKhoan") != "0") {
-                                        echo "disabled";
-                                    }
-                                    ?>
+                            <?php
+                            if (Session::get("maChiBoTaiKhoan") != "0") {
+                                echo "disabled";
+                            }
+                            ?>
                                     >Toàn Đảng bộ</option>
                             <?php foreach( $listChiBo as $chiBo ): ?>
                             <option value="<?php echo $chiBo->MACB; ?>" class="form-control"
                             <?php
                             if (Session::get("maChiBoTaiKhoan") == $chiBo->MACB) {
                                 echo "selected";
-                            } else{
+                            } else {
                                 echo "disabled";
                             }
                             ?>
@@ -46,11 +49,11 @@
                         <select class="form-control" name="namChon">
                             <?php foreach( $listNam as $nam ): ?>
                             <option value="<?php echo $nam->NAM; ?>"
-                                    <?php
-                                    if ($nam->NAM == $namDuocChon) {
-                                        echo "selected";
-                                    }
-                                    ?>
+                            <?php
+                            if ($nam->NAM == $namDuocChon) {
+                                echo "selected";
+                            }
+                            ?>
                                     ><?php echo $nam->NAM; ?></option>
                             <?php endforeach; ?>
                         </select>
@@ -62,83 +65,113 @@
                 <form action="luu-danh-gia" method="post" class="form-group">
                     <input type="hidden" name="namChon" value="<?php echo $namDuocChon; ?>">
                     <br><br>
-                    <table class="table col-md-8">
-                        <thead>
-                            <tr>
-                                <th>Tên Đảng viên</th> 
-                                <th>Giới tính</th> 
-                                <th>Ngày sinh</th> 
-                                <th>Chi bộ</th> 
-                                <th>Mức phân loại</th>
-                            </tr>
-                        </thead>
-                        <?php foreach($listDangVien as $item): ?>
-                        <tr>
-                            <td><a href="<?php echo URL()."/trang-chinh-sua-dang-vien/".$item->MADANGVIEN; ?>" target="_blank"> <?php echo $item->HOTENSUDUNG; ?> </a></td> 
-                            <td><?php if($item->GIOITINH == "1"): ?> <?php echo "Nam"; ?> <?php else: ?> <?php echo "Nữ"; ?> <?php endif; ?></td> 
-                            <td><?php echo date("d-m-Y", strtotime($item->NGAYSINH)); ?></td> 
-                            <td>
-                                <?php foreach( $listChiBo as $chiBo ): ?>
-                                <?php foreach( $listLyLich as $lyLich ): ?>
-                                <?php if( ($lyLich-> MACB == $chiBo->MACB ) && ( $lyLich->MADANGVIEN == $item->MADANGVIEN ) ): ?>
-                                <?php echo $chiBo -> TENCB; ?>
+                    <div class="box">
+                        <div class="box-body">
+                            <table class="table table-bordered table-striped col-md-8" id="example1" data-height="299">
+                                <thead>
+                                    <tr>
+                                        <th>Tên Đảng viên</th> 
+                                        <th>Giới tính</th> 
+                                        <th>Ngày sinh</th> 
+                                        <th>Chi bộ</th> 
+                                        <th>Mức phân loại</th>
+                                    </tr>
+                                </thead>
+                                <?php foreach($listDangVien as $item): ?>
+                                <tr>
+                                    <td><a href="<?php echo URL()."/trang-chinh-sua-dang-vien/".$item->MADANGVIEN; ?>" target="_blank"> <?php echo $item->HOTENSUDUNG; ?> </a></td> 
+                                    <td><?php if($item->GIOITINH == "1"): ?> <?php echo "Nam"; ?> <?php else: ?> <?php echo "Nữ"; ?> <?php endif; ?></td> 
+                                    <td><?php echo date("d-m-Y", strtotime($item->NGAYSINH)); ?></td> 
+                                    <td>
+                                        <?php foreach( $listChiBo as $chiBo ): ?>
+                                        <?php foreach( $listLyLich as $lyLich ): ?>
+                                        <?php if( ($lyLich-> MACB == $chiBo->MACB ) && ( $lyLich->MADANGVIEN == $item->MADANGVIEN ) ): ?>
+                                        <?php echo $chiBo -> TENCB; ?>
 
-                                <?php endif; ?>
+                                        <?php endif; ?>
+                                        <?php endforeach; ?>
+                                        <?php endforeach; ?>
+                                    </td> 
+                                    <td>
+                                        <select name="<?php echo 'mucPhanLoai'.$item->MADANGVIEN; ?>" class="form-control">
+                                            <?php
+                                            $phanLoai = PhanLoaiDangVien::where("MADANGVIEN", "=", $item->MADANGVIEN)->where("NAM", "=", $namDuocChon)->first();
+                                            if (count($phanLoai) == 0) {
+                                                $phanLoai = new PhanLoaiDangVien();
+                                                $phanLoai->MUCPLDV = 0;
+                                            }
+                                            ?>
+                                            <?php if($phanLoai->MUCPL == 0 ): ?>
+                                            <option>Chưa chọn</option>
+                                            <?php endif; ?>
+                                            <option value='1'
+                                            <?php
+                                            if ($phanLoai->MUCPLDV == 1) {
+                                                echo "selected";
+                                            }
+                                            ?>
+                                                    >Mức 1</option>
+                                            <option value='2'
+                                            <?php
+                                            if ($phanLoai->MUCPLDV == 2) {
+                                                echo "selected";
+                                            }
+                                            ?>
+                                                    >Mức 2</option>
+                                            <option value='3'
+                                            <?php
+                                            if ($phanLoai->MUCPLDV == 3) {
+                                                echo "selected";
+                                            }
+                                            ?>
+                                                    >Mức 3</option>
+                                            <option value='4'
+                                            <?php
+                                            if ($phanLoai->MUCPLDV == 4) {
+                                                echo "selected";
+                                            }
+                                            ?>
+                                                    >Mức 4</option>
+                                        </select>
+                                    </td>
+                                </tr>
                                 <?php endforeach; ?>
-                                <?php endforeach; ?>
-                            </td> 
-                            <td>
-                                <select name="<?php echo 'mucPhanLoai'.$item->MADANGVIEN; ?>" class="form-control">
-                                    <?php
-                                    $phanLoai = PhanLoaiDangVien::where("MADANGVIEN","=",$item->MADANGVIEN)->where("NAM","=",$namDuocChon)->first();
-                                    if(count($phanLoai)==0){
-                                        $phanLoai = new PhanLoaiDangVien();
-                                        $phanLoai->MUCPLDV = 0;
-                                    }
-                                    ?>
-                                    <?php if($phanLoai->MUCPL == 0 ): ?>
-                                    <option>Chưa chọn</option>
-                                    <?php endif; ?>
-                                    <option value='1'
-                                            <?php
-                                            if($phanLoai->MUCPLDV == 1){
-                                                echo "selected";
-                                            }
-                                            ?>
-                                            >Mức 1</option>
-                                    <option value='2'
-                                            <?php
-                                            if($phanLoai->MUCPLDV == 2){
-                                                echo "selected";
-                                            }
-                                            ?>
-                                            >Mức 2</option>
-                                    <option value='3'
-                                            <?php
-                                            if($phanLoai->MUCPLDV == 3){
-                                                echo "selected";
-                                            }
-                                            ?>
-                                            >Mức 3</option>
-                                    <option value='4'
-                                            <?php
-                                            if($phanLoai->MUCPLDV == 4){
-                                                echo "selected";
-                                            }
-                                            ?>
-                                            >Mức 4</option>
-                                </select>
-                            </td>
-                        </tr>
-                        <?php endforeach; ?>
-                    </table>
+                            </table>
+                        </div><!-- /.box-body -->
+                    </div><!-- /.box -->
                     <div style="float:right">
                         <input class="btn btn-default"  type="submit"  value="Lưu lại">
                         <br><br>
                     </div>
                 </form>
-                <?php echo $listDangVien->links(); ?>
             </div>
         </div>
+        <!-- DATA TABES SCRIPT -->
+        <script src="<?php echo asset('public/js/jquery.dataTables.js'); ?>" type="text/javascript"></script>
+        <script src="<?php echo asset('public/js/dataTables.bootstrap.js'); ?>" type="text/javascript"></script>
+        <script>
+$(function () {
+    $("#example1").dataTable();
+    $('#example2').dataTable({
+        "bPaginate": true,
+        "bLengthChange": false,
+        "bFilter": false,
+        "bSort": true,
+        "bInfo": true,
+        "bAutoWidth": false
+    });
+});
+$('#selecctall').click(function (event) {  //on click 
+    if (this.checked) { // check select status
+        $('.checkbox1').each(function () { //loop through each checkbox
+            this.checked = true;  //select all checkboxes with class "checkbox1"               
+        });
+    } else {
+        $('.checkbox1').each(function () { //loop through each checkbox
+            this.checked = false; //deselect all checkboxes with class "checkbox1"                       
+        });
+    }
+});
+        </script>
     </body>
 </html>

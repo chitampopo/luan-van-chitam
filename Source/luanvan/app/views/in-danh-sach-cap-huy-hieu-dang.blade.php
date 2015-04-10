@@ -7,6 +7,7 @@ and open the template in the editor.
 <html>
     <head>
         <meta charset="UTF-8">
+        <link rel="Shortcut Icon" href="{{asset('public/images/logo.ico')}}" type="image/x-icon" />  
         <title>In danh sách cấp huy hiệu Đảng</title>
         <style>
             .tb{
@@ -56,14 +57,13 @@ and open the template in the editor.
                 </tr>
             </table>
             <H3><center>DANH SÁCH ĐẢNG VIÊN<BR>
-                    ĐỀ NGHỊ CẤP LẠI {{$tenHHD}}  BỊ MẤT
+                    ĐỀ NGHỊ CẤP {{$tenHHD}}
                     <Br>Đợt {{$doiNgay}}
                 </center></H3>
 
             <table class="tb">
                 <tr>
                     <th style="width: 30px">STT</th>
-                    <th style="width: 90px">Số HHD</th>
                     <th>Họ và tên</th>
                     <th style="width: 90px">Ngày sinh</th>
                     <th style="width: 350px">Quê quán</th>
@@ -77,7 +77,6 @@ and open the template in the editor.
                 <tr>
                     <td>{{$count++;}}</td>
                     <td>{{$dangVien->HOTENSUDUNG}}</td>
-                    <td></td>
                     <td>{{date("d-m-Y",strtotime($dangVien->NGAYSINH))}}</td>
                     <Td>
                         @foreach($listTinh as $tinh)
